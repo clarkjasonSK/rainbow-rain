@@ -18,8 +18,9 @@ public class BoxPool : MonoBehaviour
         {
             temp_box = Instantiate(box_template);
             temp_box.transform.parent = boxes_empty.transform;
-            temp_box.gameObject.SetActive(false);
+            temp_box.gameObject.SetActive(true);
             box_list.Add(temp_box);
+            temp_box.gameObject.SetActive(false);
         }
     }
 

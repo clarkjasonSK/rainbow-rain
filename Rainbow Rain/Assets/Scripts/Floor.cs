@@ -24,6 +24,7 @@ public class Floor : MonoBehaviour
        // Debug.Log("collided ");
         if (col.gameObject.tag == "Box")
         {
+            //Debug.Log("hit!");
             temp_box = col.gameObject.GetComponent<Box>();
             sprt_rndrr.color = temp_box.getBoxColor();
             if (GameManager.Instance.getGameState())

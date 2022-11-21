@@ -6,7 +6,7 @@ public class AssetManager : MonoBehaviour
 {
     public static AssetManager Instance;
     [SerializeField] BoxPool box_pool;
-    [SerializeField] float box_spawn_rate; // box spawns every value
+    [SerializeField] float box_spawn_rate; // box spawns every value in seconds
 
     private float time_passed;
     private Box temp_box;
@@ -14,6 +14,7 @@ public class AssetManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        time_passed = -2.0f;
     }
 
     // Update is called once per frame
