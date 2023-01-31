@@ -16,8 +16,7 @@ public class BoxPool : MonoBehaviour
         box_list = new List<Box>();
         for (int i = 0; i < box_max; i++)
         {
-            temp_box = Instantiate(box_template);
-            temp_box.transform.parent = boxes_empty.transform;
+            temp_box = Instantiate(box_template, boxes_empty.transform);
             temp_box.gameObject.SetActive(true);
             box_list.Add(temp_box);
             temp_box.gameObject.SetActive(false);

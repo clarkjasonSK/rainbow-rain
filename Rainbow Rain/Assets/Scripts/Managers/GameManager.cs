@@ -2,40 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
 
-    [SerializeField] private bool _game_state { get; set; }
-    [SerializeField] private int _life_points;
-    [SerializeField] private int _score;
-
-
-    void Awake()
+    void Start()
     {
-        Instance = this;
-        _game_state = true;
-        _life_points = 100;
-        _score = 0;
+        
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
 
-    public bool getGameState()
+    public bool compareColors(Color playerColor, Color projColor)
     {
-        return _game_state;
-    }
-
-    public void decrementLife()
-    {
-        _life_points--;
-    }
-    public void incrementScore()
-    {
-        _score++;
+        if(playerColor.r == projColor.r &&
+            playerColor.g == projColor.g &&
+            playerColor.b == projColor.b)
+        {
+            return true;
+        }
+        return false;
     }
 }

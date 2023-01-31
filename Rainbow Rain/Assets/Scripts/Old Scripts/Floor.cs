@@ -27,9 +27,9 @@ public class Floor : MonoBehaviour
             //Debug.Log("hit!");
             temp_box = col.gameObject.GetComponent<Box>();
             sprt_rndrr.color = temp_box.getBoxColor();
-            if (GameManager.Instance.getGameState())
+            if (GameManagerOld.Instance.getGameState())
             {
-                GameManager.Instance.decrementLife();
+                GameManagerOld.Instance.decrementLife();
                 AssetManager.Instance.despawnBox(temp_box);
             }
         }

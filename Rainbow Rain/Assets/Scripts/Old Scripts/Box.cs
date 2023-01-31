@@ -75,12 +75,12 @@ public class Box : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (GameManager.Instance.getGameState())
+        if (GameManagerOld.Instance.getGameState())
         {
             //Debug.Log("clicked!");
             anim.SetBool("clicked", true);
             //AssetManager.Instance.despawnBox(this);
-            GameManager.Instance.incrementScore();
+            GameManagerOld.Instance.incrementScore();
 
         }
     }
