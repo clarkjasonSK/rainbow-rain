@@ -55,7 +55,9 @@ public class Player : MonoBehaviour
         if (!InputManager.Instance.InputAllowed)
             return;
         if (_player_data.CurrentLives == -1)
+        {
             return;
+        }
 
         playerInput = this.playerControls.InGame.Movement.ReadValue<Vector2>();
         playerController.Move(playerInput, _player_data.MoveSpeed);
@@ -67,7 +69,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("ProjectileBounds"))
+        {
+            return;
+        }
         Projectile tempProj = collision.GetComponent<Projectile>();
+
         if(GameManager.Instance.compareColors(_player_data.PlayerColor, tempProj.ProjData.ProjectileColor))
         {
             absorbToSoul();
@@ -90,7 +97,7 @@ public class Player : MonoBehaviour
     private void damageToShell()
     {
 
-        if (_player_data.CurrentLives-- == 1)
+        if (_player_data.CurrentLives-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 but still pass the ocndition then destroyShell()
         {
             playerController.destroyShell();
         }

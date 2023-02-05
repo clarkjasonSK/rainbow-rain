@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Projectile
+  - ProjectileBounds
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Game Area
   - Water
   - UI
   - 
