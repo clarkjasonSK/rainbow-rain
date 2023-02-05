@@ -27,21 +27,12 @@ public class ProjectileManager : Singleton<ProjectileManager>
     void Update()
     {
         
-        if (type1SpawnTime >= Type1SpawnRate)
+       /* if (type1SpawnTime >= Type1SpawnRate)
         {
             tempTargetDirection = getRandomSpawnDirection();
             spawnSingleProj(1, Random.Range(1, 4), tempTargetDirection, 
                 Vector2.Scale(tempTargetDirection, new Vector2(-1,-1)));
-
             type1SpawnTime = 0;
-            /*if (GameManager.Instance != null)
-            {
-                Debug.Log("NOT NULL;");
-            }
-            else
-            {
-                Debug.Log(" NULL;");
-            }*/
         }
         type1SpawnTime += Time.deltaTime;
 
@@ -53,13 +44,13 @@ public class ProjectileManager : Singleton<ProjectileManager>
             type2SpawnTime = 0;
         }
         type2SpawnTime += Time.deltaTime;
- /*
+ */
         if (type3SpawnTime >= Type3SpawnRate)
         {
             spawnSingleProj(3, 1, getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
             type3SpawnTime = 0;
         }
-        type3SpawnTime += Time.deltaTime;*/
+        type3SpawnTime += Time.deltaTime;
 
     }
 

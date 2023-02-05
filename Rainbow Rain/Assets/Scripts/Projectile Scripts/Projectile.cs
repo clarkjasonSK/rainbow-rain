@@ -38,17 +38,17 @@ public class Projectile : Poolable
 
                 break;
         }*/
+        if(_proj_data.ProjectileType == 3)
+        {
+            _proj_controller.rotateProjectile(GameManager.Instance.getCurrentPlayerLocation());
+        }
 
         _proj_controller.moveProjectile(_proj_data.TargetDirection, _proj_data.MoveSpeed);
 
         
     }
 
-    private float getTargetAngle(Vector2 targetDirection)
-    {
-        Vector3 tempVector = new Vector3(targetDirection.x, targetDirection.y, 0) - this.transform.position;
-        return Mathf.Atan2(tempVector.y, tempVector.x) * Mathf.Rad2Deg;
-    }
+    
 
     public void onInit(int projType, int projSpeed, Color projColor, Vector2 targetDirection, Vector2 spawnPosition)
     {
@@ -65,7 +65,7 @@ public class Projectile : Poolable
             _proj_controller.ProjectileAnimator.enabled = false;
 
             
-            _proj_controller.rotateProjectile(getTargetAngle(targetDirection));
+            _proj_controller.rotateProjectile(targetDirection);
 
             _proj_data.TargetDirection = transform.right;
         }

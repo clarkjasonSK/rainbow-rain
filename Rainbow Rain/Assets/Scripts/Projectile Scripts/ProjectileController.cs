@@ -39,15 +39,21 @@ public Color ProjectileColor
 
     public void moveProjectile(Vector2 direction, float moveSpeed)
     {
-        ProjectileRigidbody.velocity = direction * moveSpeed ;
-
+        //ProjectileRigidbody.velocity = direction * moveSpeed ;
+        Debug.Log("dir: " + direction);
+        this.transform.Translate(direction*Time.deltaTime*moveSpeed);
        /* this.transform.position = new Vector2(
             transform.position.x + direction.x * moveSpeed * Time.fixedDeltaTime,
             transform.position.y + direction.y * moveSpeed * Time.fixedDeltaTime);*/
     }
-    public void rotateProjectile(float playerAngle)
+    private float getTargetAngle(Vector2 targetDirection)
     {
-        this.transform.rotation = Quaternion.Euler(0, 0, playerAngle);
+        Vector3 tempVector = new Vector3(targetDirection.x, targetDirection.y, 0) - this.transform.position;
+        return Mathf.Atan2(tempVector.y, tempVector.x) * Mathf.Rad2Deg;
+    }
+    public void rotateProjectile(Vector2 targetDirection)
+    {
+        this.transform.rotation = Quaternion.Euler(0, 0, getTargetAngle(targetDirection));
     }
     public void placeProjectile(Vector2 position)
     {
