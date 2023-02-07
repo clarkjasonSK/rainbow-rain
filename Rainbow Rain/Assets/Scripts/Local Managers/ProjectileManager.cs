@@ -12,7 +12,7 @@ public class ProjectileManager : Singleton<ProjectileManager>
     [SerializeField] private float Type2SpawnRate = 1; // type 2 proj spawns per every value based in time.deltatime
     [SerializeField] private float Type3SpawnRate = 1; // type 3 proj spawns per every value based in time.deltatime
 
-    private float type1SpawnTime, type2SpawnTime, type3SpawnTime;
+    private float _type1_spawn_time, _type2_spawn_time, _type3_spawn_time;
 
     private Projectile _temp_projectile;
     private Vector2 tempTargetDirection;
@@ -26,31 +26,31 @@ public class ProjectileManager : Singleton<ProjectileManager>
 
     void Update()
     {
-        
-       /* if (type1SpawnTime >= Type1SpawnRate)
-        {
-            tempTargetDirection = getRandomSpawnDirection();
-            spawnSingleProj(1, Random.Range(1, 4), tempTargetDirection, 
-                Vector2.Scale(tempTargetDirection, new Vector2(-1,-1)));
-            type1SpawnTime = 0;
-        }
-        type1SpawnTime += Time.deltaTime;
 
-        
+        /* if (_type1_spawn_time >= Type1SpawnRate)
+         {
+             tempTargetDirection = getRandomSpawnDirection();
+             spawnSingleProj(1, Random.Range(1, 4), tempTargetDirection, 
+                 Vector2.Scale(tempTargetDirection, new Vector2(-1,-1)));
+             _type1_spawn_time = 0;
+         }
+         _type1_spawn_time += Time.deltaTime;
 
-        if (type2SpawnTime >= Type2SpawnRate)
-        {
-            spawnSingleProj( 2, Random.Range(2,4), getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
-            type2SpawnTime = 0;
-        }
-        type2SpawnTime += Time.deltaTime;
- */
-        if (type3SpawnTime >= Type3SpawnRate)
+
+
+         if (_type2_spawn_time >= Type2SpawnRate)
+         {
+             spawnSingleProj( 2, Random.Range(2,4), getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
+             _type2_spawn_time = 0;
+         }
+         _type2_spawn_time += Time.deltaTime;
+  */
+        if (_type3_spawn_time >= Type3SpawnRate)
         {
             spawnSingleProj(3, 1, getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
-            type3SpawnTime = 0;
+            _type3_spawn_time = 0;
         }
-        type3SpawnTime += Time.deltaTime;
+        _type3_spawn_time += Time.deltaTime;
 
     }
 

@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7601a1cce220440a67bceb6fb097b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameArea: {fileID: 128050202}
+  _game_area: {fileID: 128050202}
 --- !u!1 &635810958
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,9 +515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3ce312f2d5b0b47909aaaf6814c67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _proj_sprite: {fileID: 635810961}
-  _proj_rigidbody: {fileID: 635810967}
-  _proj_animator: {fileID: 635810964}
 --- !u!114 &635810966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,11 +1135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6b6af0037c1ec4291aa6f0ff368475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: 2
-  playerLives: 5
-  playerMoveSpeed: 10
-  shellStartingAlpha: 1
-  playerController: {fileID: 2123192157}
+  _player_color: 1
+  _player_shell_health: 3
+  _player_move_speed: 10
+  _shell_starting_alpha: 1
 --- !u!50 &2123192160
 Rigidbody2D:
   serializedVersion: 4

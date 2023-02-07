@@ -7,11 +7,11 @@ public class Projectile : Poolable
 {
 
     private ProjectileData _proj_data;
-    public ProjectileData ProjData { get { return _proj_data; }}
     private ProjectileController _proj_controller;
 
     private void Start()
     {
+
         if (_proj_data == null || _proj_controller == null)
         {
             this._proj_data = new ProjectileData();
@@ -20,24 +20,12 @@ public class Projectile : Poolable
     }
     void Update()
     {
-        /*
-        if (_proj_data.ProjectileInitialized)
+        
+        if (!_proj_data.ProjectileInitialized)
         {
             return;
-        }*/
-        /*
-        switch (_proj_data.ProjectileType)
-        {
-            case 1: 
+        }
 
-                break;
-            case 2:
-                
-                break;
-            case 3:
-
-                break;
-        }*/
         if(_proj_data.ProjectileType == 3)
         {
             _proj_controller.rotateProjectile(GameManager.Instance.getCurrentPlayerLocation());
@@ -64,13 +52,18 @@ public class Projectile : Poolable
         {
             _proj_controller.ProjectileAnimator.enabled = false;
 
-            
+
             _proj_controller.rotateProjectile(targetDirection);
 
             _proj_data.TargetDirection = transform.right;
         }
 
         _proj_data.ProjectileInitialized = true;
+    }
+
+    public Color getProjectileColor()
+    {
+        return _proj_data.ProjectileColor;
     }
 
     #region Poolable Functions

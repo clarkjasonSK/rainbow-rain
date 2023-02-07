@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDraggable
 {
-    public void MoveAtPoint(Vector2 point);
+    public void DragToPoint(Vector2 point);
 }
