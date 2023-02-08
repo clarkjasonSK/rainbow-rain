@@ -52,10 +52,9 @@ public class Projectile : Poolable
         {
             _proj_controller.ProjectileAnimator.enabled = false;
 
-
             _proj_controller.rotateProjectile(targetDirection);
 
-            _proj_data.TargetDirection = transform.right;
+            _proj_data.TargetDirection = Vector2.right;
         }
 
         _proj_data.ProjectileInitialized = true;

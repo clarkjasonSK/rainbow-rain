@@ -12,11 +12,11 @@ public class ProjectileData
         set { this._type = value; }
     }
 
-    private Color _color;
-    public Color ProjectileColor
+    private string _move_pattern;
+    public string ProjectileMovePattern
     {
-        get { return this._color; }
-        set { this._color = value; }
+        get { return this._move_pattern; }
+        set { this._move_pattern = value; }
     }
 
     private float _move_speed;
@@ -25,13 +25,18 @@ public class ProjectileData
         get { return this._move_speed; }
         set { this._move_speed = value; }
     }
-
-
     private Vector2 _target_direction;
     public Vector2 TargetDirection
     {
         get { return _target_direction; }
         set { _target_direction = value; }
+    }
+
+    private Color _color;
+    public Color ProjectileColor
+    {
+        get { return this._color; }
+        set { this._color = value; }
     }
 
     private bool _initialized;
@@ -40,7 +45,11 @@ public class ProjectileData
         get { return this._initialized; }
         set { this._initialized = value; }
     }
+    
+    public ProjectileData()
+    {
 
+    }
     public void resetProjectile()
     {
         _type = 0;

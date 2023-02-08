@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    public Vector2 getCurrentPlayerLocation()
+    public Vector3 getCurrentPlayerLocation()
     {
         return _player_instance.transform.position;
 

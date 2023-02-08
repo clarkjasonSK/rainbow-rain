@@ -35,23 +35,23 @@ public class ProjectileManager : Singleton<ProjectileManager>
              _type1_spawn_time = 0;
          }
          _type1_spawn_time += Time.deltaTime;
+*/
 
-
-
+        /*
          if (_type2_spawn_time >= Type2SpawnRate)
          {
              spawnSingleProj( 2, Random.Range(2,4), getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
              _type2_spawn_time = 0;
          }
-         _type2_spawn_time += Time.deltaTime;
-  */
+         _type2_spawn_time += Time.deltaTime;*/
+  
         if (_type3_spawn_time >= Type3SpawnRate)
         {
             spawnSingleProj(3, 1, getRandomSpawnDirection(), GameManager.Instance.getCurrentPlayerLocation());
             _type3_spawn_time = 0;
         }
         _type3_spawn_time += Time.deltaTime;
-
+  
     }
 
 
