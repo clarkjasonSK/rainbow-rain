@@ -6,29 +6,29 @@ public class PlayerData
 { 
     #region PlayerData Variables 
 
-    private int _total_lives;
-    public int TotalLives
+    private int _total_shell_health;
+    public int TotalShellHealth
     {
-        get { return this._total_lives; }
-        set { this._total_lives = value; }
+        get { return this._total_shell_health; }
+        set { this._total_shell_health = value; }
     }
 
-    [SerializeField] private int _current_lives;
-    public int CurrentLives
+    private int _current_shell_health;
+    public int CurrentShellHealth
     {
-        get { return this._current_lives; }
-        set { this._current_lives = value; }
+        get { return this._current_shell_health; }
+        set { this._current_shell_health = value; }
     }
 
-    private Color _player_color;
+    private Color _color;
     public Color PlayerColor
     {
-        get { return this._player_color; }
-        set { this._player_color = value; }
+        get { return this._color; }
+        set { this._color = value; }
     }
-    public float PlayerAlpha
+    public float SoulAlpha
     {
-        get { return this._player_color.a; }
+        get { return this._color.a; }
     }
 
     private float _move_speed;
@@ -42,21 +42,21 @@ public class PlayerData
     #region PlayerData Methods
     public PlayerData(int playerLives)
     {
-        this._total_lives = playerLives;
-        this._current_lives = playerLives;
+        this._total_shell_health = playerLives;
+        this._current_shell_health = playerLives;
         resetPlayer();
     }
 
 
     public void resetPlayer()
     {
-        _current_lives = _total_lives;
-        _player_color = new Color(_player_color.r, _player_color.g, _player_color.b, 0);
+        _current_shell_health = _total_shell_health;
+        _color = new Color(_color.r, _color.g, _color.b, 0);
 
     }
     public void increaseAlpha(float alphaValue)
     {
-        this._player_color += new Color(0, 0, 0, alphaValue);
+        this._color += new Color(0, 0, 0, alphaValue);
     }
 
 

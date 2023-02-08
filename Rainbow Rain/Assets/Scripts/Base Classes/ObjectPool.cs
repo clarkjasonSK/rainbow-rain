@@ -48,7 +48,13 @@ public class ObjectPool : Singleton<ObjectPool>
         {
             return null;
         }
-        GameObject tempObject = inactivePool[0];
+
+        int i = -1; // TEMPORARY FIX DUE TO REPEATEDLY RETURNING AND USING THE SAME OBJECT FOR SOME REASON 
+        do
+        {
+            i++;
+        } while (inactivePool[i].activeInHierarchy && i<inactivePool.Count);
+        GameObject tempObject = inactivePool[i];
 
         tempObject.SetActive(true);
         activePool.Add(tempObject);
@@ -72,7 +78,6 @@ public class ObjectPool : Singleton<ObjectPool>
         if (tempPoolable != null)
         {
             tempPoolable.OnDeactivate();
-            tempPoolable.SetObjectPool(this);
 
         }
         tempObject.SetActive(false);

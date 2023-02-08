@@ -11,6 +11,7 @@ public class InputManager : Singleton<InputManager>
     {
         get { return this._input_allowed; }
     }
+
     public void Awake()
     {
         initialize();

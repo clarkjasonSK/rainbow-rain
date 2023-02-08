@@ -5,13 +5,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ITraversable, IDraggable
 {
-    [SerializeField] private SpriteRenderer playerSoulSprite;
-    [SerializeField] private SpriteRenderer playerShellSprite;
-    private Rigidbody2D playerRigidBody;
-    private CircleCollider2D playerCircleCollider;
+    [SerializeField] private SpriteRenderer _player_soul_sprite; ////////////// temporary
+    [SerializeField] private SpriteRenderer _player_shell_sprite;
+    private Rigidbody2D _player_rigidbody;
+    private CircleCollider2D _player_circle_collider;
+
     public Color SpriteColor
     {
-        get { return playerSoulSprite.color; }
+        get { return _player_soul_sprite.color; }
     }
     /*
     private float moveSpeed { set; get; }
@@ -24,35 +25,23 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
 
     void Start()
     {
-        //playerSoulSprite = GetComponent<SpriteRenderer>();
-        //playerShellSprite = GetComponentInChildren<SpriteRenderer>();
+        _player_rigidbody = GetComponent<Rigidbody2D>();
+        _player_circle_collider = GetComponent<CircleCollider2D>();
+
+        this.transform.position = Vector2.zero;
     }
 
 
-    void Update()
+    public void setPlayerColor(Color soulColor, Color shellColor)
     {
-
-    }
-
-    public void initControllerComponents(Rigidbody2D rb, CircleCollider2D cc)
-    {
-       // playerSoulSprite = soulSprt;
-       // playerShellSprite = shellSprt;
-        playerRigidBody = rb;
-        playerCircleCollider = cc;
-    }
-    public void initPlayerColor(Color soulColor, Color shellColor)
-    {
-        playerSoulSprite.color = soulColor;
-        playerShellSprite.color = shellColor;
-
-        //Debug.Log(soulColor + " and "+ shellColor);
-        //Debug.Log(playerShellSprite.color);
+        _player_soul_sprite.color = soulColor;
+        _player_shell_sprite.color = shellColor;
     }
 
     public void setSoulColor(Color newSoulColor)
     {
-        playerSoulSprite.color = newSoulColor;
+        _player_soul_sprite.color = newSoulColor;
+
         /*playerSoulSprite.color = new Color(playerSoulSprite.color.r, 
                                             playerSoulSprite.color.g, 
                                             playerSoulSprite.color.b, 
@@ -60,22 +49,26 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
     }
     public void decreaseShellColor(float newShellColor)
     {
-        playerShellSprite.color-= new Color(0,0,0, newShellColor);
+        _player_shell_sprite.color-= new Color(0,0,0, newShellColor);
+    }
+    public void destroyShellCollider()
+    {
+        _player_circle_collider.radius = .3f; //////////////////////// to be revised
     }
 
+    #region ITraversable
     public void Move(Vector2 inputs, float moveSpeed)
     {
-        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime * moveSpeed),
+        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime* moveSpeed),
                                           transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
     }
+    #endregion
 
-    public void MoveAtPoint(Vector2 point)
+    #region IDraggable
+    public void DragToPoint(Vector2 point)
     {
         transform.position = point;
     }
+#endregion
 
-    public void destroyShell()
-    {
-        playerCircleCollider.radius = .3f;
-    }
 }

@@ -7,61 +7,93 @@ public class Projectile : Poolable
 {
 
     private ProjectileData _proj_data;
-    public ProjectileData ProjData
+    private ProjectileController _proj_controller;
+
+    private void Start()
     {
-        get { return _proj_data; }
+
+        if (_proj_data == null || _proj_controller == null)
+        {
+            this._proj_data = new ProjectileData();
+            this._proj_controller = GetComponent<ProjectileController>();
+        }
     }
-    private ProjectileController projController;
-
-
-    void Start()
-    {
-        
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         
+        if (!_proj_data.ProjectileInitialized)
+        {
+            return;
+        }
+
+        if(_proj_data.ProjectileType == 3)
+        {
+            _proj_controller.rotateProjectile(GameManager.Instance.getCurrentPlayerLocation());
+        }
+
+        _proj_controller.moveProjectile(_proj_data.TargetDirection, _proj_data.MoveSpeed);
+
+        
     }
 
-    public void placeProjectile(Vector2 position)
+    
+
+    public void onInit(int projType, int projSpeed, Color projColor, Vector2 targetDirection, Vector2 spawnPosition)
     {
-        //projController.placeProjectile(position);
-    }
-
-
-
-    public void onInit(Color projColor, int projType)
-    {
-        _proj_data.ProjectileColor = projColor;
         _proj_data.ProjectileType = projType;
-        projController.ProjectileColor = projColor;
-        projController.ProjectileType = projType;
+        _proj_data.ProjectileColor = projColor;
+        _proj_controller.ProjectileColor = projColor;
 
+        _proj_data.MoveSpeed = projSpeed * 4f; ///////////////////revise
+        _proj_controller.placeProjectile(spawnPosition);
+        _proj_data.TargetDirection = targetDirection;
+
+        if (_proj_data.ProjectileType !=1)
+        {
+            _proj_controller.ProjectileAnimator.enabled = false;
+
+            _proj_controller.rotateProjectile(targetDirection);
+
+            _proj_data.TargetDirection = Vector2.right;
+        }
+
+        _proj_data.ProjectileInitialized = true;
+    }
+
+    public Color getProjectileColor()
+    {
+        return _proj_data.ProjectileColor;
     }
 
     #region Poolable Functions
     public override void OnInstantiate()
     {
         this._proj_data = new ProjectileData();
-        this.projController = GetComponent<ProjectileController>();
+        this._proj_controller = GetComponent<ProjectileController>();
     }
 
     public override void OnActivate()
     {
-        projController.placeProjectile( new Vector2( Random.Range(-4f, 4f), Random.Range(-8f, 8f)) );
-        
     }
 
     public override void OnDeactivate()
     {
-        //
+        _proj_data.resetProjectile();
     }
     #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ProjectileManager.Instance.deactivateProjectile(this.gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            ProjectileManager.Instance.deactivateProjectile(this.gameObject);
+            //Debug.Log("hit player");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("ProjectileBounds"))
+        {
+            ProjectileManager.Instance.deactivateProjectile(this.gameObject);
+        }
     }
 }
