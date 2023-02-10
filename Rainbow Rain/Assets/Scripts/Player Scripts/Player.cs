@@ -103,6 +103,11 @@ public class Player : MonoBehaviour
         {
             _player_controller.destroyShellCollider();
         }
-        _player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
+        //_player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
+    }
+
+    public Color getPlayerColor()
+    {
+        return _player_data.PlayerColor;
     }
 }

@@ -8,43 +8,61 @@ public class Projectile : Poolable
 
     private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
-
+    private float _speed_multiplier = 4;
     private void Start()
     {
 
         if (_proj_data == null || _proj_controller == null)
         {
-            this._proj_data = new ProjectileData();
+            //this._proj_data = new ProjectileData();
             this._proj_controller = GetComponent<ProjectileController>();
         }
     }
     void Update()
     {
+
         
+
+    }
+    public void moveProjectile()
+    {
         if (!_proj_data.ProjectileInitialized)
         {
             return;
         }
 
-        if(_proj_data.ProjectileType == 3)
+        if(_proj_data.ProjectilePath == "HOMING")
         {
-            _proj_controller.rotateProjectile(GameManager.Instance.getCurrentPlayerLocation());
+            this.transform.rotation = ProjectileUtilities.Instance.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
         }
-
-        _proj_controller.moveProjectile(_proj_data.TargetDirection, _proj_data.MoveSpeed);
-
-        
+        _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
     }
 
-    
+    public void initProj(ProjectileInfo projInfo)
+    {
+        _proj_data = new ProjectileData();
+        _proj_data.ProjectileTypeID = projInfo.ProjectileID;
+        _proj_data.ProjectilePath = projInfo.ProjectilePath;
+        _proj_data.ProjectileSpeed = Random.Range(projInfo.ProjectileMinSpeed, projInfo.ProjectileMaxSpeed + 1)* _speed_multiplier;
+        _proj_data.ProjectileColor = ProjectileUtilities.Instance.getProjectileColor(projInfo.ProjectileColor);
+        _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
 
+
+        _proj_controller.placeProjectile(ProjectileUtilities.Instance.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
+        transform.rotation = ProjectileUtilities.Instance.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
+
+        _proj_data.ProjectileInitialized = true;
+
+
+    }
+    /*
     public void onInit(int projType, int projSpeed, Color projColor, Vector2 targetDirection, Vector2 spawnPosition)
     {
         _proj_data.ProjectileType = projType;
         _proj_data.ProjectileColor = projColor;
         _proj_controller.ProjectileColor = projColor;
 
-        _proj_data.MoveSpeed = projSpeed * 4f; ///////////////////revise
+        _proj_data.ProjectileSpeed = projSpeed * 4f; ///////////////////revise
         _proj_controller.placeProjectile(spawnPosition);
         _proj_data.TargetDirection = targetDirection;
 
@@ -58,7 +76,7 @@ public class Projectile : Poolable
         }
 
         _proj_data.ProjectileInitialized = true;
-    }
+    }*/
 
     public Color getProjectileColor()
     {
@@ -68,7 +86,7 @@ public class Projectile : Poolable
     #region Poolable Functions
     public override void OnInstantiate()
     {
-        this._proj_data = new ProjectileData();
+        //this._proj_data = new ProjectileData();
         this._proj_controller = GetComponent<ProjectileController>();
     }
 
@@ -85,7 +103,7 @@ public class Projectile : Poolable
     {
         if (collision.CompareTag("Player"))
         {
-            ProjectileManager.Instance.deactivateProjectile(this.gameObject);
+            ProjectileLifetime.Instance.deactivateProjectile(this.gameObject);
             //Debug.Log("hit player");
         }
     }
@@ -93,7 +111,7 @@ public class Projectile : Poolable
     {
         if (collision.CompareTag("ProjectileBounds"))
         {
-            ProjectileManager.Instance.deactivateProjectile(this.gameObject);
+            ProjectileLifetime.Instance.deactivateProjectile(this.gameObject);
         }
     }
 }

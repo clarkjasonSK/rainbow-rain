@@ -16,10 +16,14 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    public Vector3 getCurrentPlayerLocation()
+    public Vector3 getPlayerLocation()
     {
         return _player_instance.transform.position;
 
+    }
+    public Color getPlayerColor()
+    {
+        return _player_instance.getPlayerColor();
     }
 
     public bool compareColors(Color playerColor, Color projColor)
