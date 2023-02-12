@@ -29,6 +29,20 @@ public class ProjectileData
         set { this._color = value; }
     }
 
+    private float _current_duration;
+    public float ProjectileCurrentDuration
+    {
+        get { return this._current_duration; }
+        set { this._current_duration = value; }
+    }
+
+    private float _total_duration;
+    public float ProjectileTotalDuration
+    {
+        get { return this._total_duration; }
+        set { this._total_duration = value; }
+    }
+
     private bool _initialized;
     public bool ProjectileInitialized
     {

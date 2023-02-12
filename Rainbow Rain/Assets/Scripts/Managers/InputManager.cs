@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : Singleton<InputManager>
+public class InputManager : Singleton<InputManager>, ISingleton
 {
     private PlayerControls _player_controls = null;
     private bool _input_allowed;
@@ -12,11 +12,12 @@ public class InputManager : Singleton<InputManager>
         get { return this._input_allowed; }
     }
 
-    public void Awake()
+    private bool isDone = false;
+    public bool IsDoneInitializing
     {
-        initialize();
+        get { return isDone; }
     }
-    public void initialize()
+    public void Initialize()
     {
         {
             if (_player_controls == null)
@@ -25,13 +26,15 @@ public class InputManager : Singleton<InputManager>
             }
             this._input_allowed = true;
         }
+        isDone = true;
     }
+
 
     public PlayerControls getControls()
     {
         if (this._player_controls == null)
         {
-            initialize();
+            Initialize();
         }
 
         return this._player_controls;

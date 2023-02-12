@@ -48,7 +48,18 @@ public class ProjectileInfo
         get { return this._color; }
     }
 
-    public ProjectileInfo(int projID, string projSpawnRate, string projSpawnPosition, string projTarget, string projPath, int projMinSpeed, int projMaxSpeed, string projColor)
+    private int _min_size;
+    public int ProjectileMinSize
+    {
+        get { return this._min_size; }
+    }
+    private int _max_size;
+    public int ProjectileMaxSize
+    {
+        get { return this._max_size; }
+    }
+
+    public ProjectileInfo(int projID, string projSpawnRate, string projSpawnPosition, string projTarget, string projPath, int projMinSpeed, int projMaxSpeed, string projColor, int projMinSize, int projMaxSize)
     {
         _id = projID;
         _spawn_rate= projSpawnRate;
@@ -58,6 +69,8 @@ public class ProjectileInfo
         _min_speed = projMinSpeed;
         _max_speed = projMaxSpeed;
         _color = projColor;
+        _min_size = projMinSize;
+        _max_size = projMaxSize;
     }
 
 }

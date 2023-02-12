@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLifetime : Singleton<ProjectileLifetime>
+public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
 {
 
     private List<ProjectileInfo> _projectile_types;
@@ -14,14 +14,20 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>
     [SerializeField] private float NormalSpawnRate = 1f; // type 2 proj spawns per every value based in time.deltatime
     [SerializeField] private float SlowSpawnRate = 1.5f; // type 3 proj spawns per every value based in time.deltatime
 
-    void Awake()
+    private bool isDone = false;
+    public bool IsDoneInitializing
+    {
+        get { return isDone; }
+    }
+    public void Initialize()
     {
         //// TEMPORARY DATA INIT
         _projectile_types = new List<ProjectileInfo>();
-        _projectile_types.Add(new ProjectileInfo(1, "SLOW", "LEFT", "END_BOUNDS", "STRAIGHT", 3, 3, "PLAYER"));
-        _projectile_types.Add(new ProjectileInfo(1, "SLOW", "RIGHT", "END_BOUNDS", "STRAIGHT", 3, 3, "PLAYER"));
-        _projectile_types.Add(new ProjectileInfo(2, "FAST", "RANDOM", "PLAYER", "STRAIGHT", 2, 3, "RANDOM_NO_PLAYER"));
-        _projectile_types.Add(new ProjectileInfo(3, "SLOW", "RANDOM", "PLAYER", "HOMING", 1, 2, "RANDOM_NO_PLAYER"));
+        //
+        _projectile_types.Add(new ProjectileInfo(1, "FAST", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
+        _projectile_types.Add(new ProjectileInfo(1, "NORMAL", "RIGHT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
+        //_projectile_types.Add(new ProjectileInfo(2, "NORMAL", "DOWN", "PLAYER", "STRAIGHT", 2, 2, "RANDOM_NO_PLAYER", 1,2));
+        _projectile_types.Add(new ProjectileInfo(3, "SLOW", "DOWN", "PLAYER", "HOMING", 1, 1, "RANDOM_NO_PLAYER", 3,3));
         Debug.Log("Projectile Types: " + _projectile_types.Count);
 
 
@@ -46,7 +52,9 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>
             }
             _projectile_elapsed_times.Add(0);
         }
+        isDone = true;
     }
+
 
     void Update()
     {
@@ -78,6 +86,7 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>
 
     public void deactivateProjectile(GameObject projectile)
     {
+        ProjectileManager.Instance.removeProjectile(projectile.GetComponent<Projectile>());
         ProjectileObjectPool.Instance.returnDeactivateObject(projectile);
     }
 }

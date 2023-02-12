@@ -5,10 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     //tempporary avriables
+    // 1 = Cyan; 2 = Magenta; 3 = Yellow
     [Range (1,3)] [SerializeField] private int _player_color = 1;
     [SerializeField] private int _player_shell_health= 3;
     [SerializeField] private float _player_move_speed = 10f;
-    // 1 = Cyan; 2 = Magenta; 3 = Yellow
     [SerializeField] private float _shell_starting_alpha = 1f;
 
 
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
     private void absorbToSoul()
     {
         _player_data.increaseAlpha(.10f);
-        _player_data.MoveSpeed += 1f;
+        //_player_data.MoveSpeed += 1f;
         _player_controller.setSoulColor(_player_data.PlayerColor);
 
     }
