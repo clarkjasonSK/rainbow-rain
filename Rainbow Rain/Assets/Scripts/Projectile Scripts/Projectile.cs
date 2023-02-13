@@ -36,7 +36,7 @@ public class Projectile : Poolable
         {
             if(_proj_data.ProjectileCurrentDuration>= _proj_data.ProjectileTotalDuration)
             {
-                ProjectileLifetime.Instance.deactivateProjectile(this.gameObject); // TEMPORARY 
+                ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY 
             }
             this.transform.rotation = ProjectileUtilities.Instance.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
@@ -95,7 +95,7 @@ public class Projectile : Poolable
     {
         if (collision.CompareTag("Player"))
         {
-            ProjectileLifetime.Instance.deactivateProjectile(this.gameObject); // TEMPORARY
+            ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY
             //Debug.Log("hit player");
         }
     }
@@ -103,7 +103,7 @@ public class Projectile : Poolable
     {
         if (collision.CompareTag("ProjectileBounds"))
         {
-            ProjectileLifetime.Instance.deactivateProjectile(this.gameObject); // TEMPORARY
+            ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY
         }
     }
 }

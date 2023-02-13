@@ -84,9 +84,9 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
         return tempProjectile;
     }
 
-    public void deactivateProjectile(GameObject projectile)
+    public void deactivateProjectile(Projectile projectile)
     {
-        ProjectileManager.Instance.removeProjectile(projectile.GetComponent<Projectile>());
-        ProjectileObjectPool.Instance.returnDeactivateObject(projectile);
+        ProjectileManager.Instance.removeProjectile(projectile);
+        ProjectileObjectPool.Instance.returnDeactivateObject(projectile.gameObject);
     }
 }
