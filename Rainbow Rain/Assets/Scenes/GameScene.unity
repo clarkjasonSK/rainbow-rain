@@ -798,6 +798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
+  filename: Assets/JSON/Projectiles.JSON
   FastSpawnRate: 0.5
   NormalSpawnRate: 1
   SlowSpawnRate: 1.5

@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
 {
 
+    [SerializeField] private string filename;
     private List<ProjectileInfo> _projectile_types;
 
     private List<float> _projectile_spawn_times;
@@ -21,17 +22,11 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
     }
     public void Initialize()
     {
-        //// TEMPORARY DATA INIT
-        _projectile_types = new List<ProjectileInfo>();
-        //
-        _projectile_types.Add(new ProjectileInfo(1, "FAST", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
-        _projectile_types.Add(new ProjectileInfo(1, "NORMAL", "RIGHT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
-        //_projectile_types.Add(new ProjectileInfo(2, "NORMAL", "DOWN", "PLAYER", "STRAIGHT", 2, 2, "RANDOM_NO_PLAYER", 1,2));
-        _projectile_types.Add(new ProjectileInfo(3, "SLOW", "DOWN", "PLAYER", "HOMING", 1, 1, "RANDOM_NO_PLAYER", 3,3));
-        Debug.Log("Projectile Types: " + _projectile_types.Count);
 
+        _projectile_types = ProjectileJSONLoader.loadJSONInfo<ProjectileInfo>(filename, false);
 
-        //// TEMPORARY DATA INIT
+        //_projectile_types = new List<ProjectileInfo>();
+        //_projectile_types.Add(new ProjectileInfo(1, "SLOW", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
 
         _projectile_spawn_times = new List<float>();
         _projectile_elapsed_times = new List<float>();
@@ -54,7 +49,6 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
         }
         isDone = true;
     }
-
 
     void Update()
     {
