@@ -6,9 +6,27 @@
             "id": "412b2029-061a-4481-90ef-a891ea63f3c9",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "Movement_KB",
                     "type": "Value",
                     "id": "8b7a43b9-2c9e-4ffc-b17d-305c6c4b87cf",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Movement_M_Hold",
+                    "type": "Button",
+                    "id": "d93b3b53-7b69-494d-9fbc-0fab9e601afc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Movement_M_Position",
+                    "type": "Value",
+                    "id": "3337e945-ef21-4f54-8e9f-ec486fed0881",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -23,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +74,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -89,7 +107,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,7 +118,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -111,7 +129,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -122,9 +140,53 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Movement_KB",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b919d985-0ae4-477c-abd2-dcb084624bd5",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement_M_Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a6825eb6-c676-4fbe-a39f-c620ce1a9721",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement_M_Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea79581c-b05c-41e0-a574-7ce5451b9131",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement_M_Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85ea66b2-f89e-4fe7-a75b-2eccd1a5cfc7",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement_M_Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

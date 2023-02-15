@@ -1,0 +1,52 @@
+{
+	"Items":[
+	{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "SLOW",
+		"ProjectileSpawnPosition": "LEFT",
+		"ProjectileTarget": "END_BOUNDS",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 2,
+		"ProjectileColor": "PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 3
+	},
+	{
+		"ProjectileID": 2,
+		"ProjectileSpawnRate": "SLOW",
+		"ProjectileSpawnPosition": "RIGHT",
+		"ProjectileTarget": "END_BOUNDS",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 2,
+		"ProjectileColor": "PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 3
+	},
+	{
+		"ProjectileID": 3,
+		"ProjectileSpawnRate": "NORMAL",
+		"ProjectileSpawnPosition": "DOWN",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "HOMING",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 3,
+		"ProjectileMaxSize": 3
+	},
+	{
+		"ProjectileID": 4,
+		"ProjectileSpawnRate": "NORMAL",
+		"ProjectileSpawnPosition": "DOWN",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "HOMING",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 3,
+		"ProjectileMaxSize": 3
+	}
+	]
+}

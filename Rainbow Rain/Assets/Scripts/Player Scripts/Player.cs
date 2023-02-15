@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+
 
 public class Player : MonoBehaviour
 {
     //tempporary avriables
+    // 1 = Cyan; 2 = Magenta; 3 = Yellow
     [Range (1,3)] [SerializeField] private int _player_color = 1;
     [SerializeField] private int _player_shell_health= 3;
     [SerializeField] private float _player_move_speed = 10f;
-    // 1 = Cyan; 2 = Magenta; 3 = Yellow
     [SerializeField] private float _shell_starting_alpha = 1f;
-
+    [SerializeField] Camera _camera;
 
     #region Player Variables
     private PlayerData _player_data;
@@ -61,10 +64,19 @@ public class Player : MonoBehaviour
             return;
         }
 
-        _player_input = this._player_controls.InGame.Movement.ReadValue<Vector2>();
-        _player_controller.Move(_player_input, _player_data.MoveSpeed);
-        //Debug.Log("input: " + _input);
+        _player_input = this._player_controls.InGame.Movement_KB.ReadValue<Vector2>();
 
+        //Debug.Log("mouse held " + this._player_controls.InGame.Movement_M_Hold.ReadValue<float>() );
+        //Debug.Log("mouse position " + _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>() ));
+        
+        if (this._player_controls.InGame.Movement_M_Hold.ReadValue<float>()==1)
+        {
+            _player_input = _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
+            _player_input.Normalize();
+        }
+
+        _player_controller.Move(_player_input, _player_data.MoveSpeed);
+        //Debug.Log("input: " + _input
 
 
     }
@@ -91,7 +103,7 @@ public class Player : MonoBehaviour
     private void absorbToSoul()
     {
         _player_data.increaseAlpha(.10f);
-        _player_data.MoveSpeed += 1f;
+        //_player_data.MoveSpeed += 1f;
         _player_controller.setSoulColor(_player_data.PlayerColor);
 
     }
@@ -103,6 +115,11 @@ public class Player : MonoBehaviour
         {
             _player_controller.destroyShellCollider();
         }
-        _player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
+        //_player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
+    }
+
+    public Color getPlayerColor()
+    {
+        return _player_data.PlayerColor;
     }
 }
