@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9ac365cb1e9f248afd33ce630fb07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolOrigin: {fileID: 1412517448}
+  poolOrigin: {fileID: 0}
 --- !u!50 &635810967
 Rigidbody2D:
   serializedVersion: 4
@@ -735,6 +735,7 @@ GameObject:
   - component: {fileID: 1219921347}
   - component: {fileID: 1219921349}
   - component: {fileID: 1219921348}
+  - component: {fileID: 1219921350}
   m_Layer: 0
   m_Name: ProjectileStaff
   m_TagString: Untagged
@@ -782,7 +783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff87ba0fdb5cc24e84c71e15e2258a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 0
   ProjectileSpawnBoundX: {fileID: 904608662}
   ProjectileSpawnBoundY: {fileID: 159779871}
 --- !u!114 &1219921349
@@ -797,11 +797,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168deaf773fd222438461cf05f6d9b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 0
   filename: Assets/JSON/Projectiles.JSON
   FastSpawnRate: 0.5
   NormalSpawnRate: 1
   SlowSpawnRate: 1.5
+--- !u!114 &1219921350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219921345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f97d9a2da1fb77b46a717233c1c05e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectTemplate: {fileID: 635810958}
+  objectTransform: {fileID: 805873759}
+  poolSize: 35
+  instantiateOnAwake: 1
 --- !u!1 &1241781984
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,59 +930,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1219921346}
-  - {fileID: 1412517447}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1412517446
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1412517447}
-  - component: {fileID: 1412517448}
-  m_Layer: 0
-  m_Name: ProjectileObjectPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1412517447
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412517446}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1398620016}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1412517448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1412517446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f97d9a2da1fb77b46a717233c1c05e27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _persistent: 0
-  objectTemplate: {fileID: 635810958}
-  objectTransform: {fileID: 805873759}
-  poolSize: 50
-  instantiateOnAwake: 1
 --- !u!1 &1554973989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,7 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6b6af0037c1ec4291aa6f0ff368475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player_color: 1
+  _player_color: 3
   _player_shell_health: 3
   _player_move_speed: 10
   _shell_starting_alpha: 1

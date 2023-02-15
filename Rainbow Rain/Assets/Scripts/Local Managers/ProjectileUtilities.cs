@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileUtilities : Singleton<ProjectileUtilities>, ISingleton
+public class ProjectileUtilities : MonoBehaviour
 {
     private List<Color> _projectile_colors;
 
     [SerializeField] private Transform ProjectileSpawnBoundX;
     [SerializeField] private Transform ProjectileSpawnBoundY;
 
-    private bool isDone = false;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    public void Initialize()
+    public void initialize()
     {
         ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
 
@@ -23,7 +18,7 @@ public class ProjectileUtilities : Singleton<ProjectileUtilities>, ISingleton
         _projectile_colors.Add(new Color(1, .5f, 1, 1));
         _projectile_colors.Add(new Color(1, 1, .5f, 1));
         Debug.Log("Color population: " + _projectile_colors.Count);
-        isDone = true;
+
     }
 
     public Vector2 getProjectileSpawn(string projSpawn)

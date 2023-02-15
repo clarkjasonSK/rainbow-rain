@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
     }
     public void Initialize()
     {
-        _player_instance = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _player_instance = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
         isDone = true;
     }
 

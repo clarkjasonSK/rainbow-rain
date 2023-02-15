@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDraggable
 {
-    public void DragToPoint(Vector2 point);
+    public void Drag(Vector2 touchLocation, float moveSpeed);
 }

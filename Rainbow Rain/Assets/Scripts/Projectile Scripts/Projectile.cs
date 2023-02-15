@@ -36,9 +36,9 @@ public class Projectile : Poolable
         {
             if(_proj_data.ProjectileCurrentDuration>= _proj_data.ProjectileTotalDuration)
             {
-                ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY 
+                ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY 
             }
-            this.transform.rotation = ProjectileUtilities.Instance.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
+            this.transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
@@ -51,7 +51,7 @@ public class Projectile : Poolable
         _proj_data.ProjectilePath = projInfo.ProjectilePath;
         _proj_data.ProjectileSpeed = Random.Range(projInfo.ProjectileMinSpeed, projInfo.ProjectileMaxSpeed + 1)* speedMultiplier;
 
-        _proj_data.ProjectileColor = ProjectileUtilities.Instance.getProjectileColor(projInfo.ProjectileColor);
+        _proj_data.ProjectileColor = ProjectileManager.Instance.ProjUtilities.getProjectileColor(projInfo.ProjectileColor);
         _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
 
         float tempSize = Random.Range(projInfo.ProjectileMinSize-1, projInfo.ProjectileMaxSize);
@@ -63,8 +63,8 @@ public class Projectile : Poolable
             _proj_data.ProjectileCurrentDuration = 0;
         }
 
-        _proj_controller.placeProjectile(ProjectileUtilities.Instance.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
-        transform.rotation = ProjectileUtilities.Instance.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
+        _proj_controller.placeProjectile(ProjectileManager.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
+        transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
 
         _proj_data.ProjectileInitialized = true;
 
@@ -93,17 +93,17 @@ public class Projectile : Poolable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag(TagNames.PLAYER))
         {
-            ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY
+            ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY
             //Debug.Log("hit player");
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("ProjectileBounds"))
+        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS))
         {
-            ProjectileLifetime.Instance.deactivateProjectile(this); // TEMPORARY
+            ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY
         }
     }
 }

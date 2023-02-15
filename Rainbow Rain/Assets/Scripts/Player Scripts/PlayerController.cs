@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ITraversable, IDraggable
 {
-    [SerializeField] private SpriteRenderer _player_soul_sprite; ////////////// temporary
+    [SerializeField] private SpriteRenderer _player_soul_sprite; 
     [SerializeField] private SpriteRenderer _player_shell_sprite;
-    private Rigidbody2D _player_rigidbody;
+    //private Rigidbody2D _player_rigidbody;
     private CircleCollider2D _player_circle_collider;
 
     public Color SpriteColor
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
 
     void Start()
     {
-        _player_rigidbody = GetComponent<Rigidbody2D>();
+        //_player_rigidbody = GetComponent<Rigidbody2D>();
         _player_circle_collider = GetComponent<CircleCollider2D>();
 
         this.transform.position = Vector2.zero;
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
     }
 
     #region ITraversable
-    public void Move(Vector2 inputs, float moveSpeed)
+    public void Traverse(Vector2 inputs, float moveSpeed)
     {
         transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime* moveSpeed),
                                           transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
@@ -65,10 +65,22 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
     #endregion
 
     #region IDraggable
-    public void DragToPoint(Vector2 point)
+    public void Drag(Vector2 dragLocation, float moveSpeed)
     {
-        transform.position = point;
-    }
-#endregion
+        this.transform.rotation = getPlayerRotation(dragLocation, 
+            new Vector2 (this.transform.position.x, this.transform.position.y));
 
+        this.transform.Translate(Vector2.right * Time.deltaTime * moveSpeed);
+    }
+    #endregion
+
+    private Quaternion getPlayerRotation(Vector2 dragLocation, Vector2 playerLocation)
+    {
+        return Quaternion.Euler(0, 0, getAngle(dragLocation, playerLocation));
+    }
+    private float getAngle(Vector2 dragDirection, Vector2 playerLocation)
+    {
+        return Mathf.Atan2((dragDirection - playerLocation).y,
+                            (dragDirection - playerLocation).x) * Mathf.Rad2Deg;
+    }
 }

@@ -66,16 +66,18 @@ public class Player : MonoBehaviour
 
         _player_input = this._player_controls.InGame.Movement_KB.ReadValue<Vector2>();
 
-        //Debug.Log("mouse held " + this._player_controls.InGame.Movement_M_Hold.ReadValue<float>() );
-        //Debug.Log("mouse position " + _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>() ));
+        if (_player_input != Vector2.zero)
+        {
+            _player_controller.Traverse(_player_input, _player_data.MoveSpeed);
+        }
         
+
         if (this._player_controls.InGame.Movement_M_Hold.ReadValue<float>()==1)
         {
             _player_input = _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
-            _player_input.Normalize();
-        }
 
-        _player_controller.Move(_player_input, _player_data.MoveSpeed);
+            _player_controller.Drag(_player_input, _player_data.MoveSpeed);
+        }
         //Debug.Log("input: " + _input
 
 
@@ -83,7 +85,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("ProjectileBounds"))
+        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS))
         {
             return;
         }

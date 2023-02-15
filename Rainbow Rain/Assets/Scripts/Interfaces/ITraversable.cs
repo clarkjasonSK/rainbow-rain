@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ITraversable
 {
-    public void Move(Vector2 inputs, float moveSpeed);
+    public void Traverse(Vector2 inputs, float moveSpeed);
 }

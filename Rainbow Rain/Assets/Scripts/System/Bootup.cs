@@ -9,9 +9,6 @@ public class Bootup : MonoBehaviour
         GameManager.Instance.Initialize();
         InputManager.Instance.Initialize();
         ProjectileManager.Instance.Initialize();
-        ProjectileLifetime.Instance.Initialize();
-        ProjectileUtilities.Instance.Initialize();
-        //ProjectileObjectPool.Instance.Initialize();
 
     }
 

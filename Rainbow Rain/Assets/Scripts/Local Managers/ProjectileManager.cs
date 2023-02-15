@@ -5,6 +5,16 @@ using UnityEngine;
 public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
 {
     private List<Projectile> _projectile_list;
+    private ProjectileLifetime _proj_lifetime;
+    public ProjectileLifetime ProjLifetime
+    {
+        get { return _proj_lifetime; }
+    }
+    private ProjectileUtilities _proj_utilities;
+    public ProjectileUtilities ProjUtilities
+    {
+        get { return _proj_utilities; }
+    }
 
     private bool isDone = false;
     public bool IsDoneInitializing
@@ -14,6 +24,10 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
     public void Initialize()
     {
         _projectile_list = new List<Projectile>();
+        _proj_lifetime = this.GetComponentInChildren<ProjectileLifetime>();
+        _proj_utilities = this.GetComponentInChildren<ProjectileUtilities>();
+        _proj_lifetime.initialize();
+        _proj_utilities.initialize();
         isDone = true;
     }
 
@@ -35,6 +49,5 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
         _projectile_list.Remove(projectile);
     }
     
-
     
 }

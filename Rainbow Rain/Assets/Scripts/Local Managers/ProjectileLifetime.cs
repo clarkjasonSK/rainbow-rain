@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
+public class ProjectileLifetime : MonoBehaviour
 {
 
     [SerializeField] private string filename;
     private List<ProjectileInfo> _projectile_types;
+    private ProjectileObjectPool projObjPool;
 
     private List<float> _projectile_spawn_times;
     private List<float> _projectile_elapsed_times;
@@ -15,13 +16,10 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
     [SerializeField] private float NormalSpawnRate = 1f; // type 2 proj spawns per every value based in time.deltatime
     [SerializeField] private float SlowSpawnRate = 1.5f; // type 3 proj spawns per every value based in time.deltatime
 
-    private bool isDone = false;
-    public bool IsDoneInitializing
+    public void initialize()
     {
-        get { return isDone; }
-    }
-    public void Initialize()
-    {
+
+        projObjPool = GetComponent<ProjectileObjectPool>();
 
         _projectile_types = ProjectileJSONLoader.loadJSONInfo<ProjectileInfo>(filename, false);
 
@@ -47,7 +45,7 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
             }
             _projectile_elapsed_times.Add(0);
         }
-        isDone = true;
+
     }
 
     void Update()
@@ -72,7 +70,7 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
 
     public Projectile cloneProjectile(ProjectileInfo projInfo)
     {
-        Projectile tempProjectile = ProjectileObjectPool.Instance.getActivateObject().GetComponent<Projectile>();
+        Projectile tempProjectile = projObjPool.getActivateObject().GetComponent<Projectile>();
         tempProjectile.initProj(projInfo);
 
         return tempProjectile;
@@ -81,6 +79,6 @@ public class ProjectileLifetime : Singleton<ProjectileLifetime>, ISingleton
     public void deactivateProjectile(Projectile projectile)
     {
         ProjectileManager.Instance.removeProjectile(projectile);
-        ProjectileObjectPool.Instance.returnDeactivateObject(projectile.gameObject);
+        projObjPool.returnDeactivateObject(projectile.gameObject);
     }
 }

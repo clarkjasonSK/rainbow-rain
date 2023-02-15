@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : Singleton<ObjectPool>
+public class ObjectPool : MonoBehaviour
 {
     private List<GameObject> activePool, inactivePool;
     [SerializeField] private GameObject objectTemplate;
