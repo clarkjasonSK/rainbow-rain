@@ -24,7 +24,7 @@ public class ProjectileUtilities : MonoBehaviour
     public Vector2 getProjectileSpawn(string projSpawn)
     {
         Vector2 tempDirection = Vector2.zero;
-        if (projSpawn == "RANDOM")
+        if (projSpawn == ProjDirection.RANDOM)
         {
             tempDirection = getRandomDirection();
         }
@@ -63,38 +63,44 @@ public class ProjectileUtilities : MonoBehaviour
     {
         switch (direction)
         {
-            case "UP": return Vector2.up; // from up, going down
-            case "DOWN": return Vector2.down; // from down, going up
-            case "LEFT": return Vector2.left; // from left, going right
+            case ProjDirection.UP: return Vector2.up; // from up, going down
+            case ProjDirection.DOWN: return Vector2.down; // from down, going up
+            case ProjDirection.LEFT: return Vector2.left; // from left, going right
         }
         return Vector2.right; // from right, going left
     }
 
     public Quaternion getProjectileRotation(string projTarget, Vector2 projLocation)
     {
-        if (projTarget == "PLAYER")
+        if (projTarget == ProjTarget.PLAYER)
         {
             return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.getPlayerLocation(), projLocation));
         }
-        //projTarget == "END_BOUNDS"
 
-        if (projLocation.x == ProjectileSpawnBoundX.position.x)
+        else if(projTarget == ProjTarget.END_BOUNDS)
         {
-            return Quaternion.Euler(0, 0, 0);
-        }
-        if (projLocation.y == ProjectileSpawnBoundY.position.y)
-        {
-            return Quaternion.Euler(0, 0, 90);
-        }
-        if (projLocation.x == -ProjectileSpawnBoundX.position.x)
-        {
-            return Quaternion.Euler(0, 0, 180);
-        }
-        /*if (projLocation.y == -ProjectileSpawnBoundY.position.y)
-        {
+            if (projLocation.x == ProjectileSpawnBoundX.position.x)
+            {
+                return Quaternion.Euler(0, 0, 0);
+            }
+            if (projLocation.y == ProjectileSpawnBoundY.position.y)
+            {
+                return Quaternion.Euler(0, 0, 90);
+            }
+            if (projLocation.x == -ProjectileSpawnBoundX.position.x)
+            {
+                return Quaternion.Euler(0, 0, 180);
+            }
+            /*if (projLocation.y == -ProjectileSpawnBoundY.position.y)
+            {
+                return Quaternion.Euler(0, 0, -90);
+            }*/
             return Quaternion.Euler(0, 0, -90);
-        }*/
-        return Quaternion.Euler(0, 0, -90);
+        }
+        else
+        {
+            return Quaternion.identity;
+        }
     }
     public Quaternion getProjectileRotation(Vector2 playerLocation, Vector2 projLocation)
     {
@@ -108,33 +114,32 @@ public class ProjectileUtilities : MonoBehaviour
 
     public Color getProjectileColor(string projColor)
     {
-        if (projColor == "RANDOM")
+        if (projColor == ProjColor.RANDOM)
         {
             return _projectile_colors[Random.Range(0, _projectile_colors.Count)];
         }
-        if (projColor == "PLAYER")
+        if (projColor == ProjColor.PLAYER)
         {
             return (GameManager.Instance.getPlayerColor() + new Color(0, 0, 0, 1f));
         }
 
-        //RANDOM_NO_PLAYER
+        // if (projColor == ProjColor.RANDOM_NO_PLAYER)
         Color excemptColor = GameManager.Instance.getPlayerColor();
 
-        /*
         _projectile_colors.Remove(excemptColor);
 
         Color tempColor = _projectile_colors[Random.Range(1, _projectile_colors.Count + 1)];
         _projectile_colors.Add(excemptColor);
-        */
+        
 
         // pick your poison way of doing this lmao
-
+/*
         Color tempColor;
         do
         {
             tempColor = _projectile_colors[Random.Range(0, _projectile_colors.Count)];
 
-        } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);
+        } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);*/
         return (tempColor + new Color(0, 0, 0, 1f));
     }
 }

@@ -40,11 +40,11 @@ public class PlayerData
     #endregion
 
     #region PlayerData Methods
-    public PlayerData(int playerLives)
+    public PlayerData(int shellHealth, float moveSpeed)
     {
-        this._total_shell_health = playerLives;
-        this._current_shell_health = playerLives;
-        resetPlayer();
+        _total_shell_health = shellHealth;
+        _current_shell_health = shellHealth;
+        _move_speed = moveSpeed;
     }
 
 

@@ -14,13 +14,7 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
     {
         get { return _player_soul_sprite.color; }
     }
-    /*
-    private float moveSpeed { set; get; }
-    public float MoveSpeed
-    {
-        get { return this.moveSpeed; }
-        set { this.moveSpeed = value; }
-    }*/
+
     //private Vector2 currPos;
 
     void Start()

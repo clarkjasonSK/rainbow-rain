@@ -21,6 +21,8 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
     {
         get { return isDone; }
     }
+
+
     public void Initialize()
     {
         _projectile_list = new List<Projectile>();

@@ -7,34 +7,34 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    //tempporary avriables
-    // 1 = Cyan; 2 = Magenta; 3 = Yellow
-    [Range (1,3)] [SerializeField] private int _player_color = 1;
-    [SerializeField] private int _player_shell_health= 3;
-    [SerializeField] private float _player_move_speed = 10f;
-    [SerializeField] private float _shell_starting_alpha = 1f;
-    [SerializeField] Camera _camera;
-
     #region Player Variables
-    private PlayerData _player_data;
+
     private PlayerController _player_controller;
     private PlayerControls _player_controls;
+
+    private PlayerData _player_data;
+
     private Vector2 _player_input;
+    private Camera _camera;
+    #endregion
+
+    #region Game Values
+    [SerializeField] [Range(1, 3)] private int PlayerColor = 1;
+    [SerializeField] private int ShellHealth = 3;
+    [SerializeField] private float ShellStartAlpha = 1f;
+
+    [SerializeField] private float MoveSpeed = 10f;
     #endregion
 
     void Start()
-    {
-        this._player_data = new PlayerData(_player_shell_health);
+    { 
         _player_controller = GetComponent<PlayerController>();
-
-        _player_data.TotalShellHealth = _player_shell_health;
-        _player_data.MoveSpeed = _player_move_speed;
-        //playerController.MoveSpeed = _player_data._player_move_speed;
-
         _player_controls = InputManager.Instance.getControls();
         _player_controls.Enable();
 
-        switch (_player_color)
+        this._player_data = new PlayerData(ShellHealth, MoveSpeed);
+
+        switch (PlayerColor)
         { 
             case 1:_player_data.PlayerColor = new Color(.5f, 1, 1, 0); 
                 break;
@@ -44,13 +44,13 @@ public class Player : MonoBehaviour
                 break;
         }
 
-
         _player_controller.setPlayerColor(_player_data.PlayerColor, 
                 new Color(_player_data.PlayerColor.r - .3f * _player_data.PlayerColor.r, 
                             _player_data.PlayerColor.g - .3f * _player_data.PlayerColor.g, 
                             _player_data.PlayerColor.b - .3f * _player_data.PlayerColor.b,
-                            _shell_starting_alpha));
+                            ShellStartAlpha));
 
+        _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
     }
 
     void Update()
@@ -78,8 +78,6 @@ public class Player : MonoBehaviour
 
             _player_controller.Drag(_player_input, _player_data.MoveSpeed);
         }
-        //Debug.Log("input: " + _input
-
 
     }
 
@@ -113,7 +111,7 @@ public class Player : MonoBehaviour
     private void damageToShell()
     {
 
-        if (_player_data.CurrentShellHealth-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 but still pass the ocndition then destroyShell()
+        if (_player_data.CurrentShellHealth-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 AFTER checking the condition 
         {
             _player_controller.destroyShellCollider();
         }

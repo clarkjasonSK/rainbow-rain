@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class Projectile : Poolable
 {
-
     private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
 
     //temporary variables
-    private float speedMultiplier = 4f;
-    private float homingDuration = 6f;
-    private float smallestSize = .4f;
-    private float sizeMultiplier = .2f;
+    [SerializeField] private float speedMultiplier = 4f;
+    [SerializeField] private float homingDuration = 6f;
+    [SerializeField] private float smallestSize = .4f;
+    [SerializeField] private float sizeMultiplier = .2f;
 
 
     private void Start()
@@ -32,7 +31,7 @@ public class Projectile : Poolable
             return;
         }
 
-        if(_proj_data.ProjectilePath == "HOMING")
+        if(_proj_data.ProjectilePath == ProjPath.HOMING)
         {
             if(_proj_data.ProjectileCurrentDuration>= _proj_data.ProjectileTotalDuration)
             {
@@ -57,7 +56,7 @@ public class Projectile : Poolable
         float tempSize = Random.Range(projInfo.ProjectileMinSize-1, projInfo.ProjectileMaxSize);
         transform.localScale = new Vector3( smallestSize+ (sizeMultiplier* tempSize), smallestSize+ (sizeMultiplier * tempSize), 1);
 
-        if(_proj_data.ProjectilePath == "HOMING")
+        if(_proj_data.ProjectilePath == ProjPath.HOMING)
         {
             _proj_data.ProjectileTotalDuration = homingDuration;
             _proj_data.ProjectileCurrentDuration = 0;

@@ -12,9 +12,10 @@ public class ProjectileLifetime : MonoBehaviour
     private List<float> _projectile_spawn_times;
     private List<float> _projectile_elapsed_times;
 
-    [SerializeField] private float FastSpawnRate = .5f; // type 1 proj spawns per every value based in time.deltatime
-    [SerializeField] private float NormalSpawnRate = 1f; // type 2 proj spawns per every value based in time.deltatime
-    [SerializeField] private float SlowSpawnRate = 1.5f; // type 3 proj spawns per every value based in time.deltatime
+    //spawns per every value based in time.deltatime
+    [SerializeField] private float FastSpawnRate = .5f;
+    [SerializeField] private float NormalSpawnRate = 1f;
+    [SerializeField] private float SlowSpawnRate = 1.5f;
 
     public void initialize()
     {
@@ -33,13 +34,13 @@ public class ProjectileLifetime : MonoBehaviour
         {
             switch (pi.ProjectileSpawnRate)
             {
-                case "FAST":
+                case ProjSpawnRate.FAST:
                     _projectile_spawn_times.Add(FastSpawnRate);
                     break;
-                case "NORMAL":
+                case ProjSpawnRate.NORMAL:
                     _projectile_spawn_times.Add(NormalSpawnRate);
                     break;
-                case "SLOW":
+                case ProjSpawnRate.SLOW:
                     _projectile_spawn_times.Add(SlowSpawnRate);
                     break;
             }

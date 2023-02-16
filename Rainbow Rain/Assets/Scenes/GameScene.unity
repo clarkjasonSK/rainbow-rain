@@ -1124,11 +1124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6b6af0037c1ec4291aa6f0ff368475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player_color: 3
-  _player_shell_health: 3
-  _player_move_speed: 10
-  _shell_starting_alpha: 1
-  _camera: {fileID: 519420031}
 --- !u!50 &2123192160
 Rigidbody2D:
   serializedVersion: 4
