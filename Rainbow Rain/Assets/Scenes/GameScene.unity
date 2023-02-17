@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &635810959
 Transform:
   m_ObjectHideFlags: 0
@@ -524,6 +524,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolOrigin: {fileID: 0}
+  speedMultiplier: 4
+  homingDuration: 6
+  smallestSize: 0.4
+  sizeMultiplier: 0.2
 --- !u!50 &635810967
 Rigidbody2D:
   serializedVersion: 4
@@ -813,9 +817,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97d9a2da1fb77b46a717233c1c05e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectTemplate: {fileID: 635810958}
-  objectTransform: {fileID: 805873759}
-  poolSize: 35
+  ObjectTemplate: {fileID: 635810958}
+  ObjectTransform: {fileID: 805873759}
+  CollectionCheck: 0
+  InitialPoolSize: 35
+  MaxPoolSize: 150
   instantiateOnAwake: 1
 --- !u!1 &1241781984
 GameObject:
@@ -1124,6 +1130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6b6af0037c1ec4291aa6f0ff368475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerColor: 3
+  ShellHealth: 3
+  ShellStartAlpha: 1
+  MoveSpeed: 10
 --- !u!50 &2123192160
 Rigidbody2D:
   serializedVersion: 4

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class Poolable : MonoBehaviour
 {
-    [SerializeField] protected ObjectPool poolOrigin;
-    public void SetObjectPool(ObjectPool pool)
+    [SerializeField] protected ObjectPooling poolOrigin;
+    public void SetObjectPool(ObjectPooling pool)
     {
         poolOrigin = pool;
     }
-    public ObjectPool GetObjectPool()
+    public ObjectPooling GetObjectPool()
     {
         return this.poolOrigin;
     }

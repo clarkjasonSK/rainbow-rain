@@ -71,7 +71,7 @@ public class ProjectileLifetime : MonoBehaviour
 
     public Projectile cloneProjectile(ProjectileInfo projInfo)
     {
-        Projectile tempProjectile = projObjPool.getActivateObject().GetComponent<Projectile>();
+        Projectile tempProjectile = projObjPool.GameObjectPool.Get().GetComponent<Projectile>();
         tempProjectile.initProj(projInfo);
 
         return tempProjectile;
@@ -80,6 +80,6 @@ public class ProjectileLifetime : MonoBehaviour
     public void deactivateProjectile(Projectile projectile)
     {
         ProjectileManager.Instance.removeProjectile(projectile);
-        projObjPool.returnDeactivateObject(projectile.gameObject);
+        projObjPool.GameObjectPool.Release(projectile.gameObject);
     }
 }
