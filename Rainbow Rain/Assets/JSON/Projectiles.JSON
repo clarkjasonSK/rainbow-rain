@@ -6,8 +6,8 @@
 		"ProjectileSpawnPosition": "UP",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 3,
-		"ProjectileMaxSpeed": 3,
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
 		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
@@ -17,8 +17,30 @@
 		"ProjectileSpawnPosition": "DOWN",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 3,
-		"ProjectileMaxSpeed": 3,
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 1
+	},{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "FAST",
+		"ProjectileSpawnPosition": "LEFT",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 1
+	},{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "FAST",
+		"ProjectileSpawnPosition": "RIGHT",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
 		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1

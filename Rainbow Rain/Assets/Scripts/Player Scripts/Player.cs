@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 
 
-public class Player : MonoBehaviour
+public class Player : APlayerSubject
 {
     #region Player Variables
 
@@ -87,20 +87,15 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        Projectile tempProj = collision.GetComponent<Projectile>();
 
-        if(GameManager.Instance.compareColors(_player_data.PlayerColor, tempProj.getProjectileColor() ))
+        if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            absorbToSoul();
-        }
-        else
-        {
-            damageToShell();
+            NotifyPlayerHit(this, collision.GetComponent<Projectile>());
         }
         
     }
 
-    private void absorbToSoul()
+    public void absorbToSoul()
     {
         _player_data.increaseAlpha(.10f);
         //_player_data.MoveSpeed += 1f;
@@ -108,7 +103,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void damageToShell()
+    public void damageToShell()
     {
 
         if (_player_data.CurrentShellHealth-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 AFTER checking the condition 

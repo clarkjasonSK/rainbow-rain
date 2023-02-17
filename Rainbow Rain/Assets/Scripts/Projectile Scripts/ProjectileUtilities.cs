@@ -131,6 +131,6 @@ public class ProjectileUtilities : MonoBehaviour
             tempColor = _projectile_colors[Random.Range(0, _projectile_colors.Count)];
 
         } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);
-        return (tempColor + new Color(0, 0, 0, 1f));
+        return (tempColor);
     }
 }

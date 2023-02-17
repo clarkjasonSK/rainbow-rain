@@ -30,7 +30,7 @@ public class ObjectPooling : MonoBehaviour
 
     public void startPooling()
     {
-        _obj_pool = new ObjectPool<GameObject>(generateObject, onGetObject, onReturnObject, onDestroyObject, CollectionCheck, InitialPoolSize, MaxPoolSize);
+        _obj_pool = new ObjectPool<GameObject>(generateObject, onGetObject, onReleaseObject, onDestroyObject, CollectionCheck, InitialPoolSize, MaxPoolSize);
     }
 
     public GameObject generateObject()
@@ -50,11 +50,6 @@ public class ObjectPooling : MonoBehaviour
 
     public void onGetObject(GameObject gameObj)
     {
-        if (gameObj.activeInHierarchy)
-        {
-            Debug.Log("already active");
-            return;
-        }
         gameObj.SetActive(true);
 
         Poolable tempPoolable = gameObj.GetComponent<Poolable>();
@@ -64,7 +59,7 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
-    public void onReturnObject(GameObject gameObj)
+    public void onReleaseObject(GameObject gameObj)
     {
         gameObj.SetActive(false);
         Poolable tempPoolable = gameObj.GetComponent<Poolable>();
