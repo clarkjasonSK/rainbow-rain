@@ -125,21 +125,12 @@ public class ProjectileUtilities : MonoBehaviour
 
         // if (projColor == ProjColor.RANDOM_NO_PLAYER)
         Color excemptColor = GameManager.Instance.getPlayerColor();
-
-        _projectile_colors.Remove(excemptColor);
-
-        Color tempColor = _projectile_colors[Random.Range(1, _projectile_colors.Count + 1)];
-        _projectile_colors.Add(excemptColor);
-        
-
-        // pick your poison way of doing this lmao
-/*
         Color tempColor;
         do
         {
             tempColor = _projectile_colors[Random.Range(0, _projectile_colors.Count)];
 
-        } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);*/
-        return (tempColor + new Color(0, 0, 0, 1f));
+        } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);
+        return (tempColor);
     }
 }

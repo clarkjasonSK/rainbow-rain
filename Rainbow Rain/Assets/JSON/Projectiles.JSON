@@ -2,51 +2,48 @@
 	"Items":[
 	{
 		"ProjectileID": 1,
-		"ProjectileSpawnRate": "SLOW",
+		"ProjectileSpawnRate": "FAST",
+		"ProjectileSpawnPosition": "UP",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 1
+	},{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "FAST",
+		"ProjectileSpawnPosition": "DOWN",
+		"ProjectileTarget": "PLAYER",
+		"ProjectilePath": "STRAIGHT",
+		"ProjectileMinSpeed": 1,
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSize": 1,
+		"ProjectileMaxSize": 1
+	},{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "LEFT",
-		"ProjectileTarget": "END_BOUNDS",
+		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 2,
-		"ProjectileColor": "PLAYER",
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
-		"ProjectileMaxSize": 3
-	},
-	{
-		"ProjectileID": 2,
-		"ProjectileSpawnRate": "SLOW",
+		"ProjectileMaxSize": 1
+	},{
+		"ProjectileID": 1,
+		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "RIGHT",
-		"ProjectileTarget": "END_BOUNDS",
+		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 2,
-		"ProjectileColor": "PLAYER",
+		"ProjectileMaxSpeed": 1,
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
-		"ProjectileMaxSize": 3
-	},
-	{
-		"ProjectileID": 3,
-		"ProjectileSpawnRate": "NORMAL",
-		"ProjectileSpawnPosition": "DOWN",
-		"ProjectileTarget": "PLAYER",
-		"ProjectilePath": "HOMING",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
-		"ProjectileMinSize": 3,
-		"ProjectileMaxSize": 3
-	},
-	{
-		"ProjectileID": 4,
-		"ProjectileSpawnRate": "NORMAL",
-		"ProjectileSpawnPosition": "DOWN",
-		"ProjectileTarget": "PLAYER",
-		"ProjectilePath": "HOMING",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
-		"ProjectileMinSize": 3,
-		"ProjectileMaxSize": 3
+		"ProjectileMaxSize": 1
 	}
 	]
 }

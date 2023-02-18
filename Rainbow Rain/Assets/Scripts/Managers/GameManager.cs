@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>, ISingleton
+public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
 {
     private Player _player_instance;
 
@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
     public void Initialize()
     {
         _player_instance = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
+        _player_instance.AddObserver(this);
         isDone = true;
     }
 
@@ -42,4 +43,25 @@ public class GameManager : Singleton<GameManager>, ISingleton
         }
         return false;
     }
+
+    #region Observer Notifications
+    public void OnNotify()
+    {
+        ;
+    }
+
+    public void OnPlayerHit(Player player, Projectile proj)
+    {
+        proj.ProjectileActive = false;
+        if (compareColors(player.getPlayerColor(), proj.getProjectileColor()))
+        {
+            player.absorbToSoul();
+        }
+        else
+        {
+            player.damageToShell();
+        }
+        ProjectileManager.Instance.removeProjectile(proj);
+    }
+    #endregion
 }

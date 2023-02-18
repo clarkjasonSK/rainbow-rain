@@ -43,11 +43,11 @@ public class ProjectileData
         set { this._total_duration = value; }
     }
 
-    private bool _initialized;
-    public bool ProjectileInitialized
+    private bool _active= false;
+    public bool ProjectileActive
     {
-        get { return this._initialized; }
-        set { this._initialized = value; }
+        get { return this._active; }
+        set { this._active = value; }
     }
     
     public void resetProjectile()
@@ -55,7 +55,7 @@ public class ProjectileData
         _type_id = 0;
         _path = "";
         _speed = 0;
-        _initialized = false;
+        _active = false;
 
     }
 

@@ -71,15 +71,20 @@ public class ProjectileLifetime : MonoBehaviour
 
     public Projectile cloneProjectile(ProjectileInfo projInfo)
     {
-        Projectile tempProjectile = projObjPool.getActivateObject().GetComponent<Projectile>();
+        Projectile tempProjectile = projObjPool.GameObjectPool.Get().GetComponent<Projectile>();
+
+        if (tempProjectile.ProjectileActive)
+        {
+            //Debug.Log("it's already in the scene bro");
+            //return null;
+        }
         tempProjectile.initProj(projInfo);
 
         return tempProjectile;
     }
 
-    public void deactivateProjectile(Projectile projectile)
+    public void deactivateProjectile(GameObject projObj)
     {
-        ProjectileManager.Instance.removeProjectile(projectile);
-        projObjPool.returnDeactivateObject(projectile.gameObject);
+        projObjPool.GameObjectPool.Release(projObj);
     }
 }

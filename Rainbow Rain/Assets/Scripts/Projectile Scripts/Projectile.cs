@@ -3,30 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Projectile : Poolable
+public class Projectile : AProjectileSubject
 {
     private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
-
     //temporary variables
     [SerializeField] private float speedMultiplier = 4f;
     [SerializeField] private float homingDuration = 6f;
     [SerializeField] private float smallestSize = .4f;
     [SerializeField] private float sizeMultiplier = .2f;
 
-
-    private void Start()
+    public bool ProjectileActive
     {
-
-        if (_proj_data == null || _proj_controller == null)
-        {
-            this._proj_controller = GetComponent<ProjectileController>();
-        }
+        get { return _proj_data.ProjectileActive; }
+        set { _proj_data.ProjectileActive = value; }
     }
 
     public void moveProjectile()
     {
-        if (!_proj_data.ProjectileInitialized)
+        if (!_proj_data.ProjectileActive)
         {
             return;
         }
@@ -35,7 +30,7 @@ public class Projectile : Poolable
         {
             if(_proj_data.ProjectileCurrentDuration>= _proj_data.ProjectileTotalDuration)
             {
-                ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY 
+                NotifyProjectileExit(this);
             }
             this.transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
@@ -45,7 +40,7 @@ public class Projectile : Poolable
 
     public void initProj(ProjectileInfo projInfo)
     {
-        _proj_data = new ProjectileData();
+        
         _proj_data.ProjectileTypeID = projInfo.ProjectileID;
         _proj_data.ProjectilePath = projInfo.ProjectilePath;
         _proj_data.ProjectileSpeed = Random.Range(projInfo.ProjectileMinSpeed, projInfo.ProjectileMaxSpeed + 1)* speedMultiplier;
@@ -65,7 +60,7 @@ public class Projectile : Poolable
         _proj_controller.placeProjectile(ProjectileManager.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
         transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
 
-        _proj_data.ProjectileInitialized = true;
+        _proj_data.ProjectileActive = true;
 
 
     }
@@ -78,6 +73,8 @@ public class Projectile : Poolable
     public override void OnInstantiate()
     {
         this._proj_controller = GetComponent<ProjectileController>();
+        _proj_data = new ProjectileData();
+        AddObserver(ProjectileManager.Instance);
     }
 
     public override void OnActivate()
@@ -92,17 +89,19 @@ public class Projectile : Poolable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagNames.PLAYER))
+        /*if (collision.CompareTag(TagNames.PLAYER))
         {
-            ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY
-            //Debug.Log("hit player");
-        }
+            //_proj_data.ProjectileActive = false;
+            //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY
+            //Debug.Log("projectile collision first");
+        }*/
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS))
+        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS) && _proj_data.ProjectileActive)
         {
-            ProjectileManager.Instance.ProjLifetime.deactivateProjectile(this); // TEMPORARY
+            NotifyProjectileExit(this);
+            //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY
         }
     }
 }

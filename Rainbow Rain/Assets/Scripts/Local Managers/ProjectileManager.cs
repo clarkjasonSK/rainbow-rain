@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
+public class ProjectileManager : Singleton<ProjectileManager>, ISingleton, IProjectileObserver
 {
     private List<Projectile> _projectile_list;
     private ProjectileLifetime _proj_lifetime;
+
     public ProjectileLifetime ProjLifetime
     {
         get { return _proj_lifetime; }
@@ -41,15 +42,26 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
         }
     }
 
-    public void addProjectile(Projectile projectile)
+    public void addProjectile(Projectile proj)
     {
-        _projectile_list.Add(projectile);
+        _projectile_list.Add(proj);
     }
 
-    public void removeProjectile(Projectile projectile)
+    public void removeProjectile(Projectile proj)
     {
-        _projectile_list.Remove(projectile);
+        _projectile_list.Remove(proj);
+        _proj_lifetime.deactivateProjectile(proj.gameObject);
+
     }
-    
-    
+
+    #region Observer Functions
+    public void OnNotify()
+    {
+        ;
+    }
+    public void OnProjectileExit(Projectile proj)
+    {
+        removeProjectile(proj);
+    }
+    #endregion
 }
