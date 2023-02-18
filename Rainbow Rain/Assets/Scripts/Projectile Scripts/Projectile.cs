@@ -16,6 +16,7 @@ public class Projectile : AProjectileSubject
     public bool ProjectileActive
     {
         get { return _proj_data.ProjectileActive; }
+        set { _proj_data.ProjectileActive = value; }
     }
 
     public void moveProjectile()
@@ -97,7 +98,7 @@ public class Projectile : AProjectileSubject
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS))
+        if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS) && _proj_data.ProjectileActive)
         {
             NotifyProjectileExit(this);
             //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY

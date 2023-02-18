@@ -52,6 +52,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
 
     public void OnPlayerHit(Player player, Projectile proj)
     {
+        proj.ProjectileActive = false;
         if (compareColors(player.getPlayerColor(), proj.getProjectileColor()))
         {
             player.absorbToSoul();
