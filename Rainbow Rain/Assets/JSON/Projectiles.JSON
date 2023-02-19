@@ -1,47 +1,47 @@
 {
 	"Items":[
 	{
-		"ProjectileID": 1,
+		"ProjectileID": -1,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "UP",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSpeed": 3,
+		"ProjectileMaxSpeed": 3,
+		"ProjectileColor": "RANDOM",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": 1,
+		"ProjectileID": -2,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "DOWN",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSpeed": 3,
+		"ProjectileMaxSpeed": 3,
+		"ProjectileColor": "RANDOM",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": 1,
+		"ProjectileID": -3,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "LEFT",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSpeed": 3,
+		"ProjectileMaxSpeed": 3,
+		"ProjectileColor": "RANDOM",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": 1,
+		"ProjectileID": -4,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "RIGHT",
 		"ProjectileTarget": "PLAYER",
 		"ProjectilePath": "STRAIGHT",
-		"ProjectileMinSpeed": 1,
-		"ProjectileMaxSpeed": 1,
-		"ProjectileColor": "RANDOM_NO_PLAYER",
+		"ProjectileMinSpeed": 3,
+		"ProjectileMaxSpeed": 3,
+		"ProjectileColor": "RANDOM",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	}
