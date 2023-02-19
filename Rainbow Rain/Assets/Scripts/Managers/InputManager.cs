@@ -12,7 +12,7 @@ public class InputManager : Singleton<InputManager>, ISingleton
         get { return this._input_allowed; }
     }
 
-    private bool isDone = false;
+    private bool isDone = true;
     public bool IsDoneInitializing
     {
         get { return isDone; }
@@ -24,7 +24,7 @@ public class InputManager : Singleton<InputManager>, ISingleton
             {
                 _player_controls = new PlayerControls();
             }
-            this._input_allowed = true;
+            this._input_allowed = false;
         }
         isDone = true;
     }
