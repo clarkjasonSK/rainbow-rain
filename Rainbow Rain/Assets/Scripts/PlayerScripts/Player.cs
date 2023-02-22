@@ -10,12 +10,10 @@ public class Player : APlayerSubject
     #region Player Variables
 
     private PlayerController _player_controller;
-    private PlayerControls _player_controls;
 
     private PlayerData _player_data;
 
-    private Vector2 _player_input;
-    private Camera _camera;
+    //private Vector2 _player_input;
     #endregion
 
     public Color PlayerColor
@@ -34,8 +32,6 @@ public class Player : APlayerSubject
     void Start()
     { 
         _player_controller = GetComponent<PlayerController>();
-        _player_controls = InputManager.Instance.getControls();
-        _player_controls.Enable();
 
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);
 
@@ -55,34 +51,15 @@ public class Player : APlayerSubject
                             _player_data.PlayerColor.b - .3f * _player_data.PlayerColor.b,
                             ShellStartAlpha));
 
-        _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
     }
 
-    void Update()
+    public void movePlayer(Vector2 playerInput)
     {
-        if (this._player_controls == null)
-            return;
-        if (!InputManager.Instance.InputAllowed)
-            return;
-        if (_player_data.CurrentShellHealth == -1)
-        {
-            return;
-        }
-
-        _player_input = this._player_controls.InGame.Movement_KB.ReadValue<Vector2>();
-
-        if (_player_input != Vector2.zero)
-        {
-            _player_controller.Traverse(_player_input, _player_data.MoveSpeed);
-        }
-        
-
-        if (this._player_controls.InGame.Movement_M_Hold.ReadValue<float>()==1)
-        {
-            _player_input = _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
-
-            _player_controller.Drag(_player_input, _player_data.MoveSpeed);
-        }
+        _player_controller.Traverse(playerInput, _player_data.MoveSpeed);
+    }
+    public void dragPlayer(Vector2 playerInput)
+    {
+        _player_controller.Drag(playerInput, _player_data.MoveSpeed);
 
     }
 

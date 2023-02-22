@@ -5,7 +5,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>, ISingleton
 {
+
+    private Camera _camera;
     private PlayerControls _player_controls = null;
+    private Vector2 _player_input;
+
     private bool _input_allowed;
     public bool InputAllowed
     {
@@ -23,12 +27,32 @@ public class InputManager : Singleton<InputManager>, ISingleton
             if (_player_controls == null)
             {
                 _player_controls = new PlayerControls();
+                _player_controls.Enable();
             }
-            this._input_allowed = false;
+            this._input_allowed = true;
         }
+        _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
+
         isDone = true;
     }
 
+    void Update()
+    {
+        if (!_input_allowed)
+            return;
+
+        _player_input = _player_controls.InGame.Movement_KB.ReadValue<Vector2>();
+
+        if (_player_input != Vector2.zero)
+        {
+            GameManager.Instance.PlayerReference.movePlayer(_player_input);
+        }
+
+        if (_player_controls.InGame.Movement_M_Hold.ReadValue<float>() == 1)
+        {
+             GameManager.Instance.PlayerReference.dragPlayer(_camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>()));
+        }
+    }
 
     public PlayerControls getControls()
     {
