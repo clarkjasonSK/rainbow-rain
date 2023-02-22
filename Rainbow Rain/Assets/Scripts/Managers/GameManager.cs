@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
 {
-    private Player _player_instance;
+    private Player _player_reference;
+    public Player PlayerReference
+    {
+        get { return _player_reference; }
+    }
+
     private bool _main_menu = false;
     public bool AtMainMenu
     {
@@ -26,8 +31,8 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
     }
     public void Initialize()
     {
-        _player_instance = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
-        _player_instance.AddObserver(this);
+        _player_reference = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
+        _player_reference.AddObserver(this);
         InputManager.Instance.toggleInputAllow(false);
         isDone = true;
     }
@@ -39,12 +44,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
 
     public Vector3 getPlayerLocation()
     {
-        return _player_instance.transform.position;
+        return _player_reference.transform.position;
 
     }
     public Color getPlayerColor()
     {
-        return _player_instance.PlayerColor;
+        return _player_reference.PlayerColor;
     }
 
     public bool compareColors(Color playerColor, Color projColor)
