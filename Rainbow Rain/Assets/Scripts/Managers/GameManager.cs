@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
+public class GameManager : Singleton<GameManager>, ISingleton
 {
-    private Player _player_reference;
-    public Player PlayerReference
+    #region Singleton Variables
+    private bool isDone = false;
+    public bool IsDoneInitializing
     {
-        get { return _player_reference; }
+        get { return isDone; }
     }
+    #endregion
 
+    #region Temporary state variables
     private bool _main_menu = false;
     public bool AtMainMenu
     {
@@ -23,16 +26,25 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
         get { return _game_active; }
         set { _game_active = value; }
     }
+    #endregion
 
-    private bool isDone = false;
-    public bool IsDoneInitializing
+    private Player _player_reference;
+    public Player PlayerReference
     {
-        get { return isDone; }
+        get { return _player_reference; }
     }
+
+    #region Event Variables
+    Projectile projReference = null;
+    #endregion
+
     public void Initialize()
     {
         _player_reference = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
-        _player_reference.AddObserver(this);
+
+        //_player_reference.AddObserver(this);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
+
         InputManager.Instance.toggleInputAllow(false);
         isDone = true;
     }
@@ -63,13 +75,9 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
         return false;
     }
 
-    #region Observer Notifications
-    public void OnNotify()
-    {
-        ;
-    }
+    #region Event Broadcaster Notifications
 
-    public void OnPlayerHit(Player player, Projectile proj)
+    public void OnPlayerHit(EventParameters param)
     {
         /*
         if (_main_menu)
@@ -78,16 +86,21 @@ public class GameManager : Singleton<GameManager>, ISingleton, IPlayerObserver
             return;
         }*/
 
-        proj.ProjectileActive = false;
-        if (compareColors(player.PlayerColor, proj.ProjectileColor))
+        //Player tempPlayer = param.GetParameter<Player>(EventParamKeys.playerParam, null);
+
+        projReference = param.GetParameter<Projectile>(EventParamKeys.projParam, null);
+        projReference.ProjectileActive = false;
+
+        if (compareColors(_player_reference.PlayerColor, projReference.ProjectileColor))
         {
-            player.absorbToSoul();
+            _player_reference.absorbToSoul();
         }
         else
         {
-            player.damageToShell();
+            _player_reference.damageToShell();
         }
-        ProjectileManager.Instance.removeProjectile(proj);
+
+        ProjectileManager.Instance.removeProjectile(projReference);
     }
     #endregion
 }

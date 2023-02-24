@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : Singleton<ProjectileManager>, ISingleton, IProjectileObserver
+public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
 {
     private Transform _projectiles_parent;
     public Transform ProjectilesParent
@@ -39,6 +39,9 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton, IProj
 
         _proj_lifetime.initialize();
         _proj_utilities.initialize();
+
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileExit);
+
         isDone = true;
     }
 
@@ -70,14 +73,10 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton, IProj
 
     }
 
-    #region Observer Functions
-    public void OnNotify()
+    #region EventBroadcaster  Functions
+    public void OnProjectileExit(EventParameters param)
     {
-        ;
-    }
-    public void OnProjectileExit(Projectile proj)
-    {
-        removeProjectile(proj);
+        removeProjectile(param.GetParameter<Projectile>(EventParamKeys.projParam, null));
     }
     #endregion
 }

@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 
 
 
-public class Player : APlayerSubject
+public class Player : MonoBehaviour
 {
     #region Player Variables
-
     private PlayerController _player_controller;
-
     private PlayerData _player_data;
+    #endregion
 
-    //private Vector2 _player_input;
+    #region Event Parameters
+    private EventParameters playerHitEvent;
     #endregion
 
     public Color PlayerColor
@@ -32,8 +32,9 @@ public class Player : APlayerSubject
     void Start()
     { 
         _player_controller = GetComponent<PlayerController>();
-
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);
+        playerHitEvent = new EventParameters();
+        //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
 
         switch (PlayerIntColor)
         { 
@@ -72,7 +73,10 @@ public class Player : APlayerSubject
 
         if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            NotifyPlayerHit(this, collision.GetComponent<Projectile>());
+            //NotifyPlayerHit(this, collision.GetComponent<Projectile>());
+            playerHitEvent.AddParameter(EventParamKeys.projParam, collision.GetComponent<Projectile>());
+
+            EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerHitEvent);
         }
         
     }
