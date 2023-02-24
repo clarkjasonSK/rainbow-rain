@@ -52,15 +52,6 @@ public class GameManager : Singleton<GameManager>, ISingleton
     Projectile projReference = null;
     #endregion
 
-    public bool paused = false;
-    void Update()
-    {
-        if(paused)
-        {
-            paused = false;
-            EventBroadcaster.Instance.PostEvent(EventKeys.PAUSE_GAME, null);
-        }
-    }
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();
