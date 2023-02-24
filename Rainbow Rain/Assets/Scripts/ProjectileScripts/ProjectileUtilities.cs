@@ -20,7 +20,7 @@ public class ProjectileUtilities : MonoBehaviour
         _projectile_colors.Add(new Color(.5f, 1, 1, 1));
         _projectile_colors.Add(new Color(1, .5f, 1, 1));
         _projectile_colors.Add(new Color(1, 1, .5f, 1));
-        Debug.Log("Color population: " + _projectile_colors.Count);
+        //Debug.Log("Color population: " + _projectile_colors.Count);
 
     }
 
@@ -77,7 +77,7 @@ public class ProjectileUtilities : MonoBehaviour
     {
         if (projTarget == ProjTarget.PLAYER)
         {
-            return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.getPlayerLocation(), projLocation));
+            return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.PlayerLocation, projLocation));
         }
 
         else if(projTarget == ProjTarget.END_BOUNDS)
@@ -136,11 +136,11 @@ public class ProjectileUtilities : MonoBehaviour
         }
         if (projColor == ProjColor.PLAYER)
         {
-            return (GameManager.Instance.getPlayerColor() + new Color(0, 0, 0, 1f));
+            return (GameManager.Instance.PlayerColor + new Color(0, 0, 0, 1f));
         }
 
         // if (projColor == ProjColor.RANDOM_NO_PLAYER)
-        Color excemptColor = GameManager.Instance.getPlayerColor();
+        Color excemptColor = GameManager.Instance.PlayerColor;
         Color tempColor;
         do
         {

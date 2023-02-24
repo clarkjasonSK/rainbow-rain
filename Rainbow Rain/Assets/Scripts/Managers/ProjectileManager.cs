@@ -47,14 +47,11 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
 
     void Update()
     {
-        /*
-        if (!GameManager.Instance.IsGameActive)
+        
+        if (GameManager.Instance.GameState == GameState.PROGRAM_START ||
+            GameManager.Instance.GameState == GameState.PAUSED )
             return;
-        if (!GameManager.Instance.AtMainMenu)
-            return;
-        */
-
-
+        
         foreach (Projectile proj in _projectile_list.ToArray())
         {
             proj.moveProjectile();

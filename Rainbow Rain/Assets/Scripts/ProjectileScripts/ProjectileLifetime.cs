@@ -39,10 +39,9 @@ public class ProjectileLifetime : MonoBehaviour
 
     void Update()
     {
-        /*
-        if (!GameManager.Instance.AtMainMenu)
+        if (GameManager.Instance.GameState == GameState.PROGRAM_START ||
+            GameManager.Instance.GameState == GameState.PAUSED)
             return;
-        */
 
         for (int i = 0; i < _projectile_types.Count; i++)
         {
