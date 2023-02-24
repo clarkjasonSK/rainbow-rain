@@ -46,6 +46,7 @@ public class EventBroadcaster : Singleton<EventBroadcaster>, ISingleton
 
     public void PostEvent(string eventName, EventParameters eventParam)
     {
+        Debug.Log("Posted Event: " + eventName);
         if (this._observers.ContainsKey(eventName))
         {
             ObserverAction action = this._observers[eventName];

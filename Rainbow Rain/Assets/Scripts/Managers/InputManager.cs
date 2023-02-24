@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>, ISingleton
 {
-
-    private Camera _camera;
+    #region Player Variables
     private PlayerControls _player_controls = null;
+    private Player _player_reference = null;
+    #endregion
+    private Camera _camera;
     private Vector2 _player_input;
 
     private bool _input_allowed;
@@ -23,14 +25,15 @@ public class InputManager : Singleton<InputManager>, ISingleton
     }
     public void Initialize()
     {
+        _player_reference = GameManager.Instance.PlayerReference;
+        if (_player_controls == null)
         {
-            if (_player_controls == null)
-            {
-                _player_controls = new PlayerControls();
-                _player_controls.Enable();
-            }
-            this._input_allowed = true;
+            _player_controls = new PlayerControls();
+            _player_controls.Enable();
         }
+        this._input_allowed = true;
+        
+
         _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
 
         isDone = true;
@@ -45,12 +48,12 @@ public class InputManager : Singleton<InputManager>, ISingleton
 
         if (_player_input != Vector2.zero)
         {
-            GameManager.Instance.PlayerReference.movePlayer(_player_input);
+            _player_reference.movePlayer(_player_input);
         }
 
         if (_player_controls.InGame.Movement_M_Hold.ReadValue<float>() == 1)
         {
-             GameManager.Instance.PlayerReference.dragPlayer(_camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>()));
+            _player_reference.dragPlayer(_camera.ScreenToWorldPoint(_player_controls.InGame.Movement_M_Position.ReadValue<Vector2>()));
         }
     }
 

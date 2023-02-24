@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    PROGRAM_START,
+    MAIN_MENU,
+    INGAME,
+    PAUSED
+}
+
 public class GameManager : Singleton<GameManager>, ISingleton
 {
     #region Singleton Variables
@@ -12,27 +20,33 @@ public class GameManager : Singleton<GameManager>, ISingleton
     }
     #endregion
 
-    #region Temporary state variables
-    private bool _main_menu = false;
-    public bool AtMainMenu
-    {
-        get { return _main_menu; }
-        set { _main_menu = value; }
-    }
-
-    private bool _game_active = true;
-    public bool IsGameActive
-    {
-        get { return _game_active; }
-        set { _game_active = value; }
-    }
-    #endregion
-
+    #region Player References
     private Player _player_reference;
     public Player PlayerReference
     {
         get { return _player_reference; }
     }
+    public Vector3 PlayerLocation
+    {
+        get { return _player_reference.transform.position; }
+    }
+    public Color PlayerColor
+    {
+        get { return _player_reference.PlayerColor; }
+    }
+    #endregion
+
+    #region StateHandler Variables
+    private StateHandler<GameState> _game_state_handler;
+    public StateHandler<GameState> GameStateHandler
+    {
+        get { return _game_state_handler; }
+    }
+    public GameState GameState
+    {
+        get { return _game_state_handler.CurrentState; }
+    }
+    #endregion
 
     #region Event Variables
     Projectile projReference = null;
@@ -40,28 +54,20 @@ public class GameManager : Singleton<GameManager>, ISingleton
 
     public void Initialize()
     {
+        _game_state_handler = new StateHandler<GameState>();
+        _game_state_handler.Initialize(GameState.PROGRAM_START);
+
         _player_reference = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
+        AddObservers();
 
-        //_player_reference.AddObserver(this);
-        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
-
-        InputManager.Instance.toggleInputAllow(false);
         isDone = true;
     }
-
-    void Update()
+    private void AddObservers()
     {
-        
-    }
-
-    public Vector3 getPlayerLocation()
-    {
-        return _player_reference.transform.position;
-
-    }
-    public Color getPlayerColor()
-    {
-        return _player_reference.PlayerColor;
+        EventBroadcaster.Instance.AddObserver(EventKeys.START_MENU, OnStartMenu);
+        EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
     }
 
     public bool compareColors(Color playerColor, Color projColor)
@@ -76,31 +82,50 @@ public class GameManager : Singleton<GameManager>, ISingleton
     }
 
     #region Event Broadcaster Notifications
+    public void OnStartMenu(EventParameters param)
+    {
+        _game_state_handler.Initialize(GameState.MAIN_MENU);
+        InputManager.Instance.toggleInputAllow(false);
+    }
+    public void OnGameStart(EventParameters param)
+    {
+        _game_state_handler.Initialize(GameState.INGAME);
+        InputManager.Instance.toggleInputAllow(true);
+
+    }
+    public void OnGamePause(EventParameters param)
+    {
+        _game_state_handler.Initialize(GameState.PAUSED);
+        InputManager.Instance.toggleInputAllow(false);
+
+    }
 
     public void OnPlayerHit(EventParameters param)
     {
-        /*
-        if (_main_menu)
-        {
-            player.setPlayerColor(proj.ProjectileColor);
-            return;
-        }*/
-
         //Player tempPlayer = param.GetParameter<Player>(EventParamKeys.playerParam, null);
 
         projReference = param.GetParameter<Projectile>(EventParamKeys.projParam, null);
         projReference.ProjectileActive = false;
 
-        if (compareColors(_player_reference.PlayerColor, projReference.ProjectileColor))
+        switch (GameState)
         {
-            _player_reference.absorbToSoul();
-        }
-        else
-        {
-            _player_reference.damageToShell();
+            case GameState.MAIN_MENU:
+                _player_reference.setPlayerColor(projReference.ProjectileColor);
+                break;
+            case GameState.INGAME:
+                if (compareColors(_player_reference.PlayerColor, projReference.ProjectileColor))
+                {
+                    _player_reference.absorbToSoul();
+                }
+                else
+                {
+                    _player_reference.damageToShell();
+                } 
+                break;
         }
 
         ProjectileManager.Instance.removeProjectile(projReference);
     }
     #endregion
 }
+
