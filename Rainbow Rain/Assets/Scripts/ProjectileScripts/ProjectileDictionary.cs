@@ -17,14 +17,6 @@ public static class ProjSpawnRate
     public const float NORMAL_RATE = 1f;
     public const float FAST_RATE = .5f;
 }
-public enum projDirection
-{
-    RANDOM,
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-}
 public static class ProjDirection
 {
     public const string RANDOM = "RANDOM";

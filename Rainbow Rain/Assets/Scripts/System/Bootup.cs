@@ -6,6 +6,8 @@ public class Bootup : MonoBehaviour
 {
     void Start()
     {
+        EventBroadcaster.Instance.Initialize();
+
         GameManager.Instance.Initialize();
         InputManager.Instance.Initialize();
         ProjectileManager.Instance.Initialize();
