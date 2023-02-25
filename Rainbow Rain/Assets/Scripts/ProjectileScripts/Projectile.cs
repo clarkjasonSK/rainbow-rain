@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Projectile : AProjectileSubject
+public class Projectile : Poolable
 {
+    #region Projectile Variables
     private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
-    //temporary variables
-    [SerializeField] private float speedMultiplier = 4f;
-    [SerializeField] private float homingDuration = 6f;
-    [SerializeField] private float smallestSize = .4f;
-    [SerializeField] private float sizeMultiplier = .2f;
-
-    
     public bool ProjectileActive
     {
         get { return _proj_data.ProjectileActive; }
@@ -23,25 +17,18 @@ public class Projectile : AProjectileSubject
     {
         get { return _proj_data.ProjectileColor; }
     }
+    #endregion
 
-    public void moveProjectile()
-    {
-        if (!_proj_data.ProjectileActive)
-        {
-            return;
-        }
+    #region Event Parameters
+    private EventParameters projectileDespawn;
+    #endregion
 
-        if(_proj_data.ProjectilePath == ProjPath.HOMING)
-        {
-            if(_proj_data.ProjectileCurrentDuration>= _proj_data.ProjectileTotalDuration)
-            {
-                NotifyProjectileExit(this);
-            }
-            this.transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(GameManager.Instance.getPlayerLocation(), this.transform.position);
-            _proj_data.ProjectileCurrentDuration += Time.deltaTime;
-        }
-        _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
-    }
+    #region Temporary Game Values
+    [SerializeField] private float speedMultiplier = 4f;
+    [SerializeField] private float homingDuration = 6f;
+    [SerializeField] private float smallestSize = .4f;
+    [SerializeField] private float sizeMultiplier = .2f;
+    #endregion
 
     public void initProj(ProjectileInfo projInfo)
     {
@@ -65,9 +52,30 @@ public class Projectile : AProjectileSubject
         _proj_controller.placeProjectile(ProjectileManager.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
         transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
 
+
+
         _proj_data.ProjectileActive = true;
 
 
+    }
+
+    public void moveProjectile()
+    {
+        if (!_proj_data.ProjectileActive)
+        {
+            return;
+        }
+
+        if (_proj_data.ProjectilePath == ProjPath.HOMING)
+        {
+            if (_proj_data.ProjectileCurrentDuration >= _proj_data.ProjectileTotalDuration)
+            {
+                projectileDespawn.AddParameter(EventParamKeys.projParam, this);
+            }
+            this.transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(GameManager.Instance.PlayerLocation, this.transform.position);
+            _proj_data.ProjectileCurrentDuration += Time.deltaTime;
+        }
+        _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
     }
 
     #region Poolable Functions
@@ -75,7 +83,7 @@ public class Projectile : AProjectileSubject
     {
         this._proj_controller = GetComponent<ProjectileController>();
         _proj_data = new ProjectileData();
-        AddObserver(ProjectileManager.Instance);
+        projectileDespawn = new EventParameters();
     }
 
     public override void OnActivate()
@@ -101,7 +109,9 @@ public class Projectile : AProjectileSubject
     {
         if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS) && _proj_data.ProjectileActive)
         {
-            NotifyProjectileExit(this);
+            //NotifyProjectileExit(this);
+            projectileDespawn.AddParameter(EventParamKeys.projParam, this);
+            EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, projectileDespawn);
             //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY
         }
     }

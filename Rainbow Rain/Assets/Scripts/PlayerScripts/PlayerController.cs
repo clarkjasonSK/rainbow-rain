@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggable
 
     public void setPlayerColor(Color soulColor, Color shellColor)
     {
-        _player_soul_sprite.color = soulColor;
+        _player_soul_sprite.color = soulColor - new Color(0,0,0,1);
         _player_shell_sprite.color = shellColor;
     }
 

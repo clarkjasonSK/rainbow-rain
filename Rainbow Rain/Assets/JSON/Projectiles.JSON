@@ -8,7 +8,7 @@
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 3,
 		"ProjectileMaxSpeed": 3,
-		"ProjectileColor": "RANDOM",
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
@@ -19,7 +19,7 @@
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 3,
 		"ProjectileMaxSpeed": 3,
-		"ProjectileColor": "RANDOM",
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
@@ -30,7 +30,7 @@
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 3,
 		"ProjectileMaxSpeed": 3,
-		"ProjectileColor": "RANDOM",
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
@@ -41,7 +41,7 @@
 		"ProjectilePath": "STRAIGHT",
 		"ProjectileMinSpeed": 3,
 		"ProjectileMaxSpeed": 3,
-		"ProjectileColor": "RANDOM",
+		"ProjectileColor": "RANDOM_NO_PLAYER",
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	}

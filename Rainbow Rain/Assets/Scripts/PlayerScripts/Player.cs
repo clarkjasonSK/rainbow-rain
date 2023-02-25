@@ -5,22 +5,20 @@ using UnityEngine.InputSystem;
 
 
 
-public class Player : APlayerSubject
+public class Player : MonoBehaviour
 {
     #region Player Variables
-
     private PlayerController _player_controller;
-    private PlayerControls _player_controls;
-
     private PlayerData _player_data;
+    #endregion
 
-    private Vector2 _player_input;
-    private Camera _camera;
+    #region Event Parameters
+    private EventParameters playerHitEvent;
     #endregion
 
     public Color PlayerColor
     {
-        get { return _player_data.PlayerColor; }
+        get { return _player_data.PlayerSoulColor; }
     }
 
     #region Game Values
@@ -34,55 +32,36 @@ public class Player : APlayerSubject
     void Start()
     { 
         _player_controller = GetComponent<PlayerController>();
-        _player_controls = InputManager.Instance.getControls();
-        _player_controls.Enable();
-
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);
+        playerHitEvent = new EventParameters();
+        //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
 
         switch (PlayerIntColor)
         { 
-            case 1:_player_data.PlayerColor = new Color(.5f, 1, 1, 0); 
+            case 1:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.CYAN);
                 break;
-            case 2:_player_data.PlayerColor = new Color(1, .5f, 1, 0);
+            case 2:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.MAGENTA);
                 break;
-            case 3:_player_data.PlayerColor = new Color(1, 1, .5f, 0);
+            case 3:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.YELLOW);
                 break;
         }
+        _player_data.CurrentPlayerColor = _player_data.PlayerSoulColor - new Color(0,0,0,1);
 
-        _player_controller.setPlayerColor(_player_data.PlayerColor, 
-                new Color(_player_data.PlayerColor.r - .3f * _player_data.PlayerColor.r, 
-                            _player_data.PlayerColor.g - .3f * _player_data.PlayerColor.g, 
-                            _player_data.PlayerColor.b - .3f * _player_data.PlayerColor.b,
+        _player_controller.setPlayerColor(_player_data.CurrentPlayerColor, 
+                new Color(_player_data.PlayerSoulColor.r - .3f * _player_data.PlayerSoulColor.r, 
+                            _player_data.PlayerSoulColor.g - .3f * _player_data.PlayerSoulColor.g, 
+                            _player_data.PlayerSoulColor.b - .3f * _player_data.PlayerSoulColor.b,
                             ShellStartAlpha));
 
-        _camera = GameObject.FindGameObjectWithTag(TagNames.MAIN_CAMERA).GetComponent<Camera>();
     }
 
-    void Update()
+    public void movePlayer(Vector2 playerInput)
     {
-        if (this._player_controls == null)
-            return;
-        if (!InputManager.Instance.InputAllowed)
-            return;
-        if (_player_data.CurrentShellHealth == -1)
-        {
-            return;
-        }
-
-        _player_input = this._player_controls.InGame.Movement_KB.ReadValue<Vector2>();
-
-        if (_player_input != Vector2.zero)
-        {
-            _player_controller.Traverse(_player_input, _player_data.MoveSpeed);
-        }
-        
-
-        if (this._player_controls.InGame.Movement_M_Hold.ReadValue<float>()==1)
-        {
-            _player_input = _camera.ScreenToWorldPoint(this._player_controls.InGame.Movement_M_Position.ReadValue<Vector2>());
-
-            _player_controller.Drag(_player_input, _player_data.MoveSpeed);
-        }
+        _player_controller.Traverse(playerInput, _player_data.MoveSpeed);
+    }
+    public void dragPlayer(Vector2 playerInput)
+    {
+        _player_controller.Drag(playerInput, _player_data.MoveSpeed);
 
     }
 
@@ -95,7 +74,10 @@ public class Player : APlayerSubject
 
         if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            NotifyPlayerHit(this, collision.GetComponent<Projectile>());
+            //NotifyPlayerHit(this, collision.GetComponent<Projectile>());
+            playerHitEvent.AddParameter(EventParamKeys.projParam, collision.GetComponent<Projectile>());
+
+            EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerHitEvent);
         }
         
     }
@@ -104,7 +86,7 @@ public class Player : APlayerSubject
     {
         _player_data.increaseAlpha(.10f);
         //_player_data.MoveSpeed += 1f;
-        _player_controller.setSoulColor(_player_data.PlayerColor);
+        _player_controller.setSoulColor(_player_data.CurrentPlayerColor);
 
     }
 

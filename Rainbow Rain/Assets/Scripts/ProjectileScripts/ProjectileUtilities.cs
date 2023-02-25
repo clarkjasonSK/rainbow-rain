@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ProjectileUtilities : MonoBehaviour
 {
-    private List<Color> _projectile_colors;
 
     [SerializeField] private Transform ProjectileSpawnBoundX;
     [SerializeField] private Transform ProjectileSpawnBoundY;
@@ -15,12 +14,6 @@ public class ProjectileUtilities : MonoBehaviour
         ProjectileSpawnBoundY = ProjectileManager.Instance.ProjectilesParent.GetChild(3).transform;
 
         ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
-
-        _projectile_colors = new List<Color>();
-        _projectile_colors.Add(new Color(.5f, 1, 1, 1));
-        _projectile_colors.Add(new Color(1, .5f, 1, 1));
-        _projectile_colors.Add(new Color(1, 1, .5f, 1));
-        Debug.Log("Color population: " + _projectile_colors.Count);
 
     }
 
@@ -77,7 +70,7 @@ public class ProjectileUtilities : MonoBehaviour
     {
         if (projTarget == ProjTarget.PLAYER)
         {
-            return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.getPlayerLocation(), projLocation));
+            return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.PlayerLocation, projLocation));
         }
 
         else if(projTarget == ProjTarget.END_BOUNDS)
@@ -132,21 +125,13 @@ public class ProjectileUtilities : MonoBehaviour
     {
         if (projColor == ProjColor.RANDOM)
         {
-            return _projectile_colors[Random.Range(0, _projectile_colors.Count)];
+            return ColorDictionary.getRandomColor();
         }
         if (projColor == ProjColor.PLAYER)
         {
-            return (GameManager.Instance.getPlayerColor() + new Color(0, 0, 0, 1f));
+            return GameManager.Instance.PlayerColor;
         }
 
-        // if (projColor == ProjColor.RANDOM_NO_PLAYER)
-        Color excemptColor = GameManager.Instance.getPlayerColor();
-        Color tempColor;
-        do
-        {
-            tempColor = _projectile_colors[Random.Range(0, _projectile_colors.Count)];
-
-        } while (tempColor.r == excemptColor.r && tempColor.g == excemptColor.g && tempColor.b == excemptColor.b);
-        return (tempColor);
+        return ColorDictionary.getRandomColor(GameManager.Instance.PlayerColor);
     }
 }
