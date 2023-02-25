@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     public Color PlayerColor
     {
-        get { return _player_data.PlayerColor; }
+        get { return _player_data.PlayerSoulColor; }
     }
 
     #region Game Values
@@ -38,18 +38,19 @@ public class Player : MonoBehaviour
 
         switch (PlayerIntColor)
         { 
-            case 1:_player_data.PlayerColor = new Color(.5f, 1, 1, 0); 
+            case 1:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.CYAN);
                 break;
-            case 2:_player_data.PlayerColor = new Color(1, .5f, 1, 0);
+            case 2:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.MAGENTA);
                 break;
-            case 3:_player_data.PlayerColor = new Color(1, 1, .5f, 0);
+            case 3:_player_data.PlayerSoulColor = ColorDictionary.getSpecifiedColor(ColorNames.YELLOW);
                 break;
         }
+        _player_data.CurrentPlayerColor = _player_data.PlayerSoulColor - new Color(0,0,0,1);
 
-        _player_controller.setPlayerColor(_player_data.PlayerColor, 
-                new Color(_player_data.PlayerColor.r - .3f * _player_data.PlayerColor.r, 
-                            _player_data.PlayerColor.g - .3f * _player_data.PlayerColor.g, 
-                            _player_data.PlayerColor.b - .3f * _player_data.PlayerColor.b,
+        _player_controller.setPlayerColor(_player_data.CurrentPlayerColor, 
+                new Color(_player_data.PlayerSoulColor.r - .3f * _player_data.PlayerSoulColor.r, 
+                            _player_data.PlayerSoulColor.g - .3f * _player_data.PlayerSoulColor.g, 
+                            _player_data.PlayerSoulColor.b - .3f * _player_data.PlayerSoulColor.b,
                             ShellStartAlpha));
 
     }
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
     {
         _player_data.increaseAlpha(.10f);
         //_player_data.MoveSpeed += 1f;
-        _player_controller.setSoulColor(_player_data.PlayerColor);
+        _player_controller.setSoulColor(_player_data.CurrentPlayerColor);
 
     }
 

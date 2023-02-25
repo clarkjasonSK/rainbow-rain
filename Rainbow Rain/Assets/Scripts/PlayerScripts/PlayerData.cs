@@ -20,15 +20,21 @@ public class PlayerData
         set { this._current_shell_health = value; }
     }
 
-    private Color _color;
-    public Color PlayerColor
+    private Color _soul_color;
+    public Color PlayerSoulColor
     {
-        get { return this._color; }
-        set { this._color = value; }
+        get { return this._soul_color; }
+        set { this._soul_color = value; }
+    }
+    private Color _curent_color;
+    public Color CurrentPlayerColor
+    {
+        get { return this._curent_color; }
+        set { this._curent_color = value; }
     }
     public float SoulAlpha
     {
-        get { return this._color.a; }
+        get { return this._curent_color.a; }
     }
 
     private float _move_speed;
@@ -51,12 +57,12 @@ public class PlayerData
     public void resetPlayer()
     {
         _current_shell_health = _total_shell_health;
-        _color = new Color(_color.r, _color.g, _color.b, 0);
+        _curent_color = _soul_color - new Color(0,0,0,1);
 
     }
     public void increaseAlpha(float alphaValue)
     {
-        this._color += new Color(0, 0, 0, alphaValue);
+        this._curent_color += new Color(0, 0, 0, alphaValue);
     }
 
 

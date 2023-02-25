@@ -465,7 +465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6853703213252778929, guid: d38bb9738ce6b45449b1aa56ee4315d9, type: 3}
       propertyPath: PlayerIntColor
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6853703213252778933, guid: d38bb9738ce6b45449b1aa56ee4315d9, type: 3}
       propertyPath: m_RootOrder

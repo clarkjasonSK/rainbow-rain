@@ -11,6 +11,7 @@ public class Bootup : MonoBehaviour
 
         InputManager.Instance.Initialize();
         ProjectileManager.Instance.Initialize();
+        ColorDictionary.InitializeColors();
 
         if(EventBroadcaster.Instance.IsDoneInitializing &&
             GameManager.Instance.IsDoneInitializing &&
