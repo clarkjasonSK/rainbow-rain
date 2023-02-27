@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>, ISingleton
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Singleton Variables
+    private bool isDone = false;
+    public bool IsDoneInitializing
     {
-        
+        get { return isDone; }
+    }
+    #endregion
+
+
+
+
+    public void Initialize()
+    {
+
+        isDone = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void goToGame()
     {
-        
+        EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
     }
+
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -58,11 +59,11 @@ public class GameManager : Singleton<GameManager>, ISingleton
         _game_state_handler.Initialize(GameState.PROGRAM_START);
 
         _player_reference = GameObject.FindWithTag(TagNames.PLAYER).GetComponent<Player>();
-        AddObservers();
+        AddEventObservers();
 
         isDone = true;
     }
-    private void AddObservers()
+    private void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.START_MENU, OnStartMenu);
         EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
@@ -91,6 +92,8 @@ public class GameManager : Singleton<GameManager>, ISingleton
     {
         _game_state_handler.Initialize(GameState.INGAME);
         InputManager.Instance.toggleInputAllow(true);
+        SceneManager.LoadScene(SceneNames.GAME_SCENE);
+        ProjectileManager.Instance.ReInitialize();
 
     }
     public void OnGamePause(EventParameters param)

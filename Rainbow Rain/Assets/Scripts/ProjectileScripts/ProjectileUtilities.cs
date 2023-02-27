@@ -13,8 +13,17 @@ public class ProjectileUtilities : MonoBehaviour
         ProjectileSpawnBoundX = ProjectileManager.Instance.ProjectilesParent.GetChild(2).transform;
         ProjectileSpawnBoundY = ProjectileManager.Instance.ProjectilesParent.GetChild(3).transform;
 
-        ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
+        setSpawnBoundY();
+    }
 
+    public void reinitialize()
+    {
+        setSpawnBoundY();
+    }
+
+    private void setSpawnBoundY()
+    {
+        ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
     }
 
     public Vector2 getProjectileSpawn(string projSpawn)

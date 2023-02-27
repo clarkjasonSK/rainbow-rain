@@ -9,32 +9,45 @@ public class ProjectileLifetime : MonoBehaviour
     private List<ProjectileInfo> _projectile_types;
     private ObjectPooling projObjPool;
 
-    private List<float> _projectile_spawn_times;
-    private List<float> _projectile_elapsed_times;
+    private List<float> _projectile_spawn_times = new List<float>();
+    private List<float> _projectile_elapsed_times = new List<float>();
 
     //spawns per every value based in time.deltatime
 
     public void initialize()
     {
-
         projObjPool = this.gameObject.AddComponent<ObjectPooling>();
-        projObjPool.ObjectTemplate = ProjectileManager.Instance.ProjectilesParent.GetChild(0).gameObject;
-        projObjPool.ObjectTransform = ProjectileManager.Instance.ProjectilesParent.GetChild(4);
+        getObjPoolChildren();
 
         _projectile_types = ProjectileJSONLoader.loadJSONInfo<ProjectileInfo>(filename, false);
 
         //_projectile_types = new List<ProjectileInfo>();
         //_projectile_types.Add(new ProjectileInfo(1, "SLOW", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
 
-        _projectile_spawn_times = new List<float>();
-        _projectile_elapsed_times = new List<float>();
+        populateTimeLists();
 
+    }
+
+    public void reinitialize()
+    {
+        _projectile_spawn_times.Clear();
+        _projectile_elapsed_times.Clear();
+        getObjPoolChildren();
+        populateTimeLists();
+    }
+
+    public void getObjPoolChildren()
+    {
+        projObjPool.ObjectTemplate = ProjectileManager.Instance.ProjectilesParent.GetChild(0).gameObject;
+        projObjPool.ObjectTransform = ProjectileManager.Instance.ProjectilesParent.GetChild(4);
+    }
+    private void populateTimeLists()
+    {
         foreach (ProjectileInfo pi in _projectile_types)
         {
             _projectile_spawn_times.Add(ProjectileManager.Instance.ProjUtilities.getProjectileSpawnRate(pi.ProjectileSpawnRate));
             _projectile_elapsed_times.Add(0);
         }
-
     }
 
     void Update()

@@ -18,7 +18,7 @@ public class Bootup : MonoBehaviour
             InputManager.Instance.IsDoneInitializing &&
             ProjectileManager.Instance.IsDoneInitializing)
         {
-            EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
+            EventBroadcaster.Instance.PostEvent(EventKeys.START_MENU, null);
         }
     }
 

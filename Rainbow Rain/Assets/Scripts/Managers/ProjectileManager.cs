@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
 {
-    private Transform _projectiles_parent;
+    #region Singleton Variables
+    private bool isDone = false;
+    public bool IsDoneInitializing
+    {
+        get { return isDone; }
+    }
+    #endregion
+
+    private List<Projectile> _projectile_list = new List<Projectile>();
+
+    [SerializeField] private Transform _projectiles_parent;
     public Transform ProjectilesParent
     {
         get { return _projectiles_parent; }
     }
-    private List<Projectile> _projectile_list;
-    private ProjectileLifetime _proj_lifetime;
 
+    private ProjectileLifetime _proj_lifetime;
     public ProjectileLifetime ProjLifetime
     {
         get { return _proj_lifetime; }
@@ -22,17 +31,9 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
         get { return _proj_utilities; }
     }
 
-    private bool isDone = false;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-
-
     public void Initialize()
     {
-        _projectile_list = new List<Projectile>();
-        _projectiles_parent = GameObject.FindGameObjectWithTag(TagNames.PROJECTILES_PARENT).transform;
+        getProjectilesParent();
 
         _proj_lifetime = this.gameObject.AddComponent<ProjectileLifetime>();
         _proj_utilities = this.gameObject.AddComponent<ProjectileUtilities>();
@@ -45,6 +46,22 @@ public class ProjectileManager : Singleton<ProjectileManager>, ISingleton
         isDone = true;
     }
 
+    public void ReInitialize() 
+    {
+        _projectile_list.Clear();
+        getProjectilesParent();
+
+        _proj_lifetime.reinitialize();
+        _proj_utilities.reinitialize();
+
+    }
+
+    private void getProjectilesParent()
+    {
+        Debug.Log("getting parent: " + _projectiles_parent);
+        _projectiles_parent = GameObject.FindGameObjectWithTag(TagNames.PROJECTILES_PARENT).transform;
+        Debug.Log("got parent: " + _projectiles_parent);
+    }
     void Update()
     {
         
