@@ -37,7 +37,7 @@ public class Projectile : Poolable
         _proj_data.ProjectilePath = projInfo.ProjectilePath;
         _proj_data.ProjectileSpeed = Random.Range(projInfo.ProjectileMinSpeed, projInfo.ProjectileMaxSpeed + 1)* speedMultiplier;
 
-        _proj_data.ProjectileColor = ProjectileManager.Instance.ProjUtilities.getProjectileColor(projInfo.ProjectileColor);
+        _proj_data.ProjectileColor = ProjectileHandler.Instance.ProjUtilities.getProjectileColor(projInfo.ProjectileColor);
         _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
 
         float tempSize = Random.Range(projInfo.ProjectileMinSize-1, projInfo.ProjectileMaxSize);
@@ -49,8 +49,8 @@ public class Projectile : Poolable
             _proj_data.ProjectileCurrentDuration = 0;
         }
 
-        _proj_controller.placeProjectile(ProjectileManager.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
-        transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
+        _proj_controller.placeProjectile(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
+        transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
 
 
 
@@ -72,7 +72,7 @@ public class Projectile : Poolable
             {
                 projectileDespawn.AddParameter(EventParamKeys.projParam, this);
             }
-            this.transform.rotation = ProjectileManager.Instance.ProjUtilities.getProjectileRotation(GameManager.Instance.PlayerLocation, this.transform.position);
+            this.transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(PlayerHandler.Instance.PlayerLocation, this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);

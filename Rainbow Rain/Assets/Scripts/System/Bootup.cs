@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class Bootup : MonoBehaviour
 {
-    void Start()
+    void Awake()
     {
         EventBroadcaster.Instance.Initialize();
         GameManager.Instance.Initialize();
 
-        InputManager.Instance.Initialize();
-        ProjectileManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
         ColorDictionary.InitializeColors();
 
         if(EventBroadcaster.Instance.IsDoneInitializing &&
             GameManager.Instance.IsDoneInitializing &&
-            InputManager.Instance.IsDoneInitializing &&
-            ProjectileManager.Instance.IsDoneInitializing)
+            UIManager.Instance.IsDoneInitializing)
         {
             EventBroadcaster.Instance.PostEvent(EventKeys.START_MENU, null);
         }

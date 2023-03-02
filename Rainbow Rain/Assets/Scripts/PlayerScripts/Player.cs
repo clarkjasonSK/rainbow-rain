@@ -30,7 +30,9 @@ public class Player : MonoBehaviour
     #endregion
 
     void Start()
-    { 
+    {
+        PlayerHandler.Instance.PlayerReference = this;
+
         _player_controller = GetComponent<PlayerController>();
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);
         playerHitEvent = new EventParameters();
@@ -54,14 +56,24 @@ public class Player : MonoBehaviour
                             ShellStartAlpha));
 
     }
-
-    public void movePlayer(Vector2 playerInput)
+    private void Update()
     {
-        _player_controller.Traverse(playerInput, _player_data.MoveSpeed);
+        if (InputHandler.Instance.UserKeyHold)
+        {
+            movePlayer();
+        }
+        else if (InputHandler.Instance.UserCursorHold)
+        {
+            dragPlayer();
+        }
     }
-    public void dragPlayer(Vector2 playerInput)
+    public void movePlayer()
     {
-        _player_controller.Drag(playerInput, _player_data.MoveSpeed);
+        _player_controller.Traverse(InputHandler.Instance.UserKeyInput, _player_data.MoveSpeed);
+    }
+    public void dragPlayer()
+    {
+        _player_controller.Drag(InputHandler.Instance.UserCursorInput, _player_data.MoveSpeed);
 
     }
 

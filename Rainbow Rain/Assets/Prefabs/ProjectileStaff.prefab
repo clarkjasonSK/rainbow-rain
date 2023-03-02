@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 645007066746351916}
+  - component: {fileID: 7662791808136411921}
   - component: {fileID: 645007066746351915}
   - component: {fileID: 645007066746351914}
   - component: {fileID: 645007066746351912}
   m_Layer: 0
   m_Name: ProjectileStaff
-  m_TagString: Untagged
+  m_TagString: ProjectilesStaff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,6 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7662791808136411921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645007066746351919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4357ed44c11ca14dbb63ccff6026372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 0
+  _proj_lifetime: {fileID: 645007066746351915}
+  _proj_utilities: {fileID: 645007066746351914}
 --- !u!114 &645007066746351915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,9 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filename: Assets/JSON/Projectiles.JSON
-  FastSpawnRate: 0.5
-  NormalSpawnRate: 1
-  SlowSpawnRate: 1.5
+  projObjPool: {fileID: 645007066746351912}
 --- !u!114 &645007066746351914
 MonoBehaviour:
   m_ObjectHideFlags: 0

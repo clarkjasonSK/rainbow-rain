@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>, ISingleton
+public class UIManager : Singleton<UIManager>, IPersistSingleton
 {
     #region Singleton Variables
     private bool isDone = false;

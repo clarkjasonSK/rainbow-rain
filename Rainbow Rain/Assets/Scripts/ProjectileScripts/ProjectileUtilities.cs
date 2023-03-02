@@ -4,24 +4,10 @@ using UnityEngine;
 
 public class ProjectileUtilities : MonoBehaviour
 {
-
     [SerializeField] private Transform ProjectileSpawnBoundX;
     [SerializeField] private Transform ProjectileSpawnBoundY;
 
     public void initialize()
-    {
-        ProjectileSpawnBoundX = ProjectileManager.Instance.ProjectilesParent.GetChild(2).transform;
-        ProjectileSpawnBoundY = ProjectileManager.Instance.ProjectilesParent.GetChild(3).transform;
-
-        setSpawnBoundY();
-    }
-
-    public void reinitialize()
-    {
-        setSpawnBoundY();
-    }
-
-    private void setSpawnBoundY()
     {
         ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
     }
@@ -79,7 +65,7 @@ public class ProjectileUtilities : MonoBehaviour
     {
         if (projTarget == ProjTarget.PLAYER)
         {
-            return Quaternion.Euler(0, 0, getAngle(GameManager.Instance.PlayerLocation, projLocation));
+            return Quaternion.Euler(0, 0, getAngle(PlayerHandler.Instance.PlayerLocation, projLocation));
         }
 
         else if(projTarget == ProjTarget.END_BOUNDS)
@@ -138,9 +124,9 @@ public class ProjectileUtilities : MonoBehaviour
         }
         if (projColor == ProjColor.PLAYER)
         {
-            return GameManager.Instance.PlayerColor;
+            return PlayerHandler.Instance.PlayerColor;
         }
 
-        return ColorDictionary.getRandomColor(GameManager.Instance.PlayerColor);
+        return ColorDictionary.getRandomColor(PlayerHandler.Instance.PlayerColor);
     }
 }

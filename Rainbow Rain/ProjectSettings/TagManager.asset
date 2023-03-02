@@ -8,6 +8,7 @@ TagManager:
   - ProjectileBounds
   - ProjectilesParent
   - MenuHandler
+  - ProjectilesStaff
   layers:
   - Default
   - TransparentFX
