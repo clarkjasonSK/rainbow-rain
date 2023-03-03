@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHandler: Singleton<ProjectileHandler>
+public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton
 {
+    #region ISingleton Variables
+    private bool isDone = true;
+    public bool IsDoneInitializing
+    {
+        get { return isDone; }
+    }
+    #endregion
+
     private List<Projectile> _projectile_list = new List<Projectile>();
 
     [SerializeField] private ProjectileLifetime _proj_lifetime;
@@ -16,9 +24,10 @@ public class ProjectileHandler: Singleton<ProjectileHandler>
     {
         get { return _proj_utilities; }
     }
-    private void Awake()
+    private void Start()
     {
-        Initialize();
+        if(_proj_utilities == null || _proj_lifetime == null)
+            Initialize();
     }
     public void Initialize()
     {

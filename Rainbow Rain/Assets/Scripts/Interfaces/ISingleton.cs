@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPersistSingleton
+public interface ISingleton
 {
     public bool IsDoneInitializing { get; }
-    public void Initialize();
+    void Initialize();
 }

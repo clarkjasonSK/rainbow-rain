@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler: Singleton<InputHandler>
+public class InputHandler: Singleton<InputHandler>, ISingleton
 {
-    #region IPersistSingleton Variables
+    #region ISingleton Variables
     private bool isDone = true;
     public bool IsDoneInitializing
     {
@@ -16,6 +16,7 @@ public class InputHandler: Singleton<InputHandler>
     #region Player Variables
     private PlayerControls _player_controls = null;
     #endregion
+
     private Camera _camera;
 
     #region Input Variables
@@ -57,9 +58,12 @@ public class InputHandler: Singleton<InputHandler>
     }
     #endregion
 
-    private void Awake()
+    private void Start()
     {
-        Initialize();
+        if (_player_controls == null)
+        {
+            Initialize();
+        }
     }
     public void Initialize()
     {

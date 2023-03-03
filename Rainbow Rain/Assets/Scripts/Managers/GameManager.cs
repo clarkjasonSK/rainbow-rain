@@ -11,9 +11,9 @@ public enum GameState
     PAUSED
 }
 
-public class GameManager : Singleton<GameManager>, IPersistSingleton
+public class GameManager : Singleton<GameManager>, ISingleton
 {
-    #region Singleton Variables
+    #region ISingleton Variables
     private bool isDone = false;
     public bool IsDoneInitializing
     {

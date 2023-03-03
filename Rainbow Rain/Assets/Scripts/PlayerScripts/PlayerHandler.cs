@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandler : Singleton<PlayerHandler>
+public class PlayerHandler : Singleton<PlayerHandler>, ISingleton
 {
+    #region ISingleton Variables
+    private bool isDone = true;
+    public bool IsDoneInitializing
+    {
+        get { return isDone; }
+    }
+    #endregion
+
     #region Player References
     private Player _player_reference;
     public Player PlayerReference
     {
         get { return _player_reference; }
-        set { _player_reference = value; }
     }
     public Vector3 PlayerLocation
     {
@@ -20,6 +27,27 @@ public class PlayerHandler : Singleton<PlayerHandler>
         get { return _player_reference.PlayerColor; }
     }
     #endregion
+
+    #region Event Variables
+    Projectile projReference = null;
+    #endregion
+
+    void Start()
+    {
+        if (_player_reference == null)
+        {
+            Initialize();
+        }
+    }
+
+    public void Initialize()
+    {
+        _player_reference = GameObject.FindGameObjectWithTag(TagNames.PLAYER).GetComponent<Player>();
+
+        AddEventObservers();
+        isDone = true;
+    }
+
     public bool compareColors(Color playerColor, Color projColor)
     {
         if (playerColor.r == projColor.r &&
@@ -30,15 +58,7 @@ public class PlayerHandler : Singleton<PlayerHandler>
         }
         return false;
     }
-
-    #region Event Variables
-    Projectile projReference = null;
-    #endregion
-
-    public void Start()
-    {
-        AddEventObservers();
-    }
+    
 
     private void AddEventObservers()
     {

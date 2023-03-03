@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bootup : MonoBehaviour
+public static class SystemBootup
 {
-    void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static void LoadSystem()
     {
         EventBroadcaster.Instance.Initialize();
         GameManager.Instance.Initialize();
@@ -16,6 +17,7 @@ public class Bootup : MonoBehaviour
             GameManager.Instance.IsDoneInitializing &&
             UIManager.Instance.IsDoneInitializing)
         {
+            Debug.Log(SceneNames.MAIN_MENU + " initialized!");
             EventBroadcaster.Instance.PostEvent(EventKeys.START_MENU, null);
         }
     }

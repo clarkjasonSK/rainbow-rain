@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        PlayerHandler.Instance.PlayerReference = this;
 
         _player_controller = GetComponent<PlayerController>();
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);

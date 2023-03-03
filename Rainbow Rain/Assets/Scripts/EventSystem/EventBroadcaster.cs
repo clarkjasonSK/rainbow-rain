@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventBroadcaster : Singleton<EventBroadcaster>, IPersistSingleton
+public class EventBroadcaster : Singleton<EventBroadcaster>, ISingleton
 {
-    #region Singleton Variables
+    #region ISingleton Variables
     private bool isDone = false;
     public bool IsDoneInitializing
     {
