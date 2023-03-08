@@ -1,5 +1,6 @@
 {
-	"Items":[
+	"Data":
+	[
 	{
 		"ProjectileID": -1,
 		"ProjectileSpawnRate": "FAST",

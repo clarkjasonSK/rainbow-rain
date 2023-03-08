@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileLifetime : MonoBehaviour
-{
-
-    [SerializeField] private string filename = ProjectileDictionary.PROJECTILES_JSON;
-    private List<ProjectileInfo> _projectile_types;
+{ 
+    private List<ProjectileData> _projectile_types;
 
     private List<float> _projectile_spawn_times = new List<float>();
     private List<float> _projectile_elapsed_times = new List<float>();
@@ -18,14 +16,14 @@ public class ProjectileLifetime : MonoBehaviour
     public void initialize()
     {
 
-        _projectile_types = ProjectileJSONLoader.loadJSONInfo<ProjectileInfo>(filename, false);
+        _projectile_types = JsonLoader.loadJsonData<ProjectileData>(FileNames.PROJECTILES_JSON, false);
 
         //_projectile_types = new List<ProjectileInfo>();
         //_projectile_types.Add(new ProjectileInfo(1, "SLOW", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
 
        // Debug.Log("PojectileHandler instance: " + ProjectileHandler.Instance);
 
-        foreach (ProjectileInfo pi in _projectile_types)
+        foreach (ProjectileData pi in _projectile_types)
         {
             _projectile_spawn_times.Add(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawnRate(pi.ProjectileSpawnRate));
             _projectile_elapsed_times.Add(0);
@@ -58,7 +56,7 @@ public class ProjectileLifetime : MonoBehaviour
         }
     }
 
-    public Projectile cloneProjectile(ProjectileInfo projInfo)
+    public Projectile cloneProjectile(ProjectileData projData)
     {
         Projectile tempProjectile = projObjPool.GameObjectPool.Get().GetComponent<Projectile>();
 
@@ -67,7 +65,7 @@ public class ProjectileLifetime : MonoBehaviour
             //Debug.Log("it's already in the scene bro");
             //return null;
         }
-        tempProjectile.initProj(projInfo);
+        tempProjectile.initProj(projData);
 
         return tempProjectile;
     }

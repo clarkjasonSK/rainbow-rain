@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectileData
+public class ProjectileTraits
 {
     private int _type_id;
     public int ProjectileTypeID
