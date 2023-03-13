@@ -33,7 +33,7 @@ public class Projectile : Poolable
     public void initProj(ProjectileData projData)
     {
         
-        _proj_data.ProjectileTypeID = projData.ProjectileID;
+        _proj_data.ProjectileTypeID = projData.DataID;
         _proj_data.ProjectilePath = projData.ProjectilePath;
         _proj_data.ProjectileSpeed = Random.Range(projData.ProjectileMinSpeed, projData.ProjectileMaxSpeed + 1)* speedMultiplier;
 

@@ -2,14 +2,14 @@
 	"Data":
 	[
 		{
-		"PatternID": 1,
+		"DataID": 1,
 		"PatternRepteatable": true,
 		"PatternDuration": 30,
 		"PatternProjectiles":[-1,-2]
 		},
 		{
-		"PatternID": 2,
-		"PatternRepteatable": true,
+		"DataID": 2,
+		"PatternRepteatable": false,
 		"PatternDuration": 10,
 		"PatternProjectiles":[-3]	
 		}

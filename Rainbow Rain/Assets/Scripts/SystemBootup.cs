@@ -13,7 +13,7 @@ public static class SystemBootup
         UIManager.Instance.Initialize();
         ColorDictionary.InitializeColors();
 
-        LevelDataSOHandler.loadLevelsList();
+        SODataHandler.VerifyScriptableObjects();
 
         if (EventBroadcaster.Instance.IsDoneInitializing &&
             GameManager.Instance.IsDoneInitializing &&

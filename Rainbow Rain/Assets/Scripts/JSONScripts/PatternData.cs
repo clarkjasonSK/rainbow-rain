@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class PatternData
+public class PatternData : GameData
 {
-    public int PatternID;
     public bool PatternRepteatable;
     public float PatternDuration;
     public List<int> PatternProjectiles;

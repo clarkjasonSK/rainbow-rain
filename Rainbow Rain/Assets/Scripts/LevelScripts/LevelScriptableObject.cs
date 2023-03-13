@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObjects/Level")]
-public class LevelScriptableObject : ScriptableObject
+public class LevelScriptableObject : GameScriptableObject
 {
     #region Level Values
     [SerializeField] private int _level_id = 0;
@@ -14,7 +14,7 @@ public class LevelScriptableObject : ScriptableObject
     }
 
 
-    [SerializeField] private bool _is_endless=false;
+    [SerializeField] private bool _is_endless;
     public bool LevelIsEndless
     {
         get { return _is_endless; }
@@ -33,4 +33,16 @@ public class LevelScriptableObject : ScriptableObject
         get { return _level_patterns.Count; }
     }
     #endregion
+
+    public override void InstantiateData<TData>(TData gameData)
+    {
+        assignValues(gameData as LevelData);
+    }
+    public void assignValues(LevelData lvlData)
+    {
+        _level_id = lvlData.DataID;
+
+        _is_endless = lvlData.LevelIsEndless;
+        _level_patterns = lvlData.LevelPatterns;
+    }
 }

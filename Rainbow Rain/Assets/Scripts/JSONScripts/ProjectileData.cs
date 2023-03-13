@@ -1,9 +1,8 @@
 using System;
 
 [Serializable]
-public class ProjectileData
+public class ProjectileData : GameData
 {
-    public int ProjectileID;
 
     public string ProjectileSpawnRate;
     public string ProjectileSpawnPosition;

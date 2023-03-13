@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Pattern", menuName = "ScriptableObjects/Pattern")]
-public class PatternScriptableObject: ScriptableObject
+public class PatternScriptableObject: GameScriptableObject
 {
     #region Pattern Values
     [SerializeField] private int _pattern_id = 0;
     public int PatternID
     {
         get { return _pattern_id; }
-        set { _pattern_id = value; }
     }
 
     [SerializeField] private bool _pattern_repeatable;
@@ -26,13 +25,13 @@ public class PatternScriptableObject: ScriptableObject
     }
 
     [SerializeField] private List<int> _pattern_proj_list;
-    public List<int> PatternProjectileList
+    public List<int> PatternProjectiles
     {
         get { return _pattern_proj_list; }
     }
     public int PatternProjectileSize
     {
-        get { return _pattern_proj_list.Count;}
+        get { return _pattern_proj_list.Count; }
     }
     #endregion
 
@@ -46,4 +45,19 @@ public class PatternScriptableObject: ScriptableObject
         _pattern_proj_list.Add(proj);
     }
 
+
+    public override void InstantiateData<TData>(TData gameData)
+    {
+        assignValues(gameData as PatternData);
+    }
+    public void assignValues(PatternData pttrnData)
+    {
+        _pattern_id = pttrnData.DataID;
+
+        _pattern_repeatable = pttrnData.PatternRepteatable;
+        _pattern_duration = pttrnData.PatternDuration;
+
+        _pattern_proj_list = pttrnData.PatternProjectiles;
+
+    }
 }
