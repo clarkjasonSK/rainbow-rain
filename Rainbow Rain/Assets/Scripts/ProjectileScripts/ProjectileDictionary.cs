@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class ProjectileDictionary
 {
-    public const string PROJECTILES_JSON = "Assets/JSON/Projectiles.JSON";
+    
 }
 
 public static class ProjSpawnRate

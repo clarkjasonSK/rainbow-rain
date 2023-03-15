@@ -5,7 +5,7 @@ using UnityEngine;
 public static class SystemBootup
 {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void LoadSystem()
+    private static void LoadSystem()
     {
         EventBroadcaster.Instance.Initialize();
         GameManager.Instance.Initialize();
@@ -13,7 +13,9 @@ public static class SystemBootup
         UIManager.Instance.Initialize();
         ColorDictionary.InitializeColors();
 
-        if(EventBroadcaster.Instance.IsDoneInitializing &&
+        SODataHandler.VerifyScriptableObjects();
+
+        if (EventBroadcaster.Instance.IsDoneInitializing &&
             GameManager.Instance.IsDoneInitializing &&
             UIManager.Instance.IsDoneInitializing)
         {

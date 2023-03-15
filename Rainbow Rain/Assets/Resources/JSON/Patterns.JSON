@@ -1,0 +1,18 @@
+{
+	"Data":
+	[
+		{
+		"DataID": 1,
+		"PatternRepteatable": true,
+		"PatternDuration": 30,
+		"PatternProjectiles":[-1,-2]
+		},
+		{
+		"DataID": 2,
+		"PatternRepteatable": false,
+		"PatternDuration": 10,
+		"PatternProjectiles":[-3]	
+		}
+	]
+	
+}

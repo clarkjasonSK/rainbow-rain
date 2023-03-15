@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : Poolable
 {
     #region Projectile Variables
-    private ProjectileData _proj_data;
+    private ProjectileTraits _proj_data;
     private ProjectileController _proj_controller;
     public bool ProjectileActive
     {
@@ -30,17 +30,17 @@ public class Projectile : Poolable
     [SerializeField] private float sizeMultiplier = .2f;
     #endregion
 
-    public void initProj(ProjectileInfo projInfo)
+    public void initProj(ProjectileData projData)
     {
         
-        _proj_data.ProjectileTypeID = projInfo.ProjectileID;
-        _proj_data.ProjectilePath = projInfo.ProjectilePath;
-        _proj_data.ProjectileSpeed = Random.Range(projInfo.ProjectileMinSpeed, projInfo.ProjectileMaxSpeed + 1)* speedMultiplier;
+        _proj_data.ProjectileTypeID = projData.DataID;
+        _proj_data.ProjectilePath = projData.ProjectilePath;
+        _proj_data.ProjectileSpeed = Random.Range(projData.ProjectileMinSpeed, projData.ProjectileMaxSpeed + 1)* speedMultiplier;
 
-        _proj_data.ProjectileColor = ProjectileHandler.Instance.ProjUtilities.getProjectileColor(projInfo.ProjectileColor);
+        _proj_data.ProjectileColor = ProjectileHandler.Instance.ProjUtilities.getProjectileColor(projData.ProjectileColor);
         _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
 
-        float tempSize = Random.Range(projInfo.ProjectileMinSize-1, projInfo.ProjectileMaxSize);
+        float tempSize = Random.Range(projData.ProjectileMinSize-1, projData.ProjectileMaxSize);
         transform.localScale = new Vector3( smallestSize+ (sizeMultiplier* tempSize), smallestSize+ (sizeMultiplier * tempSize), 1);
 
         if(_proj_data.ProjectilePath == ProjPath.HOMING)
@@ -49,8 +49,8 @@ public class Projectile : Poolable
             _proj_data.ProjectileCurrentDuration = 0;
         }
 
-        _proj_controller.placeProjectile(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawn(projInfo.ProjectileSpawnPosition));
-        transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(projInfo.ProjectileTarget, this.transform.position);
+        _proj_controller.placeProjectile(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawn(projData.ProjectileSpawnPosition));
+        transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(projData.ProjectileTarget, this.transform.position);
 
 
 
@@ -82,7 +82,7 @@ public class Projectile : Poolable
     public override void OnInstantiate()
     {
         this._proj_controller = GetComponent<ProjectileController>();
-        _proj_data = new ProjectileData();
+        _proj_data = new ProjectileTraits();
         projectileDespawn = new EventParameters();
     }
 

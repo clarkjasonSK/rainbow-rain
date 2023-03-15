@@ -40,6 +40,22 @@ public class GameManager : Singleton<GameManager>, ISingleton
 
         AddEventObservers();
 
+        /*
+        List<PatternData> patternList = JsonLoader.loadJsonData<PatternData>("Assets/JSON/Patterns.JSON", false);
+        
+        foreach(PatternData pat in patternList)
+        {
+            Debug.Log("====PATTERN id: " + pat.PatternID);
+            Debug.Log("===pattern projs count: " + pat.PatternProjectiles.Count);
+            Debug.Log("==proj repeatable: " + pat.PatternRepteatable);
+            Debug.Log("==proj duration: " + pat.PatternDuration);
+            foreach (int i in pat.PatternProjectiles)
+            {
+                Debug.Log("==proj id: " + i);
+            }
+
+        }*/
+        
         isDone = true;
     }
     private void AddEventObservers()

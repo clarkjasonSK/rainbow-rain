@@ -1,0 +1,16 @@
+{
+	"Data":
+	[
+		{
+		"DataID": 1,
+		"LevelIsEndless": false,
+		"LevelPatterns":[68, 70]
+		},
+		{
+		"DataID": 2,
+		"LevelIsEndless": true,
+		"LevelPatterns":[71,72,73,74]
+		}
+	]
+	
+}

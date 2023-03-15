@@ -1,0 +1,50 @@
+{
+	"Data":
+	[
+		{
+		"LevelSOList":
+		[
+			{
+			"SOID": 1,
+			"SOFileName":"Level1"
+			},
+			{
+			"SOID": 2,
+			"SOFileName":"Level2"
+			}
+		]},
+		{
+		"PatternSOList":
+		[
+			{
+			"SOID": 1,
+			"SOFileName":"Pattern1"
+			},
+			{
+			"SOID": 2,
+			"SOFileName":"Pattern2"
+			}
+		]},
+		{
+		"ProjectileSOList":
+		[
+			{
+			"SOID": -1,
+			"SOFileName":"Projectile1"
+			},
+			{
+			"SOID": -2,
+			"SOFileName":"Projectile2"
+			},
+			{
+			"SOID": -3,
+			"SOFileName":"Projectile3"
+			},
+			{
+			"SOID": -4,
+			"SOFileName":"Projectile4"
+			}
+		]}
+	]
+	
+}

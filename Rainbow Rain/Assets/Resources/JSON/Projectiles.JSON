@@ -1,7 +1,8 @@
 {
-	"Items":[
+	"Data":
+	[
 	{
-		"ProjectileID": -1,
+		"DataID": -1,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "UP",
 		"ProjectileTarget": "PLAYER",
@@ -12,7 +13,7 @@
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": -2,
+		"DataID": -2,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "DOWN",
 		"ProjectileTarget": "PLAYER",
@@ -23,7 +24,7 @@
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": -3,
+		"DataID": -3,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "LEFT",
 		"ProjectileTarget": "PLAYER",
@@ -34,7 +35,7 @@
 		"ProjectileMinSize": 1,
 		"ProjectileMaxSize": 1
 	},{
-		"ProjectileID": -4,
+		"DataID": -4,
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "RIGHT",
 		"ProjectileTarget": "PLAYER",
