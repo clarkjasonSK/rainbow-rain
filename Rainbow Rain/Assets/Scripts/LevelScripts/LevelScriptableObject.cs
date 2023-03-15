@@ -13,6 +13,11 @@ public class LevelScriptableObject : GameScriptableObject
         set { _level_id = value; }
     }
 
+    [SerializeField] private string _level_name;
+    public string LevelName
+    {
+        get { return _level_name; }
+    }
 
     [SerializeField] private bool _is_endless;
     public bool LevelIsEndless
@@ -41,7 +46,7 @@ public class LevelScriptableObject : GameScriptableObject
     public void assignValues(LevelData lvlData)
     {
         _level_id = lvlData.DataID;
-
+        _level_name = lvlData.DataName;
         _is_endless = lvlData.LevelIsEndless;
         _level_patterns = lvlData.LevelPatterns;
     }

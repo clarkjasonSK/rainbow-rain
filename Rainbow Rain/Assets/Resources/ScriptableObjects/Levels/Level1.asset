@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   _level_id: 1
+  _level_name: LEVEL 1
   _is_endless: 0
   _level_patterns: 4400000046000000

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   _level_id: 2
+  _level_name: LEVEL 2
   _is_endless: 1
   _level_patterns: 4700000048000000490000004a000000

@@ -12,6 +12,12 @@ public class PatternScriptableObject: GameScriptableObject
         get { return _pattern_id; }
     }
 
+    [SerializeField] private string _pattern_name;
+    public string PatternName
+    {
+        get { return _pattern_name; }
+    }
+
     [SerializeField] private bool _pattern_repeatable;
     public bool PatternRepeatable
     {
@@ -53,6 +59,7 @@ public class PatternScriptableObject: GameScriptableObject
     public void assignValues(PatternData pttrnData)
     {
         _pattern_id = pttrnData.DataID;
+        _pattern_name = pttrnData.DataName;
 
         _pattern_repeatable = pttrnData.PatternRepteatable;
         _pattern_duration = pttrnData.PatternDuration;

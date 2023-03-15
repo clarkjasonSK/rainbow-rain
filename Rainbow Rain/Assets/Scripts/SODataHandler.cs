@@ -22,8 +22,8 @@ public static class SODataHandler
         //verifyLevels();
 
         verifySOList<LevelSO>(SOList[0].LevelSOList);
-        verifySOList<PatternSO>(SOList[1].PatternSOList);
-        verifySOList<ProjectileSO>(SOList[2].ProjectileSOList);
+        //verifySOList<PatternSO>(SOList[1].PatternSOList);
+        //verifySOList<ProjectileSO>(SOList[2].ProjectileSOList);
 
     }
     
@@ -48,6 +48,7 @@ public static class SODataHandler
             if (tempSO != null)
             {
                 //Debug.Log(key.SOID + " level found " + tempSO.LevelID);
+                GameManager.Instance.addLevel(key as LevelSO);
                 continue;
             }
 
