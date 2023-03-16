@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
     }
     #endregion
 
-    private List<LevelSO> _levels_list;
+    private List<LevelKey> _levels_list;
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();
@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
 
         AddEventObservers();
 
-        _levels_list = new List<LevelSO>();
+        _levels_list = new List<LevelKey>();
 
         /*
         List<PatternData> patternList = JsonLoader.loadJsonData<PatternData>("Assets/JSON/Patterns.JSON", false);
@@ -68,7 +68,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
         EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
     }
     
-    public void addLevel(LevelSO lvl)
+    public void addLevel(LevelKey lvl)
     {
         _levels_list.Add(lvl);
     }

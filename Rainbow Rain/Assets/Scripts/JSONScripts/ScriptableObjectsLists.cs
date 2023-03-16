@@ -4,31 +4,31 @@ using System.Collections.Generic;
 [Serializable]
 public class ScriptableObjectsLists //SO == Scriptable Objects
 {
-    public List<LevelSO> LevelSOList;
-    public List<PatternSO> PatternSOList;
-    public List<ProjectileSO> ProjectileSOList;
+    public List<LevelKey> LevelKeyList;
+    public List<PatternKey> PatternKeyList;
+    public List<ProjectileKey> ProjectileKeyList;
 
 }
 
-public abstract class ScriptableObjectKey{
+public abstract class DataKey{
     public int SOID;
     public string SOFileName;
 }
 
 [Serializable]
-public class LevelSO : ScriptableObjectKey
+public class LevelKey : DataKey
 {
 
 }
 
 [Serializable]
-public class PatternSO : ScriptableObjectKey
+public class PatternKey : DataKey
 {
 
 }
 
 [Serializable]
-public class ProjectileSO : ScriptableObjectKey
+public class ProjectileKey : DataKey
 {
 
 }
