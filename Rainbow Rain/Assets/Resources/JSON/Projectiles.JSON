@@ -3,6 +3,7 @@
 	[
 	{
 		"DataID": -1,
+		"DataName": "Projectile 1",
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "UP",
 		"ProjectileTarget": "PLAYER",
@@ -14,6 +15,7 @@
 		"ProjectileMaxSize": 1
 	},{
 		"DataID": -2,
+		"DataName": "Projectile 2",
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "DOWN",
 		"ProjectileTarget": "PLAYER",
@@ -25,6 +27,7 @@
 		"ProjectileMaxSize": 1
 	},{
 		"DataID": -3,
+		"DataName": "Projectile 3",
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "LEFT",
 		"ProjectileTarget": "PLAYER",
@@ -36,6 +39,7 @@
 		"ProjectileMaxSize": 1
 	},{
 		"DataID": -4,
+		"DataName": "Projectile 4",
 		"ProjectileSpawnRate": "FAST",
 		"ProjectileSpawnPosition": "RIGHT",
 		"ProjectileTarget": "PLAYER",

@@ -7,10 +7,16 @@ public class ProjectileScriptableObject : GameScriptableObject
 {
     #region Projectile Values
 
-    [SerializeField] private int _projectile_id;
+    [SerializeField] private int _id;
     public int ProjectileID
     {
-        get { return _projectile_id; }
+        get { return _id; }
+    }
+
+    [SerializeField] private string _name;
+    public string ProjectileName
+    {
+        get { return _name; }
     }
 
     [SerializeField] private string _spawn_rate;
@@ -75,7 +81,8 @@ public class ProjectileScriptableObject : GameScriptableObject
     }
     public void assignValues(ProjectileData projData)
     {
-        _projectile_id = projData.DataID;
+        _id = projData.DataID;
+        _name = projData.DataName;
 
         _spawn_rate = projData.ProjectileSpawnRate;
         _spawn_position = projData.ProjectileSpawnPosition;
