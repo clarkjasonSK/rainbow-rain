@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class SODataHandler
 {
-    private static List<ScriptableObjectsLists> SOList;
+    private static List<ScriptableObjectsKeys> SOList;
 
     private static List<LevelData> _level_data_list = new List<LevelData>();
     private static List<PatternData> _pattern_data_list = new List<PatternData>();
@@ -13,9 +13,10 @@ public static class SODataHandler
 
     private static GameScriptableObject tempSO;
     private static GameData targetData;
+    private static string targetName;
     public static void VerifyScriptableObjects()
     {
-        SOList = JsonLoader.loadJsonData<ScriptableObjectsLists>(FileNames.SO_LIST, false);
+        SOList = JsonLoader.loadJsonData<ScriptableObjectsKeys>(FileNames.SO_LIST, false);
         //Debug.Log("SOList: " + SOList.Count + " | levelslist: " + SOList[0].LevelKeyList.Count +" | patternlist: " + SOList[1].PatternKeyList.Count + " | projlist " + SOList[2].ProjectileKeyList.Count);
 
         loadJsonData();
@@ -34,6 +35,7 @@ public static class SODataHandler
         Debug.Log("Verifying for : " + soList[0].GetType());
         foreach (TKey key in soList)
         {
+            targetName = key.SOFileName;
             if(key is LevelKey)
             {
                 key.SOFileName = FileNames.LEVELS_SO_PATH + key.SOFileName;
@@ -50,12 +52,24 @@ public static class SODataHandler
             if (ScriptableObjectUtility.VerifyScriptableObject<TSO>(key.SOFileName))
             {
                 //Debug.Log(" level "+ key.SOID  +"found ");
-                GameManager.Instance.addLevel(key as LevelKey);
+                if (key is LevelKey)
+                {
+                    key.SOFileName = targetName;
+                    GameManager.Instance.addLevel(key as LevelKey);
+                }
                 continue;
             }
+
             Debug.Log(key.GetType()+":"+ key.SOID + " so not found. Filename: " + key.SOFileName);
 
             createScriptableObject<TKey, TData, TSO>(key, dataList);
+
+            if (key is LevelKey)
+            {
+                key.SOFileName = targetName;
+                GameManager.Instance.addLevel(key as LevelKey);
+            }
+
         }
     }
     private static void createScriptableObject<TKey, TData, TSO>(TKey key, List<TData> dataList)

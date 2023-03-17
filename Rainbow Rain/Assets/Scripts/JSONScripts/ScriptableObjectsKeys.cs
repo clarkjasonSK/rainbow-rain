@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class ScriptableObjectsLists //SO == Scriptable Objects
+public class ScriptableObjectsKeys
 {
     public List<LevelKey> LevelKeyList;
     public List<PatternKey> PatternKeyList;

@@ -12,6 +12,72 @@
 		"DataName": "LEVEL 2",
 		"LevelIsEndless": true,
 		"LevelPatterns":[71,72,73,74]
+		},
+		{
+		"DataID": 3,
+		"DataName": "LEVEL 3",
+		"LevelIsEndless": false,
+		"LevelPatterns":[2,3,4]
+		},
+		{
+		"DataID": 4,
+		"DataName": "LEVEL 4",
+		"LevelIsEndless": false,
+		"LevelPatterns":[3]
+		},
+		{
+		"DataID": 5,
+		"DataName": "LEVEL 5",
+		"LevelIsEndless": false,
+		"LevelPatterns":[5,6]
+		},
+		{
+		"DataID": 6,
+		"DataName": "LEVEL 6",
+		"LevelIsEndless": false,
+		"LevelPatterns":[5,6,7]
+		},
+		{
+		"DataID": 7,
+		"DataName": "LEVEL 7",
+		"LevelIsEndless": false,
+		"LevelPatterns":[6]
+		},
+		{
+		"DataID": 8,
+		"DataName": "LEVEL 8",
+		"LevelIsEndless": false,
+		"LevelPatterns":[7,8,9]
+		},
+		{
+		"DataID": 9,
+		"DataName": "LEVEL 9",
+		"LevelIsEndless": false,
+		"LevelPatterns":[8]
+		},
+		{
+		"DataID": 10,
+		"DataName": "LEVEL 10",
+		"LevelIsEndless": false,
+		"LevelPatterns":[10,11]
+		},
+		{
+		"DataID": 11,
+		"DataName": "LEVEL 11",
+		"LevelIsEndless": false,
+		"LevelPatterns":[10,11,12]
+		},
+		{
+		"DataID": 12,
+		"DataName": "LEVEL 12",
+		"LevelIsEndless": false,
+		"LevelPatterns":[12,13]
+		},
+		{
+		"DataID": 13,
+		"DataName": "LEVEL 13",
+		"LevelIsEndless": false,
+		"LevelPatterns":[13]
 		}
 	]
 	

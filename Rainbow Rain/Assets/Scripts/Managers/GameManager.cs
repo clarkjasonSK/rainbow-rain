@@ -34,6 +34,10 @@ public class GameManager : Singleton<GameManager>, ISingleton
     #endregion
 
     private List<LevelKey> _levels_list;
+    public List<LevelKey> LevelsList
+    {
+        get { return _levels_list; }
+    }
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();

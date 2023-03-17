@@ -9,6 +9,7 @@ TagManager:
   - ProjectilesParent
   - MenuHandler
   - ProjectilesStaff
+  - LevelHandler
   layers:
   - Default
   - TransparentFX

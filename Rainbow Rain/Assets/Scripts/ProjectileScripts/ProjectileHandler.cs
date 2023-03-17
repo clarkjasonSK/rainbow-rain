@@ -64,7 +64,7 @@ public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton
     #region EventBroadcaster  Functions
     public void OnProjectileExit(EventParameters param)
     {
-        removeProjectile(param.GetParameter<Projectile>(EventParamKeys.projParam, null));
+        removeProjectile(param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null));
     }
     #endregion
 }

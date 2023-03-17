@@ -15,7 +15,6 @@ public static class SystemBootup
         SODataHandler.VerifyScriptableObjects();
 
         UIManager.Instance.Initialize();
-        MenuManager.Instance.Initialize();
 
         if (EventBroadcaster.Instance.IsDoneInitializing &&
             GameManager.Instance.IsDoneInitializing &&

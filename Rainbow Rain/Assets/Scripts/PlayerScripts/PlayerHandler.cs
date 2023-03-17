@@ -68,7 +68,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton
     {
         //Player tempPlayer = param.GetParameter<Player>(EventParamKeys.playerParam, null);
 
-        projReference = param.GetParameter<Projectile>(EventParamKeys.projParam, null);
+        projReference = param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null);
         projReference.ProjectileActive = false;
 
         switch (GameManager.Instance.GameState)

@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag(TagNames.PROJECTILE))
         {
             //NotifyPlayerHit(this, collision.GetComponent<Projectile>());
-            playerHitEvent.AddParameter(EventParamKeys.projParam, collision.GetComponent<Projectile>());
+            playerHitEvent.AddParameter(EventParamKeys.PROJ_PARAM, collision.GetComponent<Projectile>());
 
             EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerHitEvent);
         }

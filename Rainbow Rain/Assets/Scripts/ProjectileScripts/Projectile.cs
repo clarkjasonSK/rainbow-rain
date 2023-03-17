@@ -70,7 +70,7 @@ public class Projectile : Poolable
         {
             if (_proj_data.ProjectileCurrentDuration >= _proj_data.ProjectileTotalDuration)
             {
-                projectileDespawn.AddParameter(EventParamKeys.projParam, this);
+                projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
             }
             this.transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(PlayerHandler.Instance.PlayerLocation, this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
@@ -110,7 +110,7 @@ public class Projectile : Poolable
         if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS) && _proj_data.ProjectileActive)
         {
             //NotifyProjectileExit(this);
-            projectileDespawn.AddParameter(EventParamKeys.projParam, this);
+            projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
             EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, projectileDespawn);
             //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY
         }
