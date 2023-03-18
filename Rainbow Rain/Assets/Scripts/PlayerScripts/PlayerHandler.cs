@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandler : Singleton<PlayerHandler>, ISingleton
+public class PlayerHandler : Singleton<PlayerHandler>, ISingleton, IEventObserver
 {
     #region ISingleton Variables
     private bool isDone = true;
@@ -60,7 +60,7 @@ public class PlayerHandler : Singleton<PlayerHandler>, ISingleton
     }
     
 
-    private void AddEventObservers()
+    public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
     }

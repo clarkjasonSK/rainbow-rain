@@ -3,23 +3,30 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelHandler : MonoBehaviour
+public class LevelHandler : MonoBehaviour, IEventObserver
 {
     [SerializeField] private GameObject _level_button_template;
     [SerializeField] private Transform _level_content_transform;
 
     public void Awake()
     {
-        Debug.Log("levelslist count: " + GameManager.Instance.LevelsList.Count);
         CreateLevelButtons(GameManager.Instance.LevelsList);
+        AddEventObservers();
     }
-    public void CreateLevelButtons(List<LevelKey> lvlList)
+
+    public  void AddEventObservers()
     {
-        foreach(LevelKey lvlkey in lvlList)
+        EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_PRESSED, OnLevelPressed);
+    }
+
+    private void CreateLevelButtons(List<LevelKey> lvlList)
+    {
+        foreach (LevelKey lvlkey in lvlList)
         {
             GameObject newObj = Instantiate(_level_button_template, _level_content_transform);
             newObj.SetActive(true);
-            LevelKeyDataUI newLevel = newObj.GetComponent<LevelKeyDataUI>();
+
+            LevelButton newLevel = newObj.GetComponent<LevelButton>();
 
             newLevel.LevelID = lvlkey.SOID;
             newLevel.LevelName = lvlkey.SOFileName;
@@ -28,4 +35,18 @@ public class LevelHandler : MonoBehaviour
 
         }
     }
+    private void SetCurrentLevelSO(int levelID)
+    {
+        SODataHandler.SetCurrentLevelSO(levelID);
+    }
+
+    #region Event Broadcaster Notifications
+    private void OnLevelPressed(EventParameters param)
+    {
+        SetCurrentLevelSO( param.GetParameter<int>(EventParamKeys.LEVEL_ID, 0) );
+    }
+
+    #endregion
+
+
 }

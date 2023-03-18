@@ -7,23 +7,26 @@ using UnityEngine.UI;
 public class MenuHandler: MonoBehaviour
 {
 
+    #region Transform Panels
     [SerializeField] private GameObject _top_panel;
     [SerializeField] private GameObject _mid_panel;
     [SerializeField] private GameObject _btm_panel;
+    #endregion
 
-
+    #region Menu Panels
     [SerializeField] private GameObject _main_menu_panel;
+    [SerializeField] private GameObject _level_panel;
+    [SerializeField] private GameObject _credits_panel;
+    [SerializeField] private GameObject _settings_panel;
+    #endregion
 
+    #region Buttons
     [SerializeField] private Button _play_btn;
     [SerializeField] private Button _credits_btn;
     [SerializeField] private Button _settings_btn;
 
-    [SerializeField] private GameObject _level_panel;
     [SerializeField] private Button _level_back_btn;
-
-    [SerializeField] private GameObject _credits_panel;
-    [SerializeField] private GameObject _settings_panel;
-
+    #endregion
 
     #region Event Parameters
     private EventParameters menuParams;
@@ -70,6 +73,7 @@ public class MenuHandler: MonoBehaviour
         DontDestroyOnLoad(this.transform);
     }
 
+    #region OnClick Functions
     private void OnPlayClicked()
     {
         EventBroadcaster.Instance.PostEvent(EventKeys.PLAY_PRESSED, menuParams);
@@ -84,10 +88,12 @@ public class MenuHandler: MonoBehaviour
     {
         _credits_panel.SetActive(true);
     }
+
     private void OnSettingsClicked()
     {
         _settings_panel.SetActive(true);
     }
+    #endregion
 
-    
+
 }

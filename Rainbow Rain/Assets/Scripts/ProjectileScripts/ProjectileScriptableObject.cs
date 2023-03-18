@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Pattern", menuName = "ScriptableObjects/Pattern")]
+[CreateAssetMenu(fileName = "Projectile", menuName = "ScriptableObjects/Projectile")]
 public class ProjectileScriptableObject : GameScriptableObject
 {
     #region Projectile Values

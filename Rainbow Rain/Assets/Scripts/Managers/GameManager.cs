@@ -11,7 +11,7 @@ public enum GameState
     PAUSED
 }
 
-public class GameManager : Singleton<GameManager>, ISingleton
+public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
 {
     #region ISingleton Variables
     private bool isDone = false;
@@ -65,7 +65,7 @@ public class GameManager : Singleton<GameManager>, ISingleton
 
         isDone = true;
     }
-    private void AddEventObservers()
+    public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.START_MENU, OnStartMenu);
         EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
@@ -78,17 +78,17 @@ public class GameManager : Singleton<GameManager>, ISingleton
     }
 
     #region Event Broadcaster Notifications
-    public void OnStartMenu(EventParameters param)
+    public void OnStartMenu(EventParameters param=null)
     {
         _game_state_handler.Initialize(GameState.MAIN_MENU);
     }
-    public void OnGameStart(EventParameters param)
+    public void OnGameStart(EventParameters param = null)
     {
         _game_state_handler.Initialize(GameState.INGAME);
         SceneManager.LoadScene(SceneNames.GAME_SCENE);
 
     }
-    public void OnGamePause(EventParameters param)
+    public void OnGamePause(EventParameters param = null)
     {
         _game_state_handler.Initialize(GameState.PAUSED);
 

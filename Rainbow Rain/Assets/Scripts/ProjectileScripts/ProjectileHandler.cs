@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton
+public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton, IEventObserver
 {
     #region ISingleton Variables
     private bool isDone = true;
@@ -34,8 +34,11 @@ public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton
         _proj_utilities.initialize();
         _proj_lifetime.initialize();
 
-        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileExit);
 
+    }
+    public void AddEventObservers()
+    {
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileExit);
     }
     void Update()
     {

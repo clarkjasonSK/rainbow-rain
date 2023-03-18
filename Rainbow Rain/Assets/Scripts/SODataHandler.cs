@@ -5,15 +5,25 @@ using UnityEngine;
 
 public static class SODataHandler
 {
+    #region DataLists
     private static List<ScriptableObjectsKeys> SOList;
 
     private static List<LevelData> _level_data_list = new List<LevelData>();
     private static List<PatternData> _pattern_data_list = new List<PatternData>();
     private static List<ProjectileData> _proj_data_list = new List<ProjectileData>();
+    #endregion
 
+    #region Utility Variables
     private static GameScriptableObject tempSO;
     private static GameData targetData;
     private static string targetName;
+
+    //private static LevelScriptableObject currentLevel;
+    //private static LevelScriptableObject targetLevel;
+    #endregion
+
+
+
     public static void VerifyScriptableObjects()
     {
         SOList = JsonLoader.loadJsonData<ScriptableObjectsKeys>(FileNames.SO_LIST, false);
@@ -27,7 +37,7 @@ public static class SODataHandler
 
     }
     
-    public static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList) 
+    private static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList) 
         where TKey : DataKey
         where TData : GameData
         where TSO: GameScriptableObject
@@ -113,6 +123,24 @@ public static class SODataHandler
             }
         }
 
+        return null;
+    }
+
+    
+    public static void SetCurrentLevelSO(int levelID)
+    {
+        ScriptableObjectUtility.GetScriptableObject<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO).InstantiateData<LevelData>(getLevelData(levelID));
+
+    }
+    private static LevelData getLevelData(int levelID)
+    {
+        foreach (LevelData lvl in _level_data_list)
+        {
+            if (levelID == lvl.DataID)
+            {
+                return lvl;
+            }
+        }
         return null;
     }
 

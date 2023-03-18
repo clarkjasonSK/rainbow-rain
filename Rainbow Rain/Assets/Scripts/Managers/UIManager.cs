@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>, ISingleton
+public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
 {
     #region Singleton Variables
     private bool isDone = false;
@@ -28,7 +28,7 @@ public class UIManager : Singleton<UIManager>, ISingleton
         isDone = true;
     }
 
-    private void AddEventObservers()
+    public  void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
         EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_BACK_PRESSED, OnBackLevelPressed);
