@@ -1,2 +1,2 @@
 # rainbow-rain
- don't look at main 
+ in development, still no stable build.
