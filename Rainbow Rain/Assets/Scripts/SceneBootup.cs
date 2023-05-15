@@ -13,10 +13,12 @@ public class SceneBootup : MonoBehaviour, IBootstrapper
         PlayerHandler.Instance.Initialize();
         InputHandler.Instance.Initialize();
 
+        LevelHandler.Instance.Initialize();
         ProjectileHandler.Instance.Initialize();
 
         if (PlayerHandler.Instance.IsDoneInitializing &&
             InputHandler.Instance.IsDoneInitializing &&
+            LevelHandler.Instance.IsDoneInitializing &&
             ProjectileHandler.Instance.IsDoneInitializing)
         {
             Debug.Log(SceneNames.GAME_SCENE + " initialized!");

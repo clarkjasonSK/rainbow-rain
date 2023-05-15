@@ -38,6 +38,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
     {
         get { return _levels_list; }
     }
+
     public void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();

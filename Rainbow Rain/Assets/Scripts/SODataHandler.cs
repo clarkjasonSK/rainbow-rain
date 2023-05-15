@@ -18,6 +18,7 @@ public static class SODataHandler
     private static GameData targetData;
     private static string targetName;
 
+    private static List<GameScriptableObject> getDataList;
     //private static LevelScriptableObject currentLevel;
     //private static LevelScriptableObject targetLevel;
     #endregion
@@ -126,22 +127,108 @@ public static class SODataHandler
         return null;
     }
 
-    
+    public static LevelScriptableObject getCurrentLevelSO()
+    {
+        return ScriptableObjectUtility.GetScriptableObject<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO);
+    }
     public static void SetCurrentLevelSO(int levelID)
     {
         ScriptableObjectUtility.GetScriptableObject<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO).InstantiateData<LevelData>(getLevelData(levelID));
 
     }
-    private static LevelData getLevelData(int levelID)
+
+    private static LevelData getLevelData(int LevelID)
     {
         foreach (LevelData lvl in _level_data_list)
         {
-            if (levelID == lvl.DataID)
+            if (LevelID == lvl.DataID)
             {
                 return lvl;
             }
         }
+
         return null;
     }
+
+    public static List<TSO> getSOList<TSO>(List<int> keyList, int keyType)
+        where TSO : GameScriptableObject
+    {
+        Debug.Log("sifling thru " + keyList.Count + " for a" + keyType);
+
+        List<TSO> tempList = new List<TSO>();
+        foreach (int key in keyList)
+        {
+            tempList.Add(ScriptableObjectUtility.GetScriptableObject<TSO>(getSOName(key, keyType))); 
+        }
+        return tempList;
+    }
+
+    private static string getSOName(int key, int keyType)
+    {
+        switch (keyType) // 1 = Pattern | 2 = Projectile
+        {
+            case 1:
+                foreach (PatternKey pttrn in SOList[1].PatternKeyList)
+                {
+                    Debug.Log("searching thru patternkeylist...");
+                    if (key == pttrn.SOID)
+                    {
+                        Debug.Log("returning so: " + pttrn.SOFileName);
+                        return pttrn.SOFileName;
+                    }
+                }
+                break;
+            case 2:
+                foreach (ProjectileKey proj in SOList[2].ProjectileKeyList)
+                {
+                    Debug.Log("searching thru projkeylist...");
+                    if (key == proj.SOID)
+                    {
+                        Debug.Log("returning so: " + proj.SOFileName);
+                        return proj.SOFileName;
+                    }
+                }
+                break;
+        }
+        return "Name Not Found";
+    }
+
+    /*
+    private static TData getGameData<TData>(int keyID, int keyType)
+        where TData : GameData
+    {
+        switch (keyType) // 0 = Level | 1 = Pattern | 2 = Projectile
+        {
+            case 0:
+                foreach (LevelData lvl in _level_data_list)
+                {
+                    if (keyID == lvl.DataID)
+                    {
+                        return lvl as TData;
+                    }
+                }
+                break;
+            case 1:
+                foreach (PatternData pttrn in _pattern_data_list)
+                {
+                    if (keyID == pttrn.DataID)
+                    {
+                        return pttrn as TData;
+                    }
+                }
+                break;
+            case 2:
+                foreach (ProjectileData proj in _proj_data_list)
+                {
+                    if (keyID == proj.DataID)
+                    {
+                        return proj as TData;
+                    }
+                }
+                break;
+        }
+        
+        return null;
+    }*/
 
 }

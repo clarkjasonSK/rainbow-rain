@@ -19,7 +19,11 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     private IEnumerator _coroutine_2;
     #endregion
 
-    private LevelHandler _lvl_handler;
+    private MenuHandler _menu_handler;
+    public MenuHandler MenuHandler
+    {
+        set { _menu_handler = value; }
+    }
 
     public void Initialize()
     {
@@ -28,14 +32,15 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
         isDone = true;
     }
 
-    public  void AddEventObservers()
+    public void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
         EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_BACK_PRESSED, OnBackLevelPressed);
     }
 
-    public void goToGame()
+    public void StartGame()
     {
+        _menu_handler.ToggleVisibility();
         EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
     }
 

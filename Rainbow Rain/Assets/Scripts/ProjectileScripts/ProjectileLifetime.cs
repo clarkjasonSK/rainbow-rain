@@ -11,7 +11,6 @@ public class ProjectileLifetime : MonoBehaviour
 
     [SerializeField] private ObjectPooling projObjPool;
 
-    //spawns per every value based in time.deltatime
 
     public void initialize()
     {

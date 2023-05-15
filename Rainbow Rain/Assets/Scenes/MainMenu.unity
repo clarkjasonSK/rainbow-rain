@@ -1719,17 +1719,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8521ffe3f14cbb84cbd4674f1dd66d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _main_canvas: {fileID: 1151428468}
   _top_panel: {fileID: 1391292639}
   _mid_panel: {fileID: 1298943909}
   _btm_panel: {fileID: 239176768}
   _main_menu_panel: {fileID: 250553968}
+  _level_panel: {fileID: 1262241}
+  _credits_panel: {fileID: 1196788517}
+  _settings_panel: {fileID: 693746519692215801}
   _play_btn: {fileID: 515425666}
   _credits_btn: {fileID: 1240546209}
   _settings_btn: {fileID: 2028188998}
-  _level_panel: {fileID: 1262241}
   _level_back_btn: {fileID: 1634649519}
-  _credits_panel: {fileID: 1196788517}
-  _settings_panel: {fileID: 693746519692215801}
 --- !u!1 &1196788517
 GameObject:
   m_ObjectHideFlags: 0

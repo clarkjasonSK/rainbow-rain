@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class MenuHandler: MonoBehaviour
 {
+    [SerializeField] private GameObject _main_canvas;
 
     #region Transform Panels
     [SerializeField] private GameObject _top_panel;
@@ -39,6 +40,7 @@ public class MenuHandler: MonoBehaviour
 
     public void Initialize()
     {
+        UIManager.Instance.MenuHandler = this;
         _play_btn = _play_btn.GetComponent<Button>();
         _play_btn.onClick .AddListener(OnPlayClicked);
 
@@ -73,6 +75,10 @@ public class MenuHandler: MonoBehaviour
         DontDestroyOnLoad(this.transform);
     }
 
+    public void ToggleVisibility()
+    {
+        _main_canvas.SetActive( _main_canvas.activeInHierarchy == true ? false : true);
+    }
     #region OnClick Functions
     private void OnPlayClicked()
     {

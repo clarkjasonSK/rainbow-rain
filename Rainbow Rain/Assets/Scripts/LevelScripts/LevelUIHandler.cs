@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelHandler : MonoBehaviour, IEventObserver
+public class LevelUIHandler : MonoBehaviour, IEventObserver
 {
     [SerializeField] private GameObject _level_button_template;
     [SerializeField] private Transform _level_content_transform;
@@ -44,6 +44,7 @@ public class LevelHandler : MonoBehaviour, IEventObserver
     private void OnLevelPressed(EventParameters param)
     {
         SetCurrentLevelSO( param.GetParameter<int>(EventParamKeys.LEVEL_ID, 0) );
+        UIManager.Instance.StartGame();
     }
 
     #endregion
