@@ -11,16 +11,9 @@ public enum GameState
     PAUSED
 }
 
-public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
+[CreateAssetMenu(fileName = "GameManager", menuName = "ScriptableObjects/Singletons/GameManager")]
+public class GameManager : SingletonSO<GameManager>, IInitializable, IEventObserver
 {
-    #region ISingleton Variables
-    private bool isDone = false;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    #endregion
-
     #region StateHandler Variables
     private StateHandler<GameState> _game_state_handler;
     public StateHandler<GameState> GameStateHandler
@@ -39,7 +32,7 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
         get { return _levels_list; }
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         _game_state_handler = new StateHandler<GameState>();
         _game_state_handler.Initialize(GameState.PROGRAM_START);
@@ -63,14 +56,12 @@ public class GameManager : Singleton<GameManager>, ISingleton, IEventObserver
             }
 
         }*/
-
-        isDone = true;
     }
-    public void AddEventObservers()
+    public override void AddEventObservers()
     {
-        EventBroadcaster.Instance.AddObserver(EventKeys.START_MENU, OnStartMenu);
-        EventBroadcaster.Instance.AddObserver(EventKeys.START_GAME, OnGameStart);
-        EventBroadcaster.Instance.AddObserver(EventKeys.PAUSE_GAME, OnGamePause);
+        EventBroadcaster.Instance.AddObserver(EventKeys.MENU_START, OnStartMenu);
+        EventBroadcaster.Instance.AddObserver(EventKeys.GAME_START, OnGameStart);
+        EventBroadcaster.Instance.AddObserver(EventKeys.GAME_PAUSE, OnGamePause);
     }
     
     public void addLevel(LevelKey lvl)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IBootstrapper
+public interface IResettable
 {
-    void LoadScene();
+    public void Reset();
 }

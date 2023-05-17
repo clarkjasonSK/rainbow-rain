@@ -2,15 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
+[CreateAssetMenu(fileName = "UIManager", menuName = "ScriptableObjects/Singletons/UIManager")]
+public class UIManager : SingletonSO<UIManager>, IInitializable, IEventObserver
 {
-    #region Singleton Variables
-    private bool isDone = false;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    #endregion
 
     [SerializeField] private float PanelMoveSpeed = 45;
 
@@ -19,31 +13,23 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
     private IEnumerator _coroutine_2;
     #endregion
 
-    private MenuHandler _menu_handler;
-    public MenuHandler MenuHandler
-    {
-        set { _menu_handler = value; }
-    }
-
-    public void Initialize()
+    public override void Initialize()
     {
         AddEventObservers();
 
-        isDone = true;
     }
 
-    public void AddEventObservers()
+    public override void AddEventObservers()
     {
-        EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
-        EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_BACK_PRESSED, OnBackLevelPressed);
+        //EventBroadcaster.Instance.AddObserver(EventKeys.PLAY_PRESSED, OnPlayPressed);
+        //EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_BACK_PRESSED, OnBackLevelPressed);
     }
 
     public void StartGame()
     {
-        _menu_handler.ToggleVisibility();
-        EventBroadcaster.Instance.PostEvent(EventKeys.START_GAME, null);
+        EventBroadcaster.Instance.PostEvent(EventKeys.GAME_START, null);
     }
-
+    /*
     #region Event Broadcaster Notifications
     public void OnPlayPressed(EventParameters param)
     {
@@ -91,7 +77,7 @@ public class UIManager : Singleton<UIManager>, ISingleton, IEventObserver
         }
         StopCoroutine("scrollDownPanel");
     }
-    #endregion
+    #endregion*/
     
     private GameObject togglePanel(GameObject panel)
     {
