@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class LevelUI : MonoBehaviour
 {
-
-    [SerializeField] private GameObject _level_panel;
-
     [SerializeField] private Button _level_back_btn;
 
     private void Start()

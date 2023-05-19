@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1262243}
   - component: {fileID: 1262242}
   - component: {fileID: 1262245}
+  - component: {fileID: 1262246}
   m_Layer: 5
   m_Name: LevelsPanel
   m_TagString: LevelHandler
@@ -217,6 +218,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _level_button_template: {fileID: 3600479411309268250}
   _level_content_transform: {fileID: 1286085475}
+--- !u!114 &1262246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33ae8e745c3e85b43ae5f2af186e5861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level_back_btn: {fileID: 2013633696}
 --- !u!1 &6625377
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +530,7 @@ GameObject:
   - component: {fileID: 250553969}
   - component: {fileID: 250553971}
   - component: {fileID: 250553970}
+  - component: {fileID: 250553972}
   m_Layer: 5
   m_Name: TitlePanel
   m_TagString: Untagged
@@ -583,6 +598,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250553968}
   m_CullTransparentMesh: 1
+--- !u!114 &250553972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250553968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc10f36da199a9147a6f000f34c3eb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _title_panel: {fileID: 250553968}
+  _credits_panel: {fileID: 1196788517}
+  _settings_panel: {fileID: 1196788517}
+  _play_btn: {fileID: 515425666}
+  _credits_btn: {fileID: 1634912761}
+  _settings_btn: {fileID: 2028188998}
 --- !u!1 &306917140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,14 +1758,8 @@ MonoBehaviour:
   TopPanel: {fileID: 1391292639}
   MidPanel: {fileID: 1298943909}
   BottomPanel: {fileID: 239176768}
-  MainMenuPanel: {fileID: 250553968}
-  LevelPanel: {fileID: 1262241}
-  CreditsPanel: {fileID: 1196788517}
-  SettingsPanel: {fileID: 693746519692215801}
-  PlayButton: {fileID: 515425666}
-  CreditsButton: {fileID: 0}
-  SettingsButton: {fileID: 0}
-  LevelBackButton: {fileID: 0}
+  TitlePanel: {fileID: 250553972}
+  LevelPanel: {fileID: 1262246}
 --- !u!114 &1151428474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1745,18 +1772,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8521ffe3f14cbb84cbd4674f1dd66d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _main_canvas: {fileID: 0}
-  _top_panel: {fileID: 0}
-  _mid_panel: {fileID: 0}
-  _btm_panel: {fileID: 0}
-  _main_menu_panel: {fileID: 0}
-  _level_panel: {fileID: 0}
-  _credits_panel: {fileID: 0}
-  _settings_panel: {fileID: 0}
-  _play_btn: {fileID: 0}
-  _credits_btn: {fileID: 0}
-  _settings_btn: {fileID: 0}
-  _level_back_btn: {fileID: 0}
+  _main_menu_refs: {fileID: 1151428473}
+  PanelMoveSpeed: 45
 --- !u!1 &1196788517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,7 +2256,7 @@ GameObject:
   - component: {fileID: 1398620016}
   - component: {fileID: 1398620017}
   m_Layer: 0
-  m_Name: ------Scene Bootstrap
+  m_Name: Scene Bootstrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2254,7 +2271,7 @@ Transform:
   m_GameObject: {fileID: 1398620015}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2741,6 +2758,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8402521772848841623, guid: a3edb344a3d35b84499e323d9268a899, type: 3}
   m_PrefabInstance: {fileID: 1634649517}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1634912761 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3600479410608298003, guid: e91164483b6ef3542ab0d0f2bfedd237, type: 3}
+  m_PrefabInstance: {fileID: 1240546207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1647179630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,6 +3272,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2013633696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4210825682336579579, guid: a3edb344a3d35b84499e323d9268a899, type: 3}
+  m_PrefabInstance: {fileID: 1634649517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2028188996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3352,6 +3391,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3600479410608298000, guid: e91164483b6ef3542ab0d0f2bfedd237, type: 3}
   m_PrefabInstance: {fileID: 2028188996}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2028188998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3600479410608298003, guid: e91164483b6ef3542ab0d0f2bfedd237, type: 3}
+  m_PrefabInstance: {fileID: 2028188996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &693746519099275692
 MonoBehaviour:
   m_ObjectHideFlags: 0

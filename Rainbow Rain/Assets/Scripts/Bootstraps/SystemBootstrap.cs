@@ -14,7 +14,7 @@ public static class SystemBootstrap
 
         SODataHandler.VerifyScriptableObjects();
 
-        UIManager.Instance.Initialize();
+        //UIManager.Instance.Initialize();
 
         Debug.Log(SceneNames.MAIN_MENU + " initialized!");
         EventBroadcaster.Instance.PostEvent(EventKeys.MENU_START, null);

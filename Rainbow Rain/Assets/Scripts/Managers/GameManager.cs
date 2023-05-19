@@ -26,11 +26,24 @@ public class GameManager : SingletonSO<GameManager>, IInitializable, IEventObser
     }
     #endregion
 
-    private List<LevelKey> _levels_list;
+     private List<LevelKey> _levels_list;
     public List<LevelKey> LevelsList
     {
         get { return _levels_list; }
     }
+
+    [SerializeField] private GameSettings _game_settings;
+    public GameSettings GameSettings
+    {
+        get { return _game_settings; }
+    }
+
+    [SerializeField] private VisualSettings _visual_settings;
+    public VisualSettings VisualSettings
+    {
+        get { return _visual_settings; }
+    }
+
 
     public override void Initialize()
     {

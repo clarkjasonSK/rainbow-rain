@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537995945bc7fea45aa117198dd8ccdf, type: 3}
-  m_Name: GameManager
+  m_Script: {fileID: 11500000, guid: 3e138a378d5e63e4280d2a7a37128fd1, type: 3}
+  m_Name: VisualSetting
   m_EditorClassIdentifier: 
-  _game_settings: {fileID: 11400000, guid: b410589a6d9af4a4f9bdfa88be936058, type: 2}
-  _visual_settings: {fileID: 11400000, guid: 1b4b91664695c554ebb7644c733bcc0a, type: 2}
+  PanelMoveSpeed: 45

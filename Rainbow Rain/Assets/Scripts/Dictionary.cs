@@ -8,7 +8,7 @@ public static class Dictionary
 }
 public static class FileNames
 {
-    public const string SO_MANAGERS = "ScriptableObjects/Managers/";
+    public const string SO_SINGLETONS = "ScriptableObjects/Singletons/";
 
     public const string ASSET_RESOURCES = "Assets/Resources/";
     public const string ASSET_EXTENSION = ".asset";
