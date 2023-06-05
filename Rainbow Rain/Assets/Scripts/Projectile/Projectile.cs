@@ -72,7 +72,7 @@ public class Projectile : Poolable
             {
                 projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
             }
-            this.transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(PlayerHandler.Instance.PlayerLocation, this.transform.position);
+            this.transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(PlayerHelper.PlayerLocation, this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);

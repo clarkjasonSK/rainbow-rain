@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 822279249250806962}
   - component: {fileID: 822279249250806966}
+  - component: {fileID: 3443491508481283261}
   - component: {fileID: 822279249250806965}
   - component: {fileID: 822279249250806920}
   - component: {fileID: 822279249250806921}
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822279249250806961}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,10 +50,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6b6af0037c1ec4291aa6f0ff368475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player_data: {fileID: 3443491508481283261}
+  _player_controller: {fileID: 822279249250806965}
+  _input_handler: {fileID: 0}
+  _game_settings: {fileID: 0}
   PlayerIntColor: 1
   ShellHealth: 3
   ShellStartAlpha: 1
   MoveSpeed: 10
+--- !u!114 &3443491508481283261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822279249250806961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1540ec41939b35943a1dae0a44d66e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &822279249250806965
 MonoBehaviour:
   m_ObjectHideFlags: 0

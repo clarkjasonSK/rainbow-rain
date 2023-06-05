@@ -65,7 +65,7 @@ public class ProjectileUtilities : MonoBehaviour
     {
         if (projTarget == ProjTarget.PLAYER)
         {
-            return Quaternion.Euler(0, 0, getAngle(PlayerHandler.Instance.PlayerLocation, projLocation));
+            return Quaternion.Euler(0, 0, getAngle(PlayerHelper.PlayerLocation, projLocation));
         }
 
         else if(projTarget == ProjTarget.END_BOUNDS)
@@ -124,9 +124,9 @@ public class ProjectileUtilities : MonoBehaviour
         }
         if (projColor == ProjColor.PLAYER)
         {
-            return PlayerHandler.Instance.PlayerColor;
+            return PlayerHelper.PlayerColor;
         }
 
-        return ColorAtlas.getRandomColor(PlayerHandler.Instance.PlayerColor);
+        return ColorAtlas.getRandomColor(PlayerHelper.PlayerColor);
     }
 }

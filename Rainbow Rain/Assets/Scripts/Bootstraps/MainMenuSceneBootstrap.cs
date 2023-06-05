@@ -14,17 +14,10 @@ public class MainMenuSceneBootstrap : MonoBehaviour, IBootstrapper
     {
         for (int i = 0; i < MainMenuHandlers.Length; i++)
         {
-            initializeHandler(MainMenuHandlers[i]);
+            BootstrapHelper.InitializeHandler(MainMenuHandlers[i]);
         }
 
         this.gameObject.SetActive(false);
     }
-    private void initializeHandler(GameObject gameobjectParent)
-    {
-        if (gameobjectParent.GetComponent<Handler>() is null)
-            return;
-
-        //Debug.Log("found handler!");
-        gameobjectParent.GetComponent<Handler>().Initialize();
-    }
 }
+

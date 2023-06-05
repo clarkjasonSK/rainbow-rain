@@ -8,12 +8,10 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     #region Player Variables
-    private PlayerController _player_controller;
-    private PlayerData _player_data;
-    #endregion
+    [SerializeField] private PlayerData _player_data;
+    [SerializeField] private PlayerController _player_controller;
 
-    #region Event Parameters
-    private EventParameters playerHitEvent;
+    [SerializeField] private InputHandler _input_handler;
     #endregion
 
     public Color PlayerColor
@@ -21,7 +19,13 @@ public class Player : MonoBehaviour
         get { return _player_data.PlayerSoulColor; }
     }
 
+    #region Event Parameters
+    private EventParameters playerHitEvent;
+    #endregion
+
     #region Game Values
+    [SerializeField] GameSettings _game_settings;
+
     [SerializeField] [Range(1, 3)] private int PlayerIntColor = 1;
     [SerializeField] private int ShellHealth = 3;
     [SerializeField] private float ShellStartAlpha = 1f;
@@ -31,7 +35,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
         _player_controller = GetComponent<PlayerController>();
         this._player_data = new PlayerData(ShellHealth, MoveSpeed);
         playerHitEvent = new EventParameters();
@@ -57,22 +60,22 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (InputHandler.Instance.UserKeyHold)
+        if (_input_handler.UserKeyHold)
         {
             movePlayer();
         }
-        else if (InputHandler.Instance.UserCursorHold)
+        else if (_input_handler.UserCursorHold)
         {
             dragPlayer();
         }
     }
     public void movePlayer()
     {
-        _player_controller.Traverse(InputHandler.Instance.UserKeyInput, _player_data.MoveSpeed);
+        _player_controller.Traverse(_input_handler.UserKeyInput, _player_data.MoveSpeed);
     }
     public void dragPlayer()
     {
-        _player_controller.DragFollowTo(InputHandler.Instance.UserCursorInput, _player_data.MoveSpeed);
+        _player_controller.DragFollowTo(_input_handler.UserCursorInput, _player_data.MoveSpeed);
 
     }
 

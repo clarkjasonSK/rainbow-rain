@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e138a378d5e63e4280d2a7a37128fd1, type: 3}
-  m_Name: VisualSetting
+  m_Name: VisualSettings
   m_EditorClassIdentifier: 
   PanelMoveSpeed: 45
