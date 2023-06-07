@@ -10,7 +10,7 @@ public static class Helper
     {
         get
         {
-            if (_camera is null)
+            if (_camera == null)
                 _camera = Camera.main;
             return _camera;
         }
@@ -57,6 +57,7 @@ public static class PlayerHelper
         _player = GameObject.FindGameObjectWithTag(TagNames.PLAYER).GetComponent<Player>();
     }
 }
+
 
 public static class BootstrapHelper
 {

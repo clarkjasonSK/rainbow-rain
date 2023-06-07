@@ -2,42 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton, IEventObserver
+public class ProjectileHandler: Handler
 {
-    #region ISingleton Variables
-    private bool isDone = true;
-    public bool IsDoneInitializing
-    {
-        get { return isDone; }
-    }
-    #endregion
-
-    private List<Projectile> _projectile_list = new List<Projectile>();
-
     [SerializeField] private ProjectileLifetime _proj_lifetime;
-    public ProjectileLifetime ProjLifetime
-    {
-        get { return _proj_lifetime; }
-    }
-    [SerializeField] private ProjectileUtilities _proj_utilities;
-    public ProjectileUtilities ProjUtilities
-    {
-        get { return _proj_utilities; }
-    }
-    private void Start()
-    {
-        if(_proj_utilities == null || _proj_lifetime == null)
-            Initialize();
-    }
-    public void Initialize()
-    {
-        _proj_utilities.initialize();
-        _proj_lifetime.initialize();
+    [SerializeField] private ProjRefs _proj_refs;
+    [SerializeField] private List<Projectile> _projectile_list = new List<Projectile>();
 
-
-    }
-    public void AddEventObservers()
+    public override void Initialize()
     {
+        _proj_lifetime.Initialize();
+
+        ProjectileHelper.Initialize(_proj_refs.ProjectileSpawnBoundX, _proj_refs.ProjectileSpawnBoundY, Helper.Camera.orthographicSize);
+
+        AddEventObservers();
+    }
+    public override void AddEventObservers()
+    {
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_SPAWN, OnProjectileSpawn);
         EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileExit);
     }
     void Update()
@@ -52,12 +33,12 @@ public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton, IEvent
         }
     }
 
-    public void addProjectile(Projectile proj)
+    private void addProjectile(Projectile proj)
     {
         _projectile_list.Add(proj);
     }
 
-    public void removeProjectile(Projectile proj)
+    private void removeProjectile(Projectile proj)
     {
         _projectile_list.Remove(proj);
         _proj_lifetime.deactivateProjectile(proj.gameObject);
@@ -65,6 +46,10 @@ public class ProjectileHandler: Singleton<ProjectileHandler>, ISingleton, IEvent
     }
 
     #region EventBroadcaster  Functions
+    public void OnProjectileSpawn(EventParameters param)
+    {
+        addProjectile(param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null));
+    }
     public void OnProjectileExit(EventParameters param)
     {
         removeProjectile(param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null));

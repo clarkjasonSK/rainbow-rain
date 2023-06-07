@@ -37,7 +37,7 @@ public class Projectile : Poolable
         _proj_data.ProjectilePath = projData.ProjectilePath;
         _proj_data.ProjectileSpeed = Random.Range(projData.ProjectileMinSpeed, projData.ProjectileMaxSpeed + 1)* speedMultiplier;
 
-        _proj_data.ProjectileColor = ProjectileHandler.Instance.ProjUtilities.getProjectileColor(projData.ProjectileColor);
+        _proj_data.ProjectileColor = ProjectileHelper.getProjectileColor(projData.ProjectileColor);
         _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
 
         float tempSize = Random.Range(projData.ProjectileMinSize-1, projData.ProjectileMaxSize);
@@ -49,8 +49,8 @@ public class Projectile : Poolable
             _proj_data.ProjectileCurrentDuration = 0;
         }
 
-        _proj_controller.placeProjectile(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawn(projData.ProjectileSpawnPosition));
-        transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(projData.ProjectileTarget, this.transform.position);
+        _proj_controller.placeProjectile(ProjectileHelper.getProjectileSpawn(projData.ProjectileSpawnPosition));
+        transform.rotation = ProjectileHelper.getProjectileRotation(projData.ProjectileTarget, this.transform.position);
 
 
 
@@ -72,7 +72,7 @@ public class Projectile : Poolable
             {
                 projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
             }
-            this.transform.rotation = ProjectileHandler.Instance.ProjUtilities.getProjectileRotation(PlayerHelper.PlayerLocation, this.transform.position);
+            this.transform.rotation = ProjectileHelper.getProjectileRotation(PlayerHelper.PlayerLocation, this.transform.position);
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);

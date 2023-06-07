@@ -11,6 +11,8 @@ public class EventKeys{
     public const string GAME_PAUSE = "GAME_PAUSE";
 
     public const string PLAYER_HIT = "PLAYER_HIT";
+
+    public const string PROJ_SPAWN = "PROJECTILE_SPAWN";
     public const string PROJ_DESPAWN = "PROJECTILE_DESPAWN";
 
 

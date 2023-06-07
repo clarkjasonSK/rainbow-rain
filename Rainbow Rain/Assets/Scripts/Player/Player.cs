@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         _player_controller = GetComponent<PlayerController>();
-        this._player_data = new PlayerData(ShellHealth, MoveSpeed);
         playerHitEvent = new EventParameters();
         //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
 

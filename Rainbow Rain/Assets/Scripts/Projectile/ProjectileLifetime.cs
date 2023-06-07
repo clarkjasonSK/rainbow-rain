@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileLifetime : MonoBehaviour
+public class ProjectileLifetime : MonoBehaviour, IInitializable
 { 
     private List<ProjectileData> _projectile_types;
 
@@ -11,8 +11,11 @@ public class ProjectileLifetime : MonoBehaviour
 
     [SerializeField] private ObjectPooling projObjPool;
 
+    #region Event Parameters
+    private EventParameters _lifetime_param;
+    #endregion
 
-    public void initialize()
+    public void Initialize()
     {
 
         _projectile_types = JsonLoader.loadJsonData<ProjectileData>(FileNames.PROJECTILES_JSON, false);
@@ -24,9 +27,11 @@ public class ProjectileLifetime : MonoBehaviour
 
         foreach (ProjectileData pi in _projectile_types)
         {
-            _projectile_spawn_times.Add(ProjectileHandler.Instance.ProjUtilities.getProjectileSpawnRate(pi.ProjectileSpawnRate));
+            _projectile_spawn_times.Add(ProjectileHelper.getProjectileSpawnRate(pi.ProjectileSpawnRate));
             _projectile_elapsed_times.Add(0);
         }
+
+        _lifetime_param = new EventParameters();
 
     }
 
@@ -43,7 +48,9 @@ public class ProjectileLifetime : MonoBehaviour
             {
                 try
                 {
-                    ProjectileHandler.Instance.addProjectile(cloneProjectile(_projectile_types[i]));
+                    _lifetime_param.AddParameter<Projectile>(EventParamKeys.PROJ_PARAM, cloneProjectile(_projectile_types[i]));
+                    EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_SPAWN, _lifetime_param);
+                    //ProjectileHandler.Instance.addProjectile(cloneProjectile(_projectile_types[i]));
                 }
                 catch
                 {

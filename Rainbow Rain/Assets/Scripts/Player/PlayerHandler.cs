@@ -69,6 +69,8 @@ public class PlayerHandler : Handler
                 break;
         }*/
 
-        ProjectileHandler.Instance.removeProjectile(projReference);
+        EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, param);
+
+        //ProjectileHandler.Instance.removeProjectile(projReference);
     }
 }

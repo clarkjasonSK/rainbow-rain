@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 805873759}
   m_Layer: 3
-  m_Name: ProjectileSpawnTransform
+  m_Name: ProjectileSpawnParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3284706ae67140248afc01f4ba26de7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameHandlers: []
+  GameHandlers:
+  - {fileID: 1898931636}
+  - {fileID: 2640361252518934200}
+  - {fileID: 141831635334168367}
 --- !u!1 &1898931634
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,9 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4357ed44c11ca14dbb63ccff6026372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 0
   _proj_lifetime: {fileID: 7157294102402790677}
-  _proj_utilities: {fileID: 7157294102402790676}
+  _proj_refs: {fileID: 7157294102402790679}
 --- !u!1001 &822279248269655016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -654,8 +656,8 @@ GameObject:
   - component: {fileID: 7157294102402790674}
   - component: {fileID: 141831635334168367}
   - component: {fileID: 7157294102402790677}
-  - component: {fileID: 7157294102402790676}
   - component: {fileID: 7157294102402790678}
+  - component: {fileID: 7157294102402790679}
   m_Layer: 0
   m_Name: ProjectileParent
   m_TagString: Untagged
@@ -683,20 +685,6 @@ Transform:
   m_Father: {fileID: 340627788}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7157294102402790676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157294102402790673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ff87ba0fdb5cc24e84c71e15e2258a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectileSpawnBoundX: {fileID: 904608662}
-  ProjectileSpawnBoundY: {fileID: 159779871}
 --- !u!114 &7157294102402790677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,3 +716,17 @@ MonoBehaviour:
   InitialPoolSize: 35
   MaxPoolSize: 150
   instantiateOnAwake: 1
+--- !u!114 &7157294102402790679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7157294102402790673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6c07ea40d78e847a59cd26b9184327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProjectileSpawnBoundX: {fileID: 904608662}
+  ProjectileSpawnBoundY: {fileID: 159779871}

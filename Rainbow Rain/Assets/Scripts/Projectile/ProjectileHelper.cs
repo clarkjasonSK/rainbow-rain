@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileUtilities : MonoBehaviour
+public static class ProjectileHelper
 {
-    [SerializeField] private Transform ProjectileSpawnBoundX;
-    [SerializeField] private Transform ProjectileSpawnBoundY;
+    private static Transform _proj_spawn_bound_x;
+    private static Transform _proj_spawn_bound_y;
 
-    public void initialize()
+    public static void Initialize(Transform boundX, Transform boundY, float cameraOrthoSize)
     {
-        ProjectileSpawnBoundY.position = new Vector2(0, -1f * (Camera.main.orthographicSize + .5f));
+        _proj_spawn_bound_x = boundX;
+        _proj_spawn_bound_y = boundY;
+        _proj_spawn_bound_y.position = new Vector2(0, -1f * (cameraOrthoSize + .5f));
     }
 
-    public Vector2 getProjectileSpawn(string projSpawn)
+    public static Vector2 getProjectileSpawn(string projSpawn)
     {
         Vector2 tempDirection = Vector2.zero;
         if (projSpawn == ProjDirection.RANDOM)
@@ -26,16 +28,16 @@ public class ProjectileUtilities : MonoBehaviour
 
         if (tempDirection.x == 0) // up or down
         {
-            tempDirection = new Vector2(Random.Range(ProjectileSpawnBoundX.position.x + 1f, -1f * ProjectileSpawnBoundX.position.x - 1f), -1f * ProjectileSpawnBoundY.position.y * tempDirection.y);
+            tempDirection = new Vector2(Random.Range(_proj_spawn_bound_x.position.x + 1f, -1f * _proj_spawn_bound_x.position.x - 1f), -1f * _proj_spawn_bound_y.position.y * tempDirection.y);
         }
         else if (tempDirection.y == 0) // left or right
         {
-            tempDirection = new Vector2(-1f * ProjectileSpawnBoundX.position.x * tempDirection.x, Random.Range(ProjectileSpawnBoundY.position.y + 1f, -1f * ProjectileSpawnBoundY.position.y - 1f));
+            tempDirection = new Vector2(-1f * _proj_spawn_bound_x.position.x * tempDirection.x, Random.Range(_proj_spawn_bound_y.position.y + 1f, -1f * _proj_spawn_bound_y.position.y - 1f));
         }
 
         return tempDirection;
     }
-    public Vector2 getRandomDirection()
+    public static Vector2 getRandomDirection()
     {
         switch (Random.Range(1, 5))
         {
@@ -50,7 +52,7 @@ public class ProjectileUtilities : MonoBehaviour
         }
         return Vector2.zero;
     }
-    public Vector2 getSpecificDirection(string direction)
+    public static Vector2 getSpecificDirection(string direction)
     {
         switch (direction)
         {
@@ -61,24 +63,24 @@ public class ProjectileUtilities : MonoBehaviour
         return Vector2.right; // from right, going left
     }
 
-    public Quaternion getProjectileRotation(string projTarget, Vector2 projLocation)
+    public static Quaternion getProjectileRotation(string projTarget, Vector2 projLocation)
     {
         if (projTarget == ProjTarget.PLAYER)
         {
             return Quaternion.Euler(0, 0, getAngle(PlayerHelper.PlayerLocation, projLocation));
         }
 
-        else if(projTarget == ProjTarget.END_BOUNDS)
+        else if (projTarget == ProjTarget.END_BOUNDS)
         {
-            if (projLocation.x == ProjectileSpawnBoundX.position.x)
+            if (projLocation.x == _proj_spawn_bound_x.position.x)
             {
                 return Quaternion.Euler(0, 0, 0);
             }
-            if (projLocation.y == ProjectileSpawnBoundY.position.y)
+            if (projLocation.y == _proj_spawn_bound_y.position.y)
             {
                 return Quaternion.Euler(0, 0, 90);
             }
-            if (projLocation.x == -ProjectileSpawnBoundX.position.x)
+            if (projLocation.x == -_proj_spawn_bound_x.position.x)
             {
                 return Quaternion.Euler(0, 0, 180);
             }
@@ -93,17 +95,17 @@ public class ProjectileUtilities : MonoBehaviour
             return Quaternion.identity;
         }
     }
-    public Quaternion getProjectileRotation(Vector2 playerLocation, Vector2 projLocation)
+    public static Quaternion getProjectileRotation(Vector2 playerLocation, Vector2 projLocation)
     {
         return Quaternion.Euler(0, 0, getAngle(playerLocation, projLocation));
     }
-    private float getAngle(Vector2 targetDirection, Vector2 projTransform)
+    private static float getAngle(Vector2 targetDirection, Vector2 projTransform)
     {
         return Mathf.Atan2((targetDirection - projTransform).y,
                             (targetDirection - projTransform).x) * Mathf.Rad2Deg;
     }
 
-    public float getProjectileSpawnRate(string projSpawn)
+    public static float getProjectileSpawnRate(string projSpawn)
     {
         switch (projSpawn)
         {
@@ -116,7 +118,7 @@ public class ProjectileUtilities : MonoBehaviour
         }
         return 0.0f;
     }
-    public Color getProjectileColor(string projColor)
+    public static Color getProjectileColor(string projColor)
     {
         if (projColor == ProjColor.RANDOM)
         {
