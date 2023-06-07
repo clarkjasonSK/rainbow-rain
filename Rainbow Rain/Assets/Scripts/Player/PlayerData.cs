@@ -10,7 +10,6 @@ public class PlayerData : MonoBehaviour
     public int TotalShellHealth
     {
         get { return this._total_shell_health; }
-        set { this._total_shell_health = value; }
     }
 
     private int _current_shell_health;
@@ -32,39 +31,27 @@ public class PlayerData : MonoBehaviour
         get { return this._curent_color; }
         set { this._curent_color = value; }
     }
-    public float SoulAlpha
-    {
-        get { return this._curent_color.a; }
-    }
 
-    private float _move_speed;
-    public float MoveSpeed
-    {
-        get { return this._move_speed; }
-        set { this._move_speed = value; }
-    }
     #endregion
 
     #region PlayerData Methods
-    public PlayerData(int shellHealth, float moveSpeed)
+
+    public void Initialize(int shellHealth)
     {
         _total_shell_health = shellHealth;
         _current_shell_health = shellHealth;
-        _move_speed = moveSpeed;
     }
-
 
     public void resetPlayer()
     {
         _current_shell_health = _total_shell_health;
-        _curent_color = _soul_color - new Color(0,0,0,1);
+        _curent_color = _soul_color - ColorAtlas.WholeAlpha;
 
     }
-    public void increaseAlpha(float alphaValue)
+    public void increaseAlpha(Color alphaInc)
     {
-        this._curent_color += new Color(0, 0, 0, alphaValue);
+        this._curent_color += alphaInc;
     }
-
 
     #endregion
 }

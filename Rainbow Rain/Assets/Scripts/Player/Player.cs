@@ -19,27 +19,25 @@ public class Player : MonoBehaviour
         get { return _player_data.PlayerSoulColor; }
     }
 
-    #region Event Parameters
-    private EventParameters playerHitEvent;
-    #endregion
 
     #region Game Values
     [SerializeField] GameSettings _game_settings;
+    #endregion
 
-    [SerializeField] [Range(1, 3)] private int PlayerIntColor = 1;
-    [SerializeField] private int ShellHealth = 3;
-    [SerializeField] private float ShellStartAlpha = 1f;
 
-    [SerializeField] private float MoveSpeed = 10f;
+    #region Event Parameters
+    private EventParameters playerParam;
     #endregion
 
     void Start()
     {
-        _player_controller = GetComponent<PlayerController>();
-        playerHitEvent = new EventParameters();
+        _game_settings = GameManager.Instance.GameSettings;
+
+        this._player_data.Initialize(_game_settings.PlayerShellHealth);
+        playerParam = new EventParameters();
         //playerHitEvent.AddParameter(EventParamKeys.playerParam, this);
 
-        switch (PlayerIntColor)
+        switch (_game_settings.PlayerColor)
         { 
             case 1:_player_data.PlayerSoulColor = ColorAtlas.getSpecifiedColor(ColorNames.CYAN);
                 break;
@@ -48,13 +46,14 @@ public class Player : MonoBehaviour
             case 3:_player_data.PlayerSoulColor = ColorAtlas.getSpecifiedColor(ColorNames.YELLOW);
                 break;
         }
-        _player_data.CurrentPlayerColor = _player_data.PlayerSoulColor - new Color(0,0,0,1);
 
-        _player_controller.setPlayerColor(_player_data.CurrentPlayerColor, 
+        _player_data.CurrentPlayerColor = _player_data.PlayerSoulColor - ColorAtlas.WholeAlpha;
+
+        _player_controller.SetSpriteColors(_player_data.CurrentPlayerColor, 
                 new Color(_player_data.PlayerSoulColor.r - .3f * _player_data.PlayerSoulColor.r, 
                             _player_data.PlayerSoulColor.g - .3f * _player_data.PlayerSoulColor.g, 
                             _player_data.PlayerSoulColor.b - .3f * _player_data.PlayerSoulColor.b,
-                            ShellStartAlpha));
+                            _game_settings.PlayerShellStartAlpha));
 
     }
     private void Update()
@@ -68,13 +67,17 @@ public class Player : MonoBehaviour
             dragPlayer();
         }
     }
-    public void movePlayer()
+    private void movePlayer()
     {
-        _player_controller.Traverse(_input_handler.UserKeyInput, _player_data.MoveSpeed);
+        _player_controller.Traverse(_input_handler.UserKBInput, _game_settings.PlayerMoveSpeed);
     }
-    public void dragPlayer()
+    private void dragPlayer()
     {
-        _player_controller.DragFollowTo(_input_handler.UserCursorInput, _player_data.MoveSpeed);
+        // just a big block of text making sure it doesn't jitter at cursor point
+        if (((_input_handler.UserCursorInput.x - _game_settings.PlayerCursorOffset) < transform.localPosition.x && transform.localPosition.x < (_input_handler.UserCursorInput.x + _game_settings.PlayerCursorOffset)) && (((_input_handler.UserCursorInput.y - _game_settings.PlayerCursorOffset) < transform.localPosition.y) && (transform.localPosition.y < (_input_handler.UserCursorInput.y + _game_settings.PlayerCursorOffset))))
+            return;
+
+        _player_controller.DragFollowTo(_input_handler.UserCursorInput, _game_settings.PlayerMoveSpeed);
 
     }
 
@@ -87,36 +90,30 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag(TagNames.PROJECTILE))
         {
-            //NotifyPlayerHit(this, collision.GetComponent<Projectile>());
-            playerHitEvent.AddParameter(EventParamKeys.PROJ_PARAM, collision.GetComponent<Projectile>());
+            playerParam.AddParameter(EventParamKeys.PROJ_PARAM, collision.GetComponent<Projectile>());
 
-            EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerHitEvent);
+            EventBroadcaster.Instance.PostEvent(EventKeys.PLAYER_HIT, playerParam);
         }
         
     }
 
-    public void absorbToSoul()
+    public void AbsorbToSoul()
     {
-        _player_data.increaseAlpha(.10f);
+        _player_data.increaseAlpha(_game_settings.PlayerAlphaIncrement);
         //_player_data.MoveSpeed += 1f;
         _player_controller.setSoulColor(_player_data.CurrentPlayerColor);
 
     }
 
-    public void damageToShell()
+    public void DamageToShell()
     {
 
         if (_player_data.CurrentShellHealth-- == 1) // decrement returns current value, so when it's 1, it will decrement to 0 AFTER checking the condition 
         {
-            _player_controller.destroyShellCollider();
+            _player_controller.DestroyShellCollider();
         }
         //_player_controller.decreaseShellColor(_shell_starting_alpha / _player_data.TotalShellHealth);
     }
 
-    public void setPlayerColor(Color color)
-    {
-        //_player_data.PlayerColor = color;
-        _player_controller.setPlayerColor(color, color);
-    }
 
 }

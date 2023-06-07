@@ -12,7 +12,7 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
     [SerializeField] private ObjectPooling projObjPool;
 
     #region Event Parameters
-    private EventParameters _lifetime_param;
+    private EventParameters lifetimeParam;
     #endregion
 
     public void Initialize()
@@ -31,7 +31,7 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
             _projectile_elapsed_times.Add(0);
         }
 
-        _lifetime_param = new EventParameters();
+        lifetimeParam = new EventParameters();
 
     }
 
@@ -48,8 +48,8 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
             {
                 try
                 {
-                    _lifetime_param.AddParameter<Projectile>(EventParamKeys.PROJ_PARAM, cloneProjectile(_projectile_types[i]));
-                    EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_SPAWN, _lifetime_param);
+                    lifetimeParam.AddParameter<Projectile>(EventParamKeys.PROJ_PARAM, cloneProjectile(_projectile_types[i]));
+                    EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_SPAWN, lifetimeParam);
                     //ProjectileHandler.Instance.addProjectile(cloneProjectile(_projectile_types[i]));
                 }
                 catch

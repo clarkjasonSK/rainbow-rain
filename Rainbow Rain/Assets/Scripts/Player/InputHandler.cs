@@ -12,16 +12,16 @@ public class InputHandler: Handler
     private Camera _camera;
 
     #region Input Variables
-    private Vector2 _user_key_input;
-    public Vector2 UserKeyInput
+    private Vector2 _user_kb_input;
+    public Vector2 UserKBInput
     {
-        get {return _user_key_input;}
+        get {return _user_kb_input; }
     }
     public bool UserKeyHold
     {
         get 
         {
-            if (_user_key_input == Vector2.zero)
+            if (_user_kb_input == Vector2.zero)
                 return false;
             return true;
         }
@@ -77,7 +77,7 @@ public class InputHandler: Handler
         if (!_input_allowed)
             return;
 
-        _user_key_input = _player_controls.InGame.Movement_KB.ReadValue<Vector2>();
+        _user_kb_input = _player_controls.InGame.Movement_KB.ReadValue<Vector2>();
         
         _user_cursorhold = _player_controls.InGame.Movement_M_Hold.ReadValue<float>();
 

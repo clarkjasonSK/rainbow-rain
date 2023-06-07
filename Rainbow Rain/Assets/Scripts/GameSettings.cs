@@ -11,4 +11,8 @@ public class GameSettings : ScriptableObject
     public float PlayerShellStartAlpha = 1f;
 
     public float PlayerMoveSpeed = 10f;
+
+    public Color PlayerAlphaIncrement = new Color(0,0,0,.10f);
+
+    public float PlayerCursorOffset;
 }

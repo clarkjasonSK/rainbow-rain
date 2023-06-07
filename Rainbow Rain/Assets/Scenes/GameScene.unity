@@ -453,6 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _proj_lifetime: {fileID: 7157294102402790677}
   _proj_refs: {fileID: 7157294102402790679}
+  _projectile_list: []
 --- !u!1001 &822279248269655016
 PrefabInstance:
   m_ObjectHideFlags: 0

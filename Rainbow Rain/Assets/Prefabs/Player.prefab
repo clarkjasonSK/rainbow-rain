@@ -54,10 +54,6 @@ MonoBehaviour:
   _player_controller: {fileID: 822279249250806965}
   _input_handler: {fileID: 0}
   _game_settings: {fileID: 0}
-  PlayerIntColor: 1
-  ShellHealth: 3
-  ShellStartAlpha: 1
-  MoveSpeed: 10
 --- !u!114 &3443491508481283261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player_soul_sprite: {fileID: 822279249444318474}
   _player_shell_sprite: {fileID: 822279249823448783}
+  _player_circle_collider: {fileID: 822279249250806921}
 --- !u!50 &822279249250806920
 Rigidbody2D:
   serializedVersion: 4

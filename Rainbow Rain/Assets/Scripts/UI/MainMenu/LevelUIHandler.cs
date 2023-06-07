@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class LevelUIHandler : MonoBehaviour, IEventObserver
+public class LevelUIHandler : Handler
 {
     [SerializeField] private GameObject _level_button_template;
     [SerializeField] private Transform _level_content_transform;
 
-    public void Awake()
+    public override void Initialize()
     {
         CreateLevelButtons(GameManager.Instance.LevelsList);
         AddEventObservers();
     }
 
-    public  void AddEventObservers()
+    public override void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.LEVEL_PRESSED, OnLevelPressed);
     }

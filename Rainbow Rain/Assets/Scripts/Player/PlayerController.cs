@@ -8,27 +8,19 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggableFollowTo
     [SerializeField] private SpriteRenderer _player_soul_sprite; 
     [SerializeField] private SpriteRenderer _player_shell_sprite;
     //private Rigidbody2D _player_rigidbody;
-    private CircleCollider2D _player_circle_collider;
-
-    public Color SpriteColor
-    {
-        get { return _player_soul_sprite.color; }
-    }
+    [SerializeField] private CircleCollider2D _player_circle_collider;
 
     //private Vector2 currPos;
 
     void Start()
     {
-        //_player_rigidbody = GetComponent<Rigidbody2D>();
-        _player_circle_collider = GetComponent<CircleCollider2D>();
-
         this.transform.position = Vector2.zero;
     }
 
 
-    public void setPlayerColor(Color soulColor, Color shellColor)
+    public void SetSpriteColors(Color soulColor, Color shellColor)
     {
-        _player_soul_sprite.color = soulColor - new Color(0,0,0,1);
+        _player_soul_sprite.color = soulColor - ColorAtlas.WholeAlpha;
         _player_shell_sprite.color = shellColor;
     }
 
@@ -41,11 +33,8 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggableFollowTo
                                             playerSoulSprite.color.b, 
                                             alpha);*/
     }
-    public void decreaseShellColor(float newShellColor)
-    {
-        _player_shell_sprite.color-= new Color(0,0,0, newShellColor);
-    }
-    public void destroyShellCollider()
+
+    public void DestroyShellCollider()
     {
         _player_circle_collider.radius = .3f; //////////////////////// to be revised
     }
@@ -53,8 +42,7 @@ public class PlayerController : MonoBehaviour, ITraversable, IDraggableFollowTo
     #region ITraversable
     public void Traverse(Vector2 inputs, float moveSpeed)
     {
-        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime* moveSpeed),
-                                          transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
+        transform.position = new Vector2(transform.position.x + (inputs.x * Time.deltaTime* moveSpeed), transform.position.y + (inputs.y * Time.deltaTime * moveSpeed));
     }
     #endregion
 

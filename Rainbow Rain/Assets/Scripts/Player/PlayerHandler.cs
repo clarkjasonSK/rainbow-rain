@@ -10,7 +10,7 @@ public class PlayerHandler : Handler
     #endregion
 
     #region Event Variables
-    Projectile projReference = null;
+    Projectile projReference;
     #endregion
 
     public override void Initialize()
@@ -18,6 +18,32 @@ public class PlayerHandler : Handler
         _player = PlayerHelper.Player;
 
         AddEventObservers();
+    }
+
+    public override void AddEventObservers()
+    {
+        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
+    }
+
+    public void OnPlayerHit(EventParameters param)
+    {
+        projReference = param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null);
+        projReference.ProjectileActive = false;  // TO BE REMOVED
+
+        if (compareColors(_player.PlayerColor, projReference.ProjectileColor))
+        {
+            _player.AbsorbToSoul();
+            Debug.Log("absorb1");
+        }
+        else
+        {
+            _player.DamageToShell();
+            Debug.Log("damage");
+        }
+
+        EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, param);
+
+        //ProjectileHandler.Instance.removeProjectile(projReference);
     }
 
     public bool compareColors(Color playerColor, Color projColor)
@@ -30,47 +56,5 @@ public class PlayerHandler : Handler
         }
         return false;
     }
-    
 
-    public override void AddEventObservers()
-    {
-        EventBroadcaster.Instance.AddObserver(EventKeys.PLAYER_HIT, OnPlayerHit);
-    }
-    public void OnPlayerHit(EventParameters param)
-    {
-        //Player tempPlayer = param.GetParameter<Player>(EventParamKeys.playerParam, null);
-
-        projReference = param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null);
-        projReference.ProjectileActive = false;
-
-        if (compareColors(_player.PlayerColor, projReference.ProjectileColor))
-        {
-            _player.absorbToSoul();
-        }
-        else
-        {
-            _player.damageToShell();
-        }
-        /*
-        switch (GameManager.Instance.GameState)
-        {
-            case GameState.MAIN_MENU:
-                _player.setPlayerColor(projReference.ProjectileColor);
-                break;
-            case GameState.INGAME:
-                if (compareColors(_player.PlayerColor, projReference.ProjectileColor))
-                {
-                    _player.absorbToSoul();
-                }
-                else
-                {
-                    _player.damageToShell();
-                }
-                break;
-        }*/
-
-        EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, param);
-
-        //ProjectileHandler.Instance.removeProjectile(projReference);
-    }
 }

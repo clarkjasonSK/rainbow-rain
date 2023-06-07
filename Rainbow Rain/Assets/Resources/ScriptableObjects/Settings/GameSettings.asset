@@ -12,3 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a851b1c6fbd888f48bb9d80c3dffdab5, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  PlayerColor: 1
+  PlayerShellHealth: 3
+  PlayerShellStartAlpha: 1
+  PlayerMoveSpeed: 10
+  PlayerAlphaIncrement: {r: 0, g: 0, b: 0, a: 0.1}
+  PlayerCursorOffset: 0.15

@@ -1773,7 +1773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _main_menu_refs: {fileID: 1151428473}
-  PanelMoveSpeed: 45
+  _visual_settings: {fileID: 0}
 --- !u!1 &1196788517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,6 +2291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainMenuHandlers:
   - {fileID: 1151428468}
+  - {fileID: 1262241}
 --- !u!1 &1452959053
 GameObject:
   m_ObjectHideFlags: 0

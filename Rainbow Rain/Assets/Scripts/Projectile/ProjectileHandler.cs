@@ -19,7 +19,7 @@ public class ProjectileHandler: Handler
     public override void AddEventObservers()
     {
         EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_SPAWN, OnProjectileSpawn);
-        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileExit);
+        EventBroadcaster.Instance.AddObserver(EventKeys.PROJ_DESPAWN, OnProjectileDespawn);
     }
     void Update()
     {
@@ -50,7 +50,7 @@ public class ProjectileHandler: Handler
     {
         addProjectile(param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null));
     }
-    public void OnProjectileExit(EventParameters param)
+    public void OnProjectileDespawn(EventParameters param)
     {
         removeProjectile(param.GetParameter<Projectile>(EventParamKeys.PROJ_PARAM, null));
     }

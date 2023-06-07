@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class ColorAtlas
 {
+    public static Color WholeAlpha = new Color(0, 0, 0, 1);
     private static List<Color> _color_list;
 
     public static Color _cyan = new Color(.5f, 1, 1, 1);
