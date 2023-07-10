@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class GameScriptableObject : ScriptableObject
 {
-    public abstract void InstantiateData<TData>(TData gameData) where TData : GameData;
+    public abstract void InstantiateData<TData>(TData JSONData) where TData : JSONData;
 
 }

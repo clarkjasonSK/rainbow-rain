@@ -22,7 +22,7 @@ public static class JsonLoader
     }
 
     /*
-    public static List<ProjectileData> loadProjectileData<T>(string filename, bool requiresFullPath)
+    public static List<ProjJSONData> loadProjJSONData<T>(string filename, bool requiresFullPath)
     {
         string jsonInfo = JsonReader.readJSONFile(filename, requiresFullPath);
 
@@ -32,7 +32,7 @@ public static class JsonLoader
             return null;
         }
 
-        List<ProjectileData> tempList = JsonHelper.FromProjectilesJson<ProjectileData>(jsonInfo);
+        List<ProjJSONData> tempList = JsonHelper.FromProjectilesJson<ProjJSONData>(jsonInfo);
         
         Debug.Log("Projectiles count: " + tempList.Count);
         return tempList;

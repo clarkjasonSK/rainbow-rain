@@ -33,12 +33,12 @@ public class PlayerHandler : Handler
         if (compareColors(_player.PlayerColor, projReference.ProjectileColor))
         {
             _player.AbsorbToSoul();
-            Debug.Log("absorb1");
+            //Debug.Log("absorb1");
         }
         else
         {
             _player.DamageToShell();
-            Debug.Log("damage");
+            //Debug.Log("damage");
         }
 
         EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, param);

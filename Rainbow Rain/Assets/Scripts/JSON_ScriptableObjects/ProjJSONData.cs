@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class ProjectileData : GameData
+public class ProjJSONData : JSONData
 {
 
     public string ProjectileSpawnRate;

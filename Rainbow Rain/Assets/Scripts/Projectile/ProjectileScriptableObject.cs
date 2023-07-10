@@ -75,11 +75,11 @@ public class ProjectileScriptableObject : GameScriptableObject
 
     #endregion
 
-    public override void InstantiateData<TData>(TData gameData)
+    public override void InstantiateData<TData>(TData JSONData)
     {
-        assignValues(gameData as ProjectileData);
+        assignValues(JSONData as ProjJSONData);
     }
-    public void assignValues(ProjectileData projData)
+    public void assignValues(ProjJSONData projData)
     {
         _id = projData.DataID;
         _name = projData.DataName;

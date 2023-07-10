@@ -48,7 +48,7 @@ public static class ColorAtlas
 
 public static class ColorNames
 {
-    public const string CYAN = " CYAN";
-    public const string MAGENTA = " MAGENTA";
-    public const string YELLOW = " YELLOW";
+    public const string CYAN = "CYAN";
+    public const string MAGENTA = "MAGENTA";
+    public const string YELLOW = "YELLOW";
 }

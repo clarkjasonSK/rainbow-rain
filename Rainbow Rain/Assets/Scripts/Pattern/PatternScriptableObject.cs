@@ -52,9 +52,9 @@ public class PatternScriptableObject: GameScriptableObject
     }
 
 
-    public override void InstantiateData<TData>(TData gameData)
+    public override void InstantiateData<TData>(TData JSONData)
     {
-        assignValues(gameData as PatternData);
+        assignValues(JSONData as PatternData);
     }
     public void assignValues(PatternData pttrnData)
     {

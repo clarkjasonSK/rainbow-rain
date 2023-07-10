@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : Poolable
 {
     #region Projectile Variables
-    private ProjectileTraits _proj_data;
+    private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
     public bool ProjectileActive
     {
@@ -20,7 +20,7 @@ public class Projectile : Poolable
     #endregion
 
     #region Event Parameters
-    private EventParameters projectileDespawn;
+    private EventParameters _proj_event;
     #endregion
 
     #region Temporary Game Values
@@ -30,32 +30,12 @@ public class Projectile : Poolable
     [SerializeField] private float sizeMultiplier = .2f;
     #endregion
 
-    public void initProj(ProjectileData projData)
+    public void initProj(ProjJSONData projData)
     {
-        
-        _proj_data.ProjectileTypeID = projData.DataID;
-        _proj_data.ProjectilePath = projData.ProjectilePath;
-        _proj_data.ProjectileSpeed = Random.Range(projData.ProjectileMinSpeed, projData.ProjectileMaxSpeed + 1)* speedMultiplier;
-
-        _proj_data.ProjectileColor = ProjectileHelper.getProjectileColor(projData.ProjectileColor);
-        _proj_controller.ProjectileColor = _proj_data.ProjectileColor;
-
-        float tempSize = Random.Range(projData.ProjectileMinSize-1, projData.ProjectileMaxSize);
-        transform.localScale = new Vector3( smallestSize+ (sizeMultiplier* tempSize), smallestSize+ (sizeMultiplier * tempSize), 1);
-
-        if(_proj_data.ProjectilePath == ProjPath.HOMING)
-        {
-            _proj_data.ProjectileTotalDuration = homingDuration;
-            _proj_data.ProjectileCurrentDuration = 0;
-        }
-
-        _proj_controller.placeProjectile(ProjectileHelper.getProjectileSpawn(projData.ProjectileSpawnPosition));
-        transform.rotation = ProjectileHelper.getProjectileRotation(projData.ProjectileTarget, this.transform.position);
-
-
+        _proj_data.Initialize(projData, speedMultiplier, homingDuration);
+        _proj_controller.Initialize(projData, smallestSize, sizeMultiplier);
 
         _proj_data.ProjectileActive = true;
-
 
     }
 
@@ -70,9 +50,10 @@ public class Projectile : Poolable
         {
             if (_proj_data.ProjectileCurrentDuration >= _proj_data.ProjectileTotalDuration)
             {
-                projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
+                _proj_event.AddParameter(EventParamKeys.PROJ_PARAM, this);
             }
             this.transform.rotation = ProjectileHelper.getProjectileRotation(PlayerHelper.PlayerLocation, this.transform.position);
+
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
@@ -81,13 +62,17 @@ public class Projectile : Poolable
     #region Poolable Functions
     public override void OnInstantiate()
     {
-        this._proj_controller = GetComponent<ProjectileController>();
-        _proj_data = new ProjectileTraits();
-        projectileDespawn = new EventParameters();
+        if (this._proj_data is null)
+            this._proj_data = GetComponent<ProjectileData>();
+        if (this._proj_controller is null)
+            this._proj_controller = GetComponent<ProjectileController>();
+
+        _proj_event = new EventParameters();
     }
 
     public override void OnActivate()
     {
+
     }
 
     public override void OnDeactivate()
@@ -110,8 +95,8 @@ public class Projectile : Poolable
         if (collision.CompareTag(TagNames.PROJECTILE_BOUNDS) && _proj_data.ProjectileActive)
         {
             //NotifyProjectileExit(this);
-            projectileDespawn.AddParameter(EventParamKeys.PROJ_PARAM, this);
-            EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, projectileDespawn);
+            _proj_event.AddParameter(EventParamKeys.PROJ_PARAM, this);
+            EventBroadcaster.Instance.PostEvent(EventKeys.PROJ_DESPAWN, _proj_event);
             //ProjectileManager.Instance.removeProjectile(this.gameObject); // TEMPORARY
         }
     }

@@ -5,13 +5,6 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _proj_sprite; 
-    public Color ProjectileColor 
-    {
-        set 
-        {
-            _proj_sprite.color = value; 
-        } 
-    }
 
     //[SerializeField] private Rigidbody2D _proj_rigidbody;
     //public Rigidbody2D ProjectileRigidbody { get { return _proj_rigidbody; } }
@@ -35,6 +28,19 @@ public class ProjectileController : MonoBehaviour
         //_proj_animator = GetComponent<Animator>();
         //_proj_rigidbody = GetComponent<Rigidbody2D>();
 
+    }
+
+    public void Initialize(ProjJSONData jsonData, float smallestSize, float sizeMultiplier)
+    {
+        _proj_sprite.color = ProjectileHelper.getProjectileColor(jsonData.ProjectileColor);
+
+
+        float tempSize = Random.Range(jsonData.ProjectileMinSize - 1, jsonData.ProjectileMaxSize);
+        transform.localScale = new Vector3(smallestSize + (sizeMultiplier * tempSize), smallestSize + (sizeMultiplier * tempSize), 1);
+
+        transform.rotation = ProjectileHelper.getProjectileRotation(jsonData.ProjectileTarget, this.transform.position);
+
+        placeProjectile(ProjectileHelper.getProjectileSpawn(jsonData.ProjectileSpawnPosition));
     }
 
     public void moveProjectile(float moveSpeed)

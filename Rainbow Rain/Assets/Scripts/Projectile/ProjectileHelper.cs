@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class ProjectileHelper
 {
-    private static Transform _proj_spawn_bound_x;
-    private static Transform _proj_spawn_bound_y;
+    private static Transform _proj_spawn_bound_x; // TEMPORARY
+    private static Transform _proj_spawn_bound_y; // TEMPORARY
 
     public static void Initialize(Transform boundX, Transform boundY, float cameraOrthoSize)
     {

@@ -10,12 +10,12 @@ public static class SODataHandler
 
     private static List<LevelData> _level_data_list = new List<LevelData>();
     private static List<PatternData> _pattern_data_list = new List<PatternData>();
-    private static List<ProjectileData> _proj_data_list = new List<ProjectileData>();
+    private static List<ProjJSONData> _proj_data_list = new List<ProjJSONData>();
     #endregion
 
     #region Utility Variables
     private static GameScriptableObject tempSO;
-    private static GameData targetData;
+    private static JSONData targetData;
     private static string targetName;
 
     private static List<GameScriptableObject> getDataList;
@@ -34,13 +34,13 @@ public static class SODataHandler
 
         verifySOList<LevelKey, LevelData, LevelScriptableObject>(SOList[0].LevelKeyList, _level_data_list);
         verifySOList<PatternKey, PatternData, PatternScriptableObject>(SOList[1].PatternKeyList, _pattern_data_list);
-        verifySOList<ProjectileKey, ProjectileData, ProjectileScriptableObject>(SOList[2].ProjectileKeyList, _proj_data_list);
+        verifySOList<ProjectileKey, ProjJSONData, ProjectileScriptableObject>(SOList[2].ProjectileKeyList, _proj_data_list);
 
     }
     
     private static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList) 
         where TKey : DataKey
-        where TData : GameData
+        where TData : JSONData
         where TSO: GameScriptableObject
     {
         Debug.Log("Verifying for : " + soList[0].GetType());
@@ -85,7 +85,7 @@ public static class SODataHandler
     }
     private static void createScriptableObject<TKey, TData, TSO>(TKey key, List<TData> dataList)
         where TKey : DataKey
-        where TData : GameData
+        where TData : JSONData
         where TSO : GameScriptableObject
     {
         tempSO = (TSO)ScriptableObject.CreateInstance(typeof(TSO));
@@ -109,12 +109,12 @@ public static class SODataHandler
     {
         _level_data_list = JsonLoader.loadJsonData<LevelData>(FileNames.LEVELS_JSON, false);
         _pattern_data_list = JsonLoader.loadJsonData<PatternData>(FileNames.PATTERNS_JSON, false);
-        _proj_data_list = JsonLoader.loadJsonData<ProjectileData>(FileNames.PROJECTILES_JSON, false);
+        _proj_data_list = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
     }
 
     private static TData getTargetData<TKey, TData>(TKey dataID, List<TData> dataList) 
         where TKey : DataKey
-        where TData : GameData
+        where TData : JSONData
     {
         foreach (TData data in dataList)
         {
@@ -194,8 +194,8 @@ public static class SODataHandler
     }
 
     /*
-    private static TData getGameData<TData>(int keyID, int keyType)
-        where TData : GameData
+    private static TData getJSONData<TData>(int keyID, int keyType)
+        where TData : JSONData
     {
         switch (keyType) // 0 = Level | 1 = Pattern | 2 = Projectile
         {
@@ -218,7 +218,7 @@ public static class SODataHandler
                 }
                 break;
             case 2:
-                foreach (ProjectileData proj in _proj_data_list)
+                foreach (ProjJSONData proj in _proj_data_list)
                 {
                     if (keyID == proj.DataID)
                     {

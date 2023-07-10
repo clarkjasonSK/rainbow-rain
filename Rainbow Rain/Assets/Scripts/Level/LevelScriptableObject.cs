@@ -39,9 +39,9 @@ public class LevelScriptableObject : GameScriptableObject
     }
     #endregion
 
-    public override void InstantiateData<TData>(TData gameData)
+    public override void InstantiateData<TData>(TData JSONData)
     {
-        assignValues(gameData as LevelData);
+        assignValues(JSONData as LevelData);
     }
     public void assignValues(LevelData lvlData)
     {

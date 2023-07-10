@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileLifetime : MonoBehaviour, IInitializable
 { 
-    private List<ProjectileData> _projectile_types;
+    private List<ProjJSONData> _projectile_types;
 
     private List<float> _projectile_spawn_times = new List<float>();
     private List<float> _projectile_elapsed_times = new List<float>();
@@ -17,24 +17,28 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-
-        _projectile_types = JsonLoader.loadJsonData<ProjectileData>(FileNames.PROJECTILES_JSON, false);
-
-        //_projectile_types = new List<ProjectileInfo>();
-        //_projectile_types.Add(new ProjectileInfo(1, "SLOW", "LEFT", "END_BOUNDS", "STRAIGHT", 1, 2, "PLAYER", 1,3));
-
-       // Debug.Log("PojectileHandler instance: " + ProjectileHandler.Instance);
-
-        foreach (ProjectileData pi in _projectile_types)
-        {
-            _projectile_spawn_times.Add(ProjectileHelper.getProjectileSpawnRate(pi.ProjectileSpawnRate));
-            _projectile_elapsed_times.Add(0);
-        }
+        SetProjectileTypes(null);
 
         lifetimeParam = new EventParameters();
 
     }
 
+
+    public void SetProjectileTypes(LevelData lvlData)
+    {
+        //TEST LOADING OF PROJECTILES
+        _projectile_types = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
+
+        // TEST PROJECTILES
+        _projectile_spawn_times.Clear();
+        _projectile_elapsed_times.Clear();
+
+        foreach (ProjJSONData pi in _projectile_types)
+        {
+            _projectile_spawn_times.Add(ProjectileHelper.getProjectileSpawnRate(pi.ProjectileSpawnRate));
+            _projectile_elapsed_times.Add(0);
+        }
+    }
 
     void Update()
     {
@@ -62,7 +66,7 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
         }
     }
 
-    public Projectile cloneProjectile(ProjectileData projData)
+    public Projectile cloneProjectile(ProjJSONData projData)
     {
         Projectile tempProjectile = projObjPool.GameObjectPool.Get().GetComponent<Projectile>();
 
