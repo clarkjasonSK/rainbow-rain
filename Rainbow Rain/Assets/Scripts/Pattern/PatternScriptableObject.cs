@@ -46,17 +46,12 @@ public class PatternScriptableObject: GameScriptableObject
         _pattern_proj_list = new List<int>();
     }
 
-    public void addProjectile(int proj)
-    {
-        _pattern_proj_list.Add(proj);
-    }
-
 
     public override void InstantiateData<TData>(TData JSONData)
     {
-        assignValues(JSONData as PatternData);
+        assignValues(JSONData as PattJSONData);
     }
-    public void assignValues(PatternData pttrnData)
+    public void assignValues(PattJSONData pttrnData)
     {
         _pattern_id = pttrnData.DataID;
         _pattern_name = pttrnData.DataName;
@@ -67,4 +62,9 @@ public class PatternScriptableObject: GameScriptableObject
         _pattern_proj_list = pttrnData.PatternProjectiles;
 
     }
+    public void addProjectile(int proj)
+    {
+        _pattern_proj_list.Add(proj);
+    }
+
 }

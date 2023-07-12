@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class PatternData : JSONData
+public class PattJSONData : JSONData
 {
     public bool PatternRepteatable;
     public float PatternDuration;

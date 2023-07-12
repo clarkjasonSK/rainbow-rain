@@ -41,9 +41,9 @@ public class LevelScriptableObject : GameScriptableObject
 
     public override void InstantiateData<TData>(TData JSONData)
     {
-        assignValues(JSONData as LevelData);
+        assignValues(JSONData as LevlJSONData);
     }
-    public void assignValues(LevelData lvlData)
+    public void assignValues(LevlJSONData lvlData)
     {
         _level_id = lvlData.DataID;
         _level_name = lvlData.DataName;

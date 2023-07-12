@@ -8,8 +8,8 @@ public static class SODataHandler
     #region DataLists
     private static List<ScriptableObjectsKeys> SOList;
 
-    private static List<LevelData> _level_data_list = new List<LevelData>();
-    private static List<PatternData> _pattern_data_list = new List<PatternData>();
+    private static List<LevlJSONData> _level_data_list = new List<LevlJSONData>();
+    private static List<PattJSONData> _pattern_data_list = new List<PattJSONData>();
     private static List<ProjJSONData> _proj_data_list = new List<ProjJSONData>();
     #endregion
 
@@ -32,8 +32,8 @@ public static class SODataHandler
 
         loadJsonData();
 
-        verifySOList<LevelKey, LevelData, LevelScriptableObject>(SOList[0].LevelKeyList, _level_data_list);
-        verifySOList<PatternKey, PatternData, PatternScriptableObject>(SOList[1].PatternKeyList, _pattern_data_list);
+        verifySOList<LevelKey, LevlJSONData, LevelScriptableObject>(SOList[0].LevelKeyList, _level_data_list);
+        verifySOList<PatternKey, PattJSONData, PatternScriptableObject>(SOList[1].PatternKeyList, _pattern_data_list);
         verifySOList<ProjectileKey, ProjJSONData, ProjectileScriptableObject>(SOList[2].ProjectileKeyList, _proj_data_list);
 
     }
@@ -107,8 +107,8 @@ public static class SODataHandler
 
     private static void loadJsonData()
     {
-        _level_data_list = JsonLoader.loadJsonData<LevelData>(FileNames.LEVELS_JSON, false);
-        _pattern_data_list = JsonLoader.loadJsonData<PatternData>(FileNames.PATTERNS_JSON, false);
+        _level_data_list = JsonLoader.loadJsonData<LevlJSONData>(FileNames.LEVELS_JSON, false);
+        _pattern_data_list = JsonLoader.loadJsonData<PattJSONData>(FileNames.PATTERNS_JSON, false);
         _proj_data_list = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
     }
 
@@ -133,13 +133,13 @@ public static class SODataHandler
     }
     public static void SetCurrentLevelSO(int levelID)
     {
-        ScriptableObjectHelper.GetSOGame<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO).InstantiateData<LevelData>(getLevelData(levelID));
+        ScriptableObjectHelper.GetSOGame<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO).InstantiateData<LevlJSONData>(getLevelData(levelID));
 
     }
 
-    private static LevelData getLevelData(int LevelID)
+    private static LevlJSONData getLevelData(int LevelID)
     {
-        foreach (LevelData lvl in _level_data_list)
+        foreach (LevlJSONData lvl in _level_data_list)
         {
             if (LevelID == lvl.DataID)
             {

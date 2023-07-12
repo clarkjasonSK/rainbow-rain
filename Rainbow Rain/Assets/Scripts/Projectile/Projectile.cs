@@ -6,6 +6,7 @@ using UnityEngine;
 public class Projectile : Poolable
 {
     #region Projectile Variables
+
     private ProjectileData _proj_data;
     private ProjectileController _proj_controller;
     public bool ProjectileActive
@@ -23,17 +24,12 @@ public class Projectile : Poolable
     private EventParameters _proj_event;
     #endregion
 
-    #region Temporary Game Values
-    [SerializeField] private float speedMultiplier = 4f;
-    [SerializeField] private float homingDuration = 6f;
-    [SerializeField] private float smallestSize = .4f;
-    [SerializeField] private float sizeMultiplier = .2f;
-    #endregion
+    [SerializeField] private GameSettings _game_settings;
 
     public void initProj(ProjJSONData projData)
     {
-        _proj_data.Initialize(projData, speedMultiplier, homingDuration);
-        _proj_controller.Initialize(projData, smallestSize, sizeMultiplier);
+        _proj_data.Initialize(projData, _game_settings.ProjSpeedMultiplier, _game_settings.ProjHomingDuration);
+        _proj_controller.Initialize(projData, _game_settings.ProjSmallestSize, _game_settings.ProjSizeMultiplier);
 
         _proj_data.ProjectileActive = true;
 
@@ -56,6 +52,7 @@ public class Projectile : Poolable
 
             _proj_data.ProjectileCurrentDuration += Time.deltaTime;
         }
+
         _proj_controller.moveProjectile(_proj_data.ProjectileSpeed);
     }
 
@@ -68,6 +65,8 @@ public class Projectile : Poolable
             this._proj_controller = GetComponent<ProjectileController>();
 
         _proj_event = new EventParameters();
+
+        _game_settings = GameManager.Instance.GameSettings;
     }
 
     public override void OnActivate()

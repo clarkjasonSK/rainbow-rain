@@ -79,21 +79,21 @@ public class ProjectileScriptableObject : GameScriptableObject
     {
         assignValues(JSONData as ProjJSONData);
     }
-    public void assignValues(ProjJSONData projData)
+    public void assignValues(ProjJSONData jsonData)
     {
-        _id = projData.DataID;
-        _name = projData.DataName;
+        _id = jsonData.DataID;
+        _name = jsonData.DataName;
 
-        _spawn_rate = projData.ProjectileSpawnRate;
-        _spawn_position = projData.ProjectileSpawnPosition;
+        _spawn_rate = jsonData.ProjectileSpawnRate;
+        _spawn_position = jsonData.ProjectileSpawnPosition;
 
-        _target = projData.ProjectileTarget;
-        _path = projData.ProjectilePath;
-        _min_speed = projData.ProjectileMinSpeed;
-        _max_speed = projData.ProjectileMaxSpeed;
+        _target = jsonData.ProjectileTarget;
+        _path = jsonData.ProjectilePath;
+        _min_speed = jsonData.ProjectileMinSpeed;
+        _max_speed = jsonData.ProjectileMaxSpeed;
 
-        _color = projData.ProjectileColor;
-        _min_size = projData.ProjectileMinSize;
-        _max_size = projData.ProjectileMaxSize;
+        _color = jsonData.ProjectileColor;
+        _min_size = jsonData.ProjectileMinSize;
+        _max_size = jsonData.ProjectileMaxSize;
     }
 }

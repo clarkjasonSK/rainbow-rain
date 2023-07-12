@@ -15,4 +15,10 @@ public class GameSettings : ScriptableObject
     public Color PlayerAlphaIncrement = new Color(0,0,0,.10f);
 
     public float PlayerCursorOffset;
+
+    public float ProjSpeedMultiplier = 4f;
+    public float ProjHomingDuration = 6f;
+    public float ProjSmallestSize = .4f;
+    public float ProjSizeMultiplier = .2f;
+
 }

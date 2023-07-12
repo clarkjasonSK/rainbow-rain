@@ -24,7 +24,7 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
     }
 
 
-    public void SetProjectileTypes(LevelData lvlData)
+    public void SetProjectileTypes(LevlJSONData lvlData)
     {
         //TEST LOADING OF PROJECTILES
         _projectile_types = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
