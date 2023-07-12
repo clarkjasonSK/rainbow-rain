@@ -38,9 +38,10 @@ public class ProjectileController : MonoBehaviour
         float tempSize = Random.Range(jsonData.ProjectileMinSize - 1, jsonData.ProjectileMaxSize);
         transform.localScale = new Vector3(smallestSize + (sizeMultiplier * tempSize), smallestSize + (sizeMultiplier * tempSize), 1);
 
+        placeProjectile(ProjectileHelper.getProjectileSpawn(jsonData.ProjectileSpawnPosition));
+
         transform.rotation = ProjectileHelper.getProjectileRotation(jsonData.ProjectileTarget, this.transform.position);
 
-        placeProjectile(ProjectileHelper.getProjectileSpawn(jsonData.ProjectileSpawnPosition));
     }
 
     public void moveProjectile(float moveSpeed)
