@@ -15,6 +15,7 @@ public static class ScriptableObjectHelper
         return Resources.Load<TSO>(filePath);
     }
 
+    // to be removed on project build
     public static void CreateSOGame(GameScriptableObject gameSO, string path)
     {
         AssetDatabase.CreateAsset(gameSO, path);

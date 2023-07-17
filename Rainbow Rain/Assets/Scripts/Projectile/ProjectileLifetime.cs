@@ -17,15 +17,16 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
 
     public void Initialize()
     {
-        SetProjectileTypes(null);
+        SetProjectileTypes(); // to be removed
 
         lifetimeParam = new EventParameters();
 
     }
 
 
-    public void SetProjectileTypes(LevlJSONData lvlData)
+    public void SetProjectileTypes()
     {
+
         //TEST LOADING OF PROJECTILES
         _projectile_types = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
 
@@ -38,6 +39,8 @@ public class ProjectileLifetime : MonoBehaviour, IInitializable
             _projectile_spawn_times.Add(ProjectileHelper.getProjectileSpawnRate(pi.ProjectileSpawnRate));
             _projectile_elapsed_times.Add(0);
         }
+
+        // TEST PROJECTILES
     }
 
     void Update()

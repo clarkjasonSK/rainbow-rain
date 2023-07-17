@@ -8,6 +8,12 @@ public static class SODataHandler
     #region DataLists
     private static List<ScriptableObjectsKeys> SOList;
 
+    // consider making as dictionaries
+    private static List<LevelScriptableObject> _lever_so_list = new List<LevelScriptableObject>();
+    private static List<PatternScriptableObject> _pattern_so_list = new List<PatternScriptableObject>();
+    private static List<ProjectileScriptableObject> _projectile_so_list = new List<ProjectileScriptableObject>();
+
+
     private static List<LevlJSONData> _level_data_list = new List<LevlJSONData>();
     private static List<PattJSONData> _pattern_data_list = new List<PattJSONData>();
     private static List<ProjJSONData> _proj_data_list = new List<ProjJSONData>();
@@ -37,17 +43,21 @@ public static class SODataHandler
         verifySOList<ProjectileKey, ProjJSONData, ProjectileScriptableObject>(SOList[2].ProjectileKeyList, _proj_data_list);
 
     }
-    
-    private static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList) 
+
+    private static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList)
         where TKey : DataKey
         where TData : JSONData
-        where TSO: GameScriptableObject
+        where TSO : GameScriptableObject
     {
         Debug.Log("Verifying for : " + soList[0].GetType());
         foreach (TKey key in soList)
         {
             targetName = key.SOFileName;
-            if(key is LevelKey)
+
+            // pre-append/preppend filepath to filenames
+            // remember to revert them back after using
+
+            if (key is LevelKey)
             {
                 key.SOFileName = FileNames.LEVELS_SO_PATH + key.SOFileName;
             }
@@ -60,29 +70,67 @@ public static class SODataHandler
                 key.SOFileName = FileNames.PROJECTILES_SO_PATH + key.SOFileName;
             }
 
-            if (ScriptableObjectHelper.VerifySO<TSO>(key.SOFileName))
+
+            if (ScriptableObjectHelper.GetSOGame<TSO>(key.SOFileName) is not null)
             {
-                //Debug.Log(" level "+ key.SOID  +"found ");
-                if (key is LevelKey)
-                {
-                    key.SOFileName = targetName;
-                    GameManager.Instance.addLevel(key as LevelKey);
-                }
+
+                key.SOFileName = targetName; // reverting name back to original
+                //addKeyToSOList<TKey>(key);
+                addSOToSOList(tempSO);
+
+                Debug.Log(" id: " + key.SOID + " found at " + key.SOFileName);
                 continue;
             }
 
-            Debug.Log(key.GetType()+":"+ key.SOID + " so not found. Filename: " + key.SOFileName);
+            Debug.LogWarning(key.GetType() + ":" + key.SOID + " so not found. Filename: " + key.SOFileName);
 
             createScriptableObject<TKey, TData, TSO>(key, dataList);
 
-            if (key is LevelKey)
-            {
-                key.SOFileName = targetName;
-                GameManager.Instance.addLevel(key as LevelKey);
-            }
+            key.SOFileName = targetName; // reverting name back to original
+            //addKeyToSOList<TKey>(key);
+            addSOToSOList(tempSO);
 
         }
     }
+
+    private static void addSOToSOList<TSO>(TSO so) where TSO: GameScriptableObject
+    {
+
+        if (so is LevelKey) // add their verified SO's to respective lists.
+        {
+            _lever_so_list.Add(so as LevelScriptableObject);
+        }
+        else if (so is PatternKey)
+        {
+            _pattern_so_list.Add(so as PatternScriptableObject);
+        }
+        else if (so is ProjectileKey)
+        {
+            _projectile_so_list.Add(so as ProjectileScriptableObject);
+        }
+    }
+
+    
+    private static void addKeyToSOList<TKey>(TKey key) where TKey: DataKey
+    {
+        key.SOFileName = targetName; // reverting name back to original
+
+        if (key is LevelKey) // add their verified SO's to respective lists.
+        {
+            GameManager.Instance.addLevel(key as LevelKey); // to be removed
+            _lever_so_list.Add(ScriptableObjectHelper.GetSOGame<LevelScriptableObject>(key.SOFileName));
+        }
+        else if (key is PatternKey)
+        {
+            _pattern_so_list.Add(ScriptableObjectHelper.GetSOGame<PatternScriptableObject>(key.SOFileName));
+        }
+        else if (key is ProjectileKey)
+        {
+            _projectile_so_list.Add(ScriptableObjectHelper.GetSOGame<ProjectileScriptableObject>(key.SOFileName));
+        }
+    }
+
+
     private static void createScriptableObject<TKey, TData, TSO>(TKey key, List<TData> dataList)
         where TKey : DataKey
         where TData : JSONData
@@ -93,7 +141,7 @@ public static class SODataHandler
 
         if (targetData == null)
         {
-            Debug.Log("Error finding "+key.GetType()+" data with given sokeyID:"+ key.SOID);
+            Debug.LogError("Error finding "+key.GetType()+" data with given sokeyID:"+ key.SOID);
             return;
         }
 
@@ -111,6 +159,21 @@ public static class SODataHandler
         _pattern_data_list = JsonLoader.loadJsonData<PattJSONData>(FileNames.PATTERNS_JSON, false);
         _proj_data_list = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
     }
+
+    /*
+    private static void loadLevelJSONData()
+    {
+        _level_data_list = JsonLoader.loadJsonData<LevlJSONData>(FileNames.LEVELS_JSON, false);
+    }
+
+    private static void loadPatternJSONData()
+    {
+        _pattern_data_list = JsonLoader.loadJsonData<PattJSONData>(FileNames.PATTERNS_JSON, false);
+    }
+    private static void loadProjectileJSONData()
+    {
+        _proj_data_list = JsonLoader.loadJsonData<ProjJSONData>(FileNames.PROJECTILES_JSON, false);
+    }*/
 
     private static TData getTargetData<TKey, TData>(TKey dataID, List<TData> dataList) 
         where TKey : DataKey
