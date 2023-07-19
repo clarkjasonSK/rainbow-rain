@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb677d3b932fac47ae1c3770fc30540, type: 3}
   m_Name: Projectile2
   m_EditorClassIdentifier: 
-  _id: -2
-  _name: Projectile 2
+  SOID: -2
+  SOName: Projectile 2
   _spawn_rate: FAST
   _spawn_position: DOWN
   _target: PLAYER

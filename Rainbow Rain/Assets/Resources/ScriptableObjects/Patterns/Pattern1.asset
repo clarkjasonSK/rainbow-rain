@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec8095316ca6f94a91dde2cd7c379f5, type: 3}
   m_Name: Pattern1
   m_EditorClassIdentifier: 
-  _pattern_id: 1
-  _pattern_name: PATTERN 1
+  SOID: 1
+  SOName: PATTERN 1
   _pattern_repeatable: 1
   _pattern_duration: 30
   _pattern_proj_list: fffffffffeffffff

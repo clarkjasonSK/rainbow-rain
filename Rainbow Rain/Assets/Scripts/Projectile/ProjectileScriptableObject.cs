@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileScriptableObject : GameScriptableObject
 {
     #region Projectile Values
-
+    /*
     [SerializeField] private int _id;
     public int ProjectileID
     {
@@ -17,7 +17,7 @@ public class ProjectileScriptableObject : GameScriptableObject
     public string ProjectileName
     {
         get { return _name; }
-    }
+    }*/
 
     [SerializeField] private string _spawn_rate;
     public string ProjectileSpawnRate
@@ -81,8 +81,8 @@ public class ProjectileScriptableObject : GameScriptableObject
     }
     public void assignValues(ProjJSONData jsonData)
     {
-        _id = jsonData.DataID;
-        _name = jsonData.DataName;
+        SOID = jsonData.DataID;
+        SOName = jsonData.DataName;
 
         _spawn_rate = jsonData.ProjectileSpawnRate;
         _spawn_position = jsonData.ProjectileSpawnPosition;

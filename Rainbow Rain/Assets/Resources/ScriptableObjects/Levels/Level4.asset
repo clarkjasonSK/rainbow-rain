@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d4a273acbc025439e44638911e5338, type: 3}
   m_Name: Level4
   m_EditorClassIdentifier: 
-  _level_id: 4
-  _level_name: LEVEL 4
+  SOID: 4
+  SOName: LEVEL 4
   _is_endless: 0
   _level_patterns: 03000000

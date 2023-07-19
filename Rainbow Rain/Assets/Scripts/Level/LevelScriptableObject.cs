@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelScriptableObject : GameScriptableObject
 {
     #region Level Values
+    /*
     [SerializeField] private int _level_id = 0;
     public int LevelID
     {
@@ -17,7 +18,7 @@ public class LevelScriptableObject : GameScriptableObject
     public string LevelName
     {
         get { return _level_name; }
-    }
+    }*/
 
     [SerializeField] private bool _is_endless;
     public bool LevelIsEndless
@@ -45,8 +46,9 @@ public class LevelScriptableObject : GameScriptableObject
     }
     public void assignValues(LevlJSONData lvlData)
     {
-        _level_id = lvlData.DataID;
-        _level_name = lvlData.DataName;
+        SOID = lvlData.DataID;
+        SOName = lvlData.DataName;
+
         _is_endless = lvlData.LevelIsEndless;
         _level_patterns = lvlData.LevelPatterns;
     }

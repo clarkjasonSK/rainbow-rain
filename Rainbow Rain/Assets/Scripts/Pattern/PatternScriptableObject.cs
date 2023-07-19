@@ -6,6 +6,7 @@ using UnityEngine;
 public class PatternScriptableObject: GameScriptableObject
 {
     #region Pattern Values
+    /*
     [SerializeField] private int _pattern_id = 0;
     public int PatternID
     {
@@ -16,7 +17,7 @@ public class PatternScriptableObject: GameScriptableObject
     public string PatternName
     {
         get { return _pattern_name; }
-    }
+    }*/
 
     [SerializeField] private bool _pattern_repeatable;
     public bool PatternRepeatable
@@ -53,8 +54,8 @@ public class PatternScriptableObject: GameScriptableObject
     }
     public void assignValues(PattJSONData pttrnData)
     {
-        _pattern_id = pttrnData.DataID;
-        _pattern_name = pttrnData.DataName;
+        SOID = pttrnData.DataID;
+        SOName = pttrnData.DataName;
 
         _pattern_repeatable = pttrnData.PatternRepteatable;
         _pattern_duration = pttrnData.PatternDuration;

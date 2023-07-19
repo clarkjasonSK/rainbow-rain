@@ -8,11 +8,16 @@ public static class SODataHandler
     #region DataLists
     private static List<ScriptableObjectsKeys> SOList;
 
+    private static Dictionary<int, LevelScriptableObject> _level_dictionary = new Dictionary<int, LevelScriptableObject>();
+    private static Dictionary<int, PatternScriptableObject> _pattern_dictionary = new Dictionary<int, PatternScriptableObject>();
+    private static Dictionary<int, ProjectileScriptableObject> _projectile_dictionary = new Dictionary<int, ProjectileScriptableObject>();
+
+    /*
     // consider making as dictionaries
     private static List<LevelScriptableObject> _lever_so_list = new List<LevelScriptableObject>();
     private static List<PatternScriptableObject> _pattern_so_list = new List<PatternScriptableObject>();
     private static List<ProjectileScriptableObject> _projectile_so_list = new List<ProjectileScriptableObject>();
-
+    */
 
     private static List<LevlJSONData> _level_data_list = new List<LevlJSONData>();
     private static List<PattJSONData> _pattern_data_list = new List<PattJSONData>();
@@ -42,6 +47,16 @@ public static class SODataHandler
         verifySOList<PatternKey, PattJSONData, PatternScriptableObject>(SOList[1].PatternKeyList, _pattern_data_list);
         verifySOList<ProjectileKey, ProjJSONData, ProjectileScriptableObject>(SOList[2].ProjectileKeyList, _proj_data_list);
 
+        /*
+        Debug.Log("=========Level Dictionary: " + _level_dictionary.Count);
+        Debug.Log("Level : " + _level_dictionary[3].LevelPatternSize);
+
+        Debug.Log("=========Pattern Dictionary: " + _pattern_dictionary.Count);
+        Debug.Log("Pattern: " + _pattern_dictionary[2].PatternRepeatable);
+
+        Debug.Log("========= Projectile Dictionary: " + _projectile_dictionary.Count);
+        Debug.Log("Projectile : " + _projectile_dictionary[-4].ProjectileColor);
+        */
     }
 
     private static void verifySOList<TKey, TData, TSO>(List<TKey> soList, List<TData> dataList)
@@ -70,15 +85,14 @@ public static class SODataHandler
                 key.SOFileName = FileNames.PROJECTILES_SO_PATH + key.SOFileName;
             }
 
-
-            if (ScriptableObjectHelper.GetSOGame<TSO>(key.SOFileName) is not null)
+            tempSO = ScriptableObjectHelper.GetSOGame<TSO>(key.SOFileName);
+            if (tempSO is not null)
             {
 
-                key.SOFileName = targetName; // reverting name back to original
                 //addKeyToSOList<TKey>(key);
-                addSOToSOList(tempSO);
+                addSOToSOList(key, tempSO);
 
-                Debug.Log(" id: " + key.SOID + " found at " + key.SOFileName);
+                //Debug.Log(" id: " + key.SOID + " found at " + key.SOFileName);
                 continue;
             }
 
@@ -86,32 +100,38 @@ public static class SODataHandler
 
             createScriptableObject<TKey, TData, TSO>(key, dataList);
 
-            key.SOFileName = targetName; // reverting name back to original
             //addKeyToSOList<TKey>(key);
-            addSOToSOList(tempSO);
+            addSOToSOList(key, tempSO);
 
         }
     }
 
-    private static void addSOToSOList<TSO>(TSO so) where TSO: GameScriptableObject
+    private static void addSOToSOList<TKey, TSO>(TKey key, TSO so) 
+        where TKey: DataKey 
+        where TSO: GameScriptableObject
     {
+        key.SOFileName = targetName; // reverting name back to original
 
-        if (so is LevelKey) // add their verified SO's to respective lists.
+        if (key is LevelKey) // add their verified SO's to respective lists.
         {
-            _lever_so_list.Add(so as LevelScriptableObject);
+            _level_dictionary.Add(so.SOID, so as LevelScriptableObject);
+           // _lever_so_list.Add(so as LevelScriptableObject);
         }
-        else if (so is PatternKey)
+        else if (key is PatternKey)
         {
-            _pattern_so_list.Add(so as PatternScriptableObject);
+            _pattern_dictionary.Add(so.SOID, so as PatternScriptableObject);
+            //_pattern_so_list.Add(so as PatternScriptableObject);
         }
-        else if (so is ProjectileKey)
+        else if (key is ProjectileKey)
         {
-            _projectile_so_list.Add(so as ProjectileScriptableObject);
+            _projectile_dictionary.Add(so.SOID, so as ProjectileScriptableObject);
+           // _projectile_so_list.Add(so as ProjectileScriptableObject);
         }
     }
 
-    
-    private static void addKeyToSOList<TKey>(TKey key) where TKey: DataKey
+    /*
+    private static void addKeyToSOList<TKey>(TKey key) 
+        where TKey: DataKey
     {
         key.SOFileName = targetName; // reverting name back to original
 
@@ -128,7 +148,7 @@ public static class SODataHandler
         {
             _projectile_so_list.Add(ScriptableObjectHelper.GetSOGame<ProjectileScriptableObject>(key.SOFileName));
         }
-    }
+    }*/
 
 
     private static void createScriptableObject<TKey, TData, TSO>(TKey key, List<TData> dataList)
@@ -194,12 +214,14 @@ public static class SODataHandler
     {
         return ScriptableObjectHelper.GetSOGame<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO);
     }
+
+    // to be removed
     public static void SetCurrentLevelSO(int levelID)
     {
         ScriptableObjectHelper.GetSOGame<LevelScriptableObject>(FileNames.CURRENT_LEVEL_SO).InstantiateData<LevlJSONData>(getLevelData(levelID));
 
     }
-
+    // to be reworked
     private static LevlJSONData getLevelData(int LevelID)
     {
         foreach (LevlJSONData lvl in _level_data_list)
